@@ -1,4 +1,4 @@
-package uk.co.jakelee.apodwallpaper.ui.dashboard
+package uk.co.jakelee.apodwallpaper.ui.browse
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import uk.co.jakelee.apodwallpaper.R
 
-class DashboardFragment : Fragment() {
+class BrowseFragment : Fragment() {
 
-  private lateinit var dashboardViewModel: DashboardViewModel
+  private lateinit var browseViewModel: BrowseViewModel
 
   override fun onCreateView(
       inflater: LayoutInflater,
       container: ViewGroup?,
       savedInstanceState: Bundle?
   ): View? {
-    dashboardViewModel =
-        ViewModelProviders.of(this).get(DashboardViewModel::class.java)
-    val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
-    val textView: TextView = root.findViewById(R.id.text_dashboard)
-    dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
+    browseViewModel =
+        ViewModelProviders.of(this).get(BrowseViewModel::class.java)
+    val root = inflater.inflate(R.layout.fragment_browse, container, false)
+    val textView: TextView = root.findViewById(R.id.text_browse)
+    browseViewModel.text.observe(viewLifecycleOwner, Observer {
       textView.text = it
     })
     return root
