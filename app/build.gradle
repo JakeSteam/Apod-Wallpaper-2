@@ -19,6 +19,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        buildConfigField "String", "AUTH_CODE", apod_api_key
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

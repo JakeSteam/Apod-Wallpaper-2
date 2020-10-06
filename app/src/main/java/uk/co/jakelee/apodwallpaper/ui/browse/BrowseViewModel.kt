@@ -9,6 +9,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import uk.co.jakelee.apodwallpaper.BuildConfig
 import uk.co.jakelee.apodwallpaper.UserIntent
 import uk.co.jakelee.apodwallpaper.UserState
 import uk.co.jakelee.apodwallpaper.app.arch.IModel
@@ -41,7 +42,7 @@ class BrowseViewModel(private val apodApi: ApodApi) : ViewModel(), IModel<UserSt
     viewModelScope.launch(Dispatchers.IO) {
       try {
         updateState { it.copy(isLoading = true) }
-        updateState { it.copy(isLoading = false, apods = apodApi.getApods("", "2018-12-02", "2018-12-14")) }
+        updateState { it.copy(isLoading = false, apods = apodApi.getApods(BuildConfig.AUTH_CODE, "2018-12-02", "2018-12-14")) }
       } catch (e: Exception) {
         updateState { it.copy(isLoading = false, errorMessage = e.message) }
       }
