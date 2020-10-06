@@ -14,13 +14,13 @@ import kotlinx.android.synthetic.main.fragment_browse.view.*
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 import uk.co.jakelee.apodwallpaper.R
-import uk.co.jakelee.apodwallpaper.adapter.ItemAdapter
+import uk.co.jakelee.apodwallpaper.adapter.ItemThumbnailAdapter
 import uk.co.jakelee.apodwallpaper.app.arch.IView
 
 class BrowseFragment : Fragment(), IView<BrowseState> {
 
-    private val mAdapter = ItemAdapter()
-    private val browseViewModel: BrowseViewViewModel by viewModel()
+    private val mAdapter = ItemThumbnailAdapter()
+    private val browseViewModel: BrowseViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
