@@ -6,7 +6,7 @@ import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import uk.co.jakelee.apodwallpaper.ui.browse.BrowseViewModel
+import uk.co.jakelee.apodwallpaper.ui.browse.BrowseViewViewModel
 
 val netModule = module {
     fun provideOkHttpClient(): OkHttpClient {
@@ -26,7 +26,7 @@ val netModule = module {
 }
 
 val viewModelScope = module {
-    viewModel { BrowseViewModel(get()) }
+    viewModel { BrowseViewViewModel(get()) }
 }
 
 val apiModule = module {

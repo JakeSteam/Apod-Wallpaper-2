@@ -10,17 +10,17 @@ import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import uk.co.jakelee.apodwallpaper.BuildConfig
-import uk.co.jakelee.apodwallpaper.UserIntent
-import uk.co.jakelee.apodwallpaper.UserState
-import uk.co.jakelee.apodwallpaper.app.arch.IModel
+import uk.co.jakelee.apodwallpaper.app.arch.IViewModel
 import uk.co.jakelee.apodwallpaper.model.ApodApi
 
-class BrowseViewModel(private val apodApi: ApodApi) : ViewModel(), IModel<UserState, UserIntent> {
+class BrowseViewModel(private val apodApi: ApodApi) : ViewModel(), IViewModel<BrowseState, BrowseIntent> {
 
-  override val intents: Channel<UserIntent> = Channel(Channel.UNLIMITED)
+  override val intents: Channel<BrowseIntent> = Channel(Channel.UNLIMITED)
 
-  private val _state = MutableLiveData<UserState>().apply { value = UserState() }
-  override val state: LiveData<UserState>
+  private val _state = MutableLiveData<BrowseState>().apply { value =
+    BrowseState()
+  }
+  override val state: LiveData<BrowseState>
     get() = _state
 
   init {
@@ -29,10 +29,10 @@ class BrowseViewModel(private val apodApi: ApodApi) : ViewModel(), IModel<UserSt
 
   private fun handlerIntent() {
     viewModelScope.launch {
-      intents.consumeAsFlow().collect { userIntent ->
-        when(userIntent) {
-          UserIntent.RefreshUsers -> fetchData()
-          UserIntent.FetchUsers -> fetchData()
+      intents.consumeAsFlow().collect { browseIntent ->
+        when(browseIntent) {
+          BrowseIntent.RefreshUsers -> fetchData()
+          BrowseIntent.FetchApods -> fetchData()
         }
       }
     }
@@ -49,7 +49,7 @@ class BrowseViewModel(private val apodApi: ApodApi) : ViewModel(), IModel<UserSt
     }
   }
 
-  private suspend fun updateState(handler: suspend (intent: UserState) -> UserState) {
+  private suspend fun updateState(handler: suspend (intent: BrowseState) -> BrowseState) {
     _state.postValue(handler(state.value!!))
   }
 }
