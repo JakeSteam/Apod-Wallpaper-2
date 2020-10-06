@@ -1,6 +1,6 @@
 # APOD Wallpaper 2
 
-This is a very unfinished complete rewrite of my [APODWallpaper](https://github.com/JakeSteam/APODWallpaper) project ([Google Play](https://play.google.com/store/apps/details?id=uk.co.jakelee.apodwallpaper&hl=en_GB), which hasn't been touched in a couple of years. I still use it daily, so it should be higher quality!
+This is a very unfinished complete rewrite of my [APODWallpaper](https://github.com/JakeSteam/APODWallpaper) project ([Google Play](https://play.google.com/store/apps/details?id=uk.co.jakelee.apodwallpaper&hl=en_GB)), which hasn't been touched in a couple of years. I still use it daily, so it should be higher quality!
 
 The intention is to use the "latest and greatest" tech, so that this project can be used as a future testing ground for new Android features.
 
