@@ -1,4 +1,4 @@
-# APOD Wallpaper 2
+# APOD Wallpaper 2 ![CI](https://github.com/JakeSteam/Apod-Wallpaper-2/workflows/CI/badge.svg)
 
 ## [Public project kanban board](https://github.com/JakeSteam/Apod-Wallpaper-2/projects/1)
 
