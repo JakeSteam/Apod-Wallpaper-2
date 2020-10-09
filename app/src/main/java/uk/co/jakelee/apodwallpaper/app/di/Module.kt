@@ -27,9 +27,7 @@ val netModule = module {
 
 val viewModelScope = module {
     viewModel {
-        BrowseViewModel(
-            get()
-        )
+        BrowseViewModel(get())
     }
 }
 

@@ -35,7 +35,7 @@ class BrowseFragment : Fragment(), IView<BrowseState> {
             render(it)
         })
 
-        // Fetching data when the application launches
+        // Fetching data when the fragment is created
         lifecycleScope.launch {
             browseViewModel.intents.send(BrowseIntent.FetchApods)
         }
