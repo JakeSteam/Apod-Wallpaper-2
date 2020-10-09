@@ -24,10 +24,10 @@ class BrowseViewModel(private val apodApi: ApodApi) : ViewModel(), IViewModel<Br
     get() = _state
 
   init {
-    handlerIntent()
+    handleIntent()
   }
 
-  private fun handlerIntent() {
+  private fun handleIntent() {
     viewModelScope.launch {
       intents.consumeAsFlow().collect { browseIntent ->
         when(browseIntent) {
