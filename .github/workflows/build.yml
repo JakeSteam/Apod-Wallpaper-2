@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Decode APOD_API_KEY
         env:
-          BASEURL: ${{ secrets.APOD_API_KEY }}
+          APOD_API_KEY: ${{ secrets.APOD_API_KEY }}
         run: echo apod_api_key="$APOD_API_KEY" > ./local.properties
       - name: Checkout the code
         uses: actions/checkout@v2
