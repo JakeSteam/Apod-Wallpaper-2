@@ -1,9 +1,9 @@
 name: CI
 on:
   push:
-    branches: [ master ]
+    branches: [ develop ]
   pull_request:
-    branches: [ master ]
+    branches: [ develop ]
 
 jobs:
   build:
@@ -15,7 +15,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: Decode APOD_API_KEY
+      - name: Access APOD_API_KEY
         env:
           APOD_API_KEY: ${{ secrets.APOD_API_KEY }}
         run: echo APOD_API_KEY=\"$APOD_API_KEY\" > ./local.properties
