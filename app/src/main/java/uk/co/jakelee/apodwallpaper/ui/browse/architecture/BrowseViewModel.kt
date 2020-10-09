@@ -11,9 +11,13 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import uk.co.jakelee.apodwallpaper.BuildConfig
 import uk.co.jakelee.apodwallpaper.app.architecture.IViewModel
+import uk.co.jakelee.apodwallpaper.app.database.ApodDao
 import uk.co.jakelee.apodwallpaper.model.ApodApi
 
-class BrowseViewModel(private val apodApi: ApodApi) : ViewModel(), IViewModel<BrowseState, BrowseIntent> {
+class BrowseViewModel(
+  private val apodApi: ApodApi,
+  private val apodDao: ApodDao
+) : ViewModel(), IViewModel<BrowseState, BrowseIntent> {
 
   override val intents: Channel<BrowseIntent> = Channel(Channel.UNLIMITED)
 
@@ -42,7 +46,11 @@ class BrowseViewModel(private val apodApi: ApodApi) : ViewModel(), IViewModel<Br
     viewModelScope.launch(Dispatchers.IO) {
       try {
         updateState { it.copy(isLoading = true) }
-        updateState { it.copy(isLoading = false, apods = apodApi.getApods(BuildConfig.AUTH_CODE, "2018-12-02", "2018-12-14")) }
+        updateState {
+          val apods = apodApi.getApods(BuildConfig.AUTH_CODE, "2018-12-02", "2018-12-14")
+          apodDao.insertAll(apods)
+          it.copy(isLoading = false, apods = apods)
+        }
       } catch (e: Exception) {
         updateState { it.copy(isLoading = false, errorMessage = e.message) }
       }
