@@ -41,14 +41,14 @@ android {
 }
 
 String getApiKey() {
-    if (project.hasProperty('apod_api_key')) {
-        return apod_api_key
-    } else {
+    //if (project.hasProperty('apod_api_key')) {
+    //    return apod_api_key
+    //} else {
         def propFile = rootProject.file("./local.properties")
         def properties = new Properties()
         properties.load(new FileInputStream(propFile))
         return properties['apod_api_key']
-    }
+    //}
 }
 
 dependencies {
