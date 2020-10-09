@@ -1,4 +1,4 @@
-package uk.co.jakelee.apodwallpaper.ui.browse
+package uk.co.jakelee.apodwallpaper.ui.browse.architecture
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,12 +14,12 @@ import kotlinx.android.synthetic.main.fragment_browse.view.*
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 import uk.co.jakelee.apodwallpaper.R
-import uk.co.jakelee.apodwallpaper.adapter.ItemThumbnailAdapter
-import uk.co.jakelee.apodwallpaper.app.arch.IView
+import uk.co.jakelee.apodwallpaper.app.architecture.IView
+import uk.co.jakelee.apodwallpaper.ui.browse.BrowseAdapter
 
 class BrowseFragment : Fragment(), IView<BrowseState> {
 
-    private val mAdapter = ItemThumbnailAdapter()
+    private val mAdapter = BrowseAdapter()
     private val browseViewModel: BrowseViewModel by viewModel()
 
     override fun onCreateView(
@@ -35,7 +35,7 @@ class BrowseFragment : Fragment(), IView<BrowseState> {
             render(it)
         })
 
-        // Fetching data when the application launched
+        // Fetching data when the application launches
         lifecycleScope.launch {
             browseViewModel.intents.send(BrowseIntent.FetchApods)
         }
