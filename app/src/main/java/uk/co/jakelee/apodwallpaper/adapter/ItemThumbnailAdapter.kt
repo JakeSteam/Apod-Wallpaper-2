@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import uk.co.jakelee.apodwallpaper.databinding.ItemListBinding
+import uk.co.jakelee.apodwallpaper.databinding.ItemThumbnailBinding
 import uk.co.jakelee.apodwallpaper.model.Apod
 
-class ItemAdapter : ListAdapter<Apod, ItemViewHolder>(ItemAdapter) {
+class ItemThumbnailAdapter : ListAdapter<Apod, ItemViewHolder>(ItemThumbnailAdapter) {
     companion object : DiffUtil.ItemCallback<Apod>() {
         override fun areItemsTheSame(oldItem: Apod, newItem: Apod): Boolean {
             return oldItem === newItem
@@ -22,15 +22,14 @@ class ItemAdapter : ListAdapter<Apod, ItemViewHolder>(ItemAdapter) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemListBinding.inflate(inflater, parent, false)
+        val binding = ItemThumbnailBinding.inflate(inflater, parent, false)
         return ItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val binding = holder.binding as ItemListBinding
-        val currentUser = getItem(position)
+        val binding = holder.binding as ItemThumbnailBinding
         binding.run {
-            user = currentUser
+            apod = getItem(position)
             executePendingBindings()
         }
     }

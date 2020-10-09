@@ -13,15 +13,13 @@ import kotlinx.android.synthetic.main.fragment_browse.*
 import kotlinx.android.synthetic.main.fragment_browse.view.*
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
-import uk.co.jakelee.apodwallpaper.UserIntent
 import uk.co.jakelee.apodwallpaper.R
-import uk.co.jakelee.apodwallpaper.UserState
-import uk.co.jakelee.apodwallpaper.adapter.ItemAdapter
+import uk.co.jakelee.apodwallpaper.adapter.ItemThumbnailAdapter
 import uk.co.jakelee.apodwallpaper.app.arch.IView
 
-class BrowseFragment : Fragment(), IView<UserState> {
+class BrowseFragment : Fragment(), IView<BrowseState> {
 
-    private val mAdapter = ItemAdapter()
+    private val mAdapter = ItemThumbnailAdapter()
     private val browseViewModel: BrowseViewModel by viewModel()
 
     override fun onCreateView(
@@ -39,12 +37,12 @@ class BrowseFragment : Fragment(), IView<UserState> {
 
         // Fetching data when the application launched
         lifecycleScope.launch {
-            browseViewModel.intents.send(UserIntent.FetchUsers)
+            browseViewModel.intents.send(BrowseIntent.FetchApods)
         }
         return root
     }
 
-    override fun render(state: UserState) {
+    override fun render(state: BrowseState) {
         with(state) {
             progressBar.isVisible = isLoading
             mAdapter.submitList(apods)
