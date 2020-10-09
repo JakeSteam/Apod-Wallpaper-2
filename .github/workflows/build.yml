@@ -12,7 +12,9 @@ jobs:
       - name: Decode APOD_API_KEY
         env:
           APOD_API_KEY: ${{ secrets.APOD_API_KEY }}
-        run: echo "apod_api_key=$APOD_API_KEY" > ./local.properties
+        run: echo APOD_API_KEY=$APOD_API_KEY > ./local.properties
+      - name: Check ls
+        run: ls -al
       - name: Checkout the code
         uses: actions/checkout@v2
       - name: set up JDK 1.8
