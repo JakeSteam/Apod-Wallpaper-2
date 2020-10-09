@@ -19,7 +19,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-        buildConfigField "String", "AUTH_CODE", apod_api_key
+        buildConfigField ("String", "AUTH_CODE", getApiKey())
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -37,6 +37,14 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+}
+
+String getApiKey() {
+    def propFile = rootProject.file("./local.properties")
+    def properties = new Properties()
+    properties.load(new FileInputStream(propFile))
+    return properties['APOD_API_KEY']
 }
 
 dependencies {
