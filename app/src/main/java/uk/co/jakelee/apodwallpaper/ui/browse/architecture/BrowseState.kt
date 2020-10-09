@@ -1,6 +1,6 @@
-package uk.co.jakelee.apodwallpaper.ui.browse
+package uk.co.jakelee.apodwallpaper.ui.browse.architecture
 
-import uk.co.jakelee.apodwallpaper.app.arch.IState
+import uk.co.jakelee.apodwallpaper.app.architecture.IState
 import uk.co.jakelee.apodwallpaper.model.Apod
 
 data class BrowseState(

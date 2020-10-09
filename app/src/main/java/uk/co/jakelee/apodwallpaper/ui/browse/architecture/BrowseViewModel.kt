@@ -1,4 +1,4 @@
-package uk.co.jakelee.apodwallpaper.ui.browse
+package uk.co.jakelee.apodwallpaper.ui.browse.architecture
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import uk.co.jakelee.apodwallpaper.BuildConfig
-import uk.co.jakelee.apodwallpaper.app.arch.IViewModel
+import uk.co.jakelee.apodwallpaper.app.architecture.IViewModel
 import uk.co.jakelee.apodwallpaper.model.ApodApi
 
 class BrowseViewModel(private val apodApi: ApodApi) : ViewModel(), IViewModel<BrowseState, BrowseIntent> {
@@ -24,14 +24,14 @@ class BrowseViewModel(private val apodApi: ApodApi) : ViewModel(), IViewModel<Br
     get() = _state
 
   init {
-    handleIntent()
+    subscribeToIntents()
   }
 
-  private fun handleIntent() {
+  private fun subscribeToIntents() {
     viewModelScope.launch {
       intents.consumeAsFlow().collect { browseIntent ->
         when(browseIntent) {
-          BrowseIntent.RefreshUsers -> fetchData()
+          BrowseIntent.RefreshApods -> fetchData()
           BrowseIntent.FetchApods -> fetchData()
         }
       }

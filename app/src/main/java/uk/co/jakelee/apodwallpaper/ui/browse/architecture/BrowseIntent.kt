@@ -1,9 +1,9 @@
-package uk.co.jakelee.apodwallpaper.ui.browse
+package uk.co.jakelee.apodwallpaper.ui.browse.architecture
 
-import uk.co.jakelee.apodwallpaper.app.arch.IIntent
+import uk.co.jakelee.apodwallpaper.app.architecture.IIntent
 
 sealed class BrowseIntent : IIntent {
-    object RefreshUsers : BrowseIntent()
+    object RefreshApods : BrowseIntent()
     object FetchApods : BrowseIntent()
 }
 
