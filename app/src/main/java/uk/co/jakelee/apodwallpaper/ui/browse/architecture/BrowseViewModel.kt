@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import androidx.paging.toLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.consumeAsFlow
@@ -12,7 +15,9 @@ import kotlinx.coroutines.launch
 import uk.co.jakelee.apodwallpaper.BuildConfig
 import uk.co.jakelee.apodwallpaper.app.architecture.IViewModel
 import uk.co.jakelee.apodwallpaper.app.database.ApodDao
+import uk.co.jakelee.apodwallpaper.model.Apod
 import uk.co.jakelee.apodwallpaper.model.ApodApi
+import uk.co.jakelee.apodwallpaper.ui.browse.BrowseBoundaryCallback
 
 class BrowseViewModel(
   private val apodApi: ApodApi,
@@ -47,9 +52,16 @@ class BrowseViewModel(
       try {
         updateState { it.copy(isLoading = true) }
         updateState {
-          val apods = apodApi.getApods(BuildConfig.AUTH_CODE, "2018-12-02", "2018-12-14")
-          apodDao.insertAll(apods)
-          it.copy(isLoading = false, apods = apods)
+          val config = PagedList.Config.Builder()
+            .setPageSize(9)
+            .setPrefetchDistance(36)
+            .build()
+          val apodLiveData = apodDao.getAllPaged().toLiveData(
+            config = config,
+            boundaryCallback = BrowseBoundaryCallback(apodDao, apodApi, viewModelScope)
+          )
+
+          it.copy(isLoading = false, apods = apodLiveData)
         }
       } catch (e: Exception) {
         updateState { it.copy(isLoading = false, errorMessage = e.message) }

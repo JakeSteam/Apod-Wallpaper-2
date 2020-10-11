@@ -19,6 +19,7 @@ buildscript {
 
         // Database
         room_version = "2.2.5"
+        paging_version = "2.1.2"
 
         // Network
         retrofit_version = "2.9.0"
