@@ -50,7 +50,7 @@ class BrowseBoundaryCallback(
 
     data class ApodDateRange(val startDate: String, val endDate: String)
 
-    // TODO: Move somewhere testable
+    // TODO: Use simpledateformat to display date
     // TODO: Make testable
     private fun pageToDateRange(page: Int): ApodDateRange {
         val targetDate = Calendar.getInstance()

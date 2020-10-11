@@ -52,8 +52,12 @@ class BrowseViewModel(
       try {
         updateState { it.copy(isLoading = true) }
         updateState {
+          val config = PagedList.Config.Builder()
+            .setPageSize(9)
+            .setPrefetchDistance(36)
+            .build()
           val apodLiveData = apodDao.getAllPaged().toLiveData(
-            pageSize = 6,
+            config = config,
             boundaryCallback = BrowseBoundaryCallback(apodDao, apodApi, viewModelScope)
           )
 
