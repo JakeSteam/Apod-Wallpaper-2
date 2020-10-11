@@ -19,7 +19,7 @@ import uk.co.jakelee.apodwallpaper.ui.browse.BrowseAdapter
 
 class BrowseFragment : Fragment(), IView<BrowseState> {
 
-    private val mAdapter = BrowseAdapter()
+    private val adapter = BrowseAdapter()
     private val browseViewModel: BrowseViewModel by viewModel()
 
     override fun onCreateView(
@@ -28,7 +28,7 @@ class BrowseFragment : Fragment(), IView<BrowseState> {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_browse, container, false)
-        root.recyclerView.adapter = mAdapter
+        root.recyclerView.adapter = adapter
 
         // Observing the state
         browseViewModel.state.observe(viewLifecycleOwner) {
@@ -48,7 +48,7 @@ class BrowseFragment : Fragment(), IView<BrowseState> {
             apods?.let { apodsLiveData ->
                 if (!apodsLiveData.hasActiveObservers()) {
                     apodsLiveData.observe(viewLifecycleOwner) {
-                        mAdapter.submitList(it)
+                        adapter.submitList(it)
                     }
                 }
             }
