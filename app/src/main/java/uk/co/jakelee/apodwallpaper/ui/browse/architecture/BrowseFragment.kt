@@ -46,8 +46,10 @@ class BrowseFragment : Fragment(), IView<BrowseState> {
         with(state) {
             progressBar.isVisible = isLoading
             apods?.let { apodsLiveData ->
-                apodsLiveData.observe(viewLifecycleOwner) {
-                    mAdapter.submitList(it)
+                if (!apodsLiveData.hasActiveObservers()) {
+                    apodsLiveData.observe(viewLifecycleOwner) {
+                        mAdapter.submitList(it)
+                    }
                 }
             }
 
