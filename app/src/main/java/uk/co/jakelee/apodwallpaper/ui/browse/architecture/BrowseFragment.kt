@@ -31,9 +31,9 @@ class BrowseFragment : Fragment(), IView<BrowseState> {
         root.recyclerView.adapter = mAdapter
 
         // Observing the state
-        browseViewModel.state.observe(viewLifecycleOwner, Observer {
+        browseViewModel.state.observe(viewLifecycleOwner) {
             render(it)
-        })
+        }
 
         // Fetching data when the fragment is created
         lifecycleScope.launch {
@@ -45,7 +45,11 @@ class BrowseFragment : Fragment(), IView<BrowseState> {
     override fun render(state: BrowseState) {
         with(state) {
             progressBar.isVisible = isLoading
-            mAdapter.submitList(apods)
+            apods?.let { apodsLiveData ->
+                apodsLiveData.observe(viewLifecycleOwner) {
+                    mAdapter.submitList(it)
+                }
+            }
 
             if (errorMessage != null) {
                 Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
