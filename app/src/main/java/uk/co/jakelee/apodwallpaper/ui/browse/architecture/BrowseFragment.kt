@@ -1,6 +1,7 @@
 package uk.co.jakelee.apodwallpaper.ui.browse.architecture
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,12 +45,10 @@ class BrowseFragment : Fragment(), IView<BrowseState> {
 
     override fun render(state: BrowseState) {
         with(state) {
-            progressBar.isVisible = isLoading
-            apods?.let { apodsLiveData ->
-                if (!apodsLiveData.hasActiveObservers()) {
-                    apodsLiveData.observe(viewLifecycleOwner) {
-                        adapter.submitList(it)
-                    }
+            progress.isVisible = isLoading
+            if (apods != null && !apods.hasActiveObservers()) {
+                apods.observe(viewLifecycleOwner) {
+                    adapter.submitList(it)
                 }
             }
 
