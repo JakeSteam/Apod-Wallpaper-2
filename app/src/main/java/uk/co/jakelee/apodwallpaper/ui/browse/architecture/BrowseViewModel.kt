@@ -44,7 +44,7 @@ class BrowseViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 updateState { it.copy(isLoading = true) }
-                updateState { it.copy(isLoading = false, apods = apodRepository.getApods(this)) }
+                updateState { it.copy(isLoading = false, apods = apodRepository.getApods(viewModelScope)) }
             } catch (e: Exception) {
                 updateState { it.copy(isLoading = false, errorMessage = e.message) }
             }

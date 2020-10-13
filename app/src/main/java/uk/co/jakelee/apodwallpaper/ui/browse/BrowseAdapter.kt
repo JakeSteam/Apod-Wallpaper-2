@@ -27,12 +27,7 @@ class BrowseAdapter : PagedListAdapter<Apod, BrowseViewHolder>(BrowseAdapter) {
     }
 
     companion object : DiffUtil.ItemCallback<Apod>() {
-        override fun areItemsTheSame(oldItem: Apod, newItem: Apod): Boolean {
-            return oldItem === newItem
-        }
-
-        override fun areContentsTheSame(oldItem: Apod, newItem: Apod): Boolean {
-            return oldItem == newItem
-        }
+        override fun areItemsTheSame(oldItem: Apod, newItem: Apod) = oldItem.date == newItem.date
+        override fun areContentsTheSame(oldItem: Apod, newItem: Apod) = oldItem == newItem
     }
 }
