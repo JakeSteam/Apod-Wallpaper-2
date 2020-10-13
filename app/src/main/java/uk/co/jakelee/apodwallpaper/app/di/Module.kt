@@ -7,6 +7,7 @@ import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import uk.co.jakelee.apodwallpaper.app.database.ApodRepository
 import uk.co.jakelee.apodwallpaper.app.database.AppDatabase
 import uk.co.jakelee.apodwallpaper.ui.browse.architecture.BrowseViewModel
 
@@ -29,12 +30,11 @@ val netModule = module {
 
 val databaseModule = module {
     single { AppDatabase.buildDatabase(androidApplication()).apodDao() }
+    single { ApodRepository(get(), get(), get()) }
 }
 
 val viewModelScope = module {
-    viewModel {
-        BrowseViewModel(get(), get())
-    }
+    viewModel { BrowseViewModel(get()) }
 }
 
 val apiModule = module {
