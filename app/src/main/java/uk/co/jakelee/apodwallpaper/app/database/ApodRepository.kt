@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
-import androidx.recyclerview.widget.DiffUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,21 +42,29 @@ class ApodRepository(
         )
     }
 
-    // TODO: Error handling!
-    // TODO: Change to return some sort of state. Success (w/livedata) or Failure (w/error)
-    fun getApods(scope: CoroutineScope): LiveData<PagedList<Apod>> {
+    data class ApodResponse(val results: LiveData<PagedList<Apod>>?, val error: String?)
+
+    suspend fun getApods(scope: CoroutineScope): LiveData<PagedList<Apod>> {
+        Log.d("PAGES", "Starting try")
         val callback: () -> Unit = {
             scope.launch(Dispatchers.IO) {
                 Log.d("PAGES", "Page: $currentPage")
                 val pageRange = pageToDateRange(currentPage++)
                 Log.d("PAGES", "Start: ${pageRange.startDate}, end: ${pageRange.endDate}")
-                val apods = apodApi.getApods(BuildConfig.AUTH_CODE, pageRange.startDate, pageRange.endDate)
+
+                val apods = apodApi.getApods(
+                    BuildConfig.AUTH_CODE,
+                    pageRange.startDate,
+                    pageRange.endDate
+                )
+                Log.d("PAGES", "About to insert")
                 apodDao.insertAll(apods)
             }
         }
+
+        Log.d("PAGES", "Converting to livedata")
         return apodDao.getAll().toLiveData(
             config = browsePageConfig,
-            boundaryCallback = BrowseBoundaryCallback(callback)
-        )
+            boundaryCallback = BrowseBoundaryCallback(callback))
     }
 }
