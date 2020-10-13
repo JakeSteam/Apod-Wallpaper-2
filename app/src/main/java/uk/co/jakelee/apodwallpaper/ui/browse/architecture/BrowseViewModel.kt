@@ -19,9 +19,9 @@ class BrowseViewModel(
     override val intents: Channel<BrowseIntent> = Channel(Channel.UNLIMITED)
 
     private val _state = MutableLiveData<BrowseState>().apply {
-        value =
-            BrowseState()
+        value = BrowseState()
     }
+
     override val state: LiveData<BrowseState>
         get() = _state
 
@@ -44,7 +44,7 @@ class BrowseViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 updateState { it.copy(isLoading = true) }
-                updateState { it.copy(isLoading = false, apods = apodRepository.getApods()) }
+                updateState { it.copy(isLoading = false, apods = apodRepository.getApods(this)) }
             } catch (e: Exception) {
                 updateState { it.copy(isLoading = false, errorMessage = e.message) }
             }

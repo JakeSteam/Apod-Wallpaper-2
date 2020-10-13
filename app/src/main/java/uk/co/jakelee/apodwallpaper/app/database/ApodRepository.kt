@@ -12,7 +12,6 @@ import uk.co.jakelee.apodwallpaper.ui.browse.BrowseBoundaryCallback
 import java.util.*
 
 class ApodRepository(
-    private val viewModelScope: CoroutineScope,
     private val apodDao: ApodDao,
     private val apodApi: ApodApi
 ) {
@@ -41,9 +40,9 @@ class ApodRepository(
     }
 
     // TODO: Change to return some sort of state. Success (w/livedata) or Failure (w/error)
-    suspend fun getApods() = apodDao.getAll().toLiveData(
+    suspend fun getApods(scope: CoroutineScope) = apodDao.getAll().toLiveData(
             config = browsePageConfig,
-            boundaryCallback = BrowseBoundaryCallback { viewModelScope.launch(Dispatchers.IO) {
+            boundaryCallback = BrowseBoundaryCallback { scope.launch(Dispatchers.IO) {
                 Log.d("PAGES", "Page: $currentPage")
                 val pageRange = pageToDateRange(currentPage++)
                 Log.d("PAGES", "Start: ${pageRange.startDate}, end: ${pageRange.endDate}")

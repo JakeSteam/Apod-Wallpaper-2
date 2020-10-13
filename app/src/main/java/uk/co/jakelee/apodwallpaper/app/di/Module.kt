@@ -30,7 +30,7 @@ val netModule = module {
 
 val databaseModule = module {
     single { AppDatabase.buildDatabase(androidApplication()).apodDao() }
-    single { ApodRepository(get(), get(), get()) }
+    single { ApodRepository(get(), get()) }
 }
 
 val viewModelScope = module {
