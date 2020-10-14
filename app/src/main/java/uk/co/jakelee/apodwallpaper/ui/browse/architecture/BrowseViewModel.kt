@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collect
@@ -40,14 +41,16 @@ class BrowseViewModel(
         }
     }
 
+    private val errorCallback: (String) -> Unit = { error ->
+        viewModelScope.launch(Dispatchers.IO) {
+            updateState { it.copy(isLoading = false, errorMessage = error) }
+        }
+    }
+
     private fun fetchData() {
         viewModelScope.launch(Dispatchers.IO) {
-            try {
-                updateState { it.copy(isLoading = true) }
-                updateState { it.copy(isLoading = false, apods = apodRepository.getApods(viewModelScope)) }
-            } catch (e: Exception) {
-                updateState { it.copy(isLoading = false, errorMessage = e.message) }
-            }
+            updateState { it.copy(isLoading = true) }
+            updateState { it.copy(isLoading = false, apods = apodRepository.getApods(viewModelScope, errorCallback)) }
         }
     }
 

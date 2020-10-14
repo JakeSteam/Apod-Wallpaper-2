@@ -42,17 +42,21 @@ class ApodRepository(
         )
     }
 
-    suspend fun getApods(scope: CoroutineScope): LiveData<PagedList<Apod>> {
+    suspend fun getApods(scope: CoroutineScope, errorCallback: ((String) -> Unit)?): LiveData<PagedList<Apod>> {
         val callback: () -> Unit = {
             scope.launch(Dispatchers.IO) {
-                val pageRange = pageToDateRange(currentPage)
-                val apods = apodApi.getApods(
-                    BuildConfig.AUTH_CODE,
-                    pageRange.startDate,
-                    pageRange.endDate
-                )
-                apodDao.insertAll(apods)
-                currentPage++
+                try {
+                    val pageRange = pageToDateRange(currentPage)
+                    val apods = apodApi.getApods(
+                        BuildConfig.AUTH_CODE,
+                        pageRange.startDate,
+                        pageRange.endDate
+                    )
+                    apodDao.insertAll(apods)
+                    currentPage++
+                } catch (e: Exception) {
+                    errorCallback?.invoke(e.message())
+                }
             }
         }
         return apodDao.getAll().toLiveData(
