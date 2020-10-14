@@ -42,9 +42,9 @@ class ApodRepository(
         )
     }
 
-    suspend fun getApods(scope: CoroutineScope, errorCallback: ((String) -> Unit)?): LiveData<PagedList<Apod>> {
+    suspend fun getApods(callbackScope: CoroutineScope, errorCallback: ((String) -> Unit)?): LiveData<PagedList<Apod>> {
         val callback: () -> Unit = {
-            scope.launch(Dispatchers.IO) {
+            callbackScope.launch(Dispatchers.IO) {
                 try {
                     val pageRange = pageToDateRange(currentPage)
                     val apods = apodApi.getApods(
@@ -55,7 +55,7 @@ class ApodRepository(
                     apodDao.insertAll(apods)
                     currentPage++
                 } catch (e: Exception) {
-                    errorCallback?.invoke(e.message())
+                    errorCallback?.invoke(e.message ?: "")
                 }
             }
         }

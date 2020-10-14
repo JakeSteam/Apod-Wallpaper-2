@@ -34,7 +34,6 @@ class BrowseViewModel(
         viewModelScope.launch {
             intents.consumeAsFlow().collect { browseIntent ->
                 when (browseIntent) {
-                  BrowseIntent.RefreshApods -> fetchData()
                   BrowseIntent.FetchApods -> fetchData()
                 }
             }
