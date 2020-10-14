@@ -42,6 +42,16 @@ class ApodRepository(
         )
     }
 
+    suspend fun getLatestApod(errorCallback: ((String) -> Unit)?): LiveData<Apod> {
+        try {
+            //val apod = apodApi.getApod(BuildConfig.AUTH_CODE, date)
+            //apodDao.insert(apod)
+        } catch (e: Exception) {
+            errorCallback?.invoke(e.message ?: "")
+        }
+        return apodDao.getLatest()
+    }
+
     suspend fun getApods(callbackScope: CoroutineScope, errorCallback: ((String) -> Unit)?): LiveData<PagedList<Apod>> {
         val callback: () -> Unit = {
             callbackScope.launch(Dispatchers.IO) {

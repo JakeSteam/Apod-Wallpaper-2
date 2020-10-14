@@ -12,4 +12,10 @@ interface ApodApi {
         @Query("start_date") startDate: String,
         @Query("end_date") endDate: String
     ): List<Apod>
+
+    @GET("apod")
+    suspend fun getApod(
+        @Query("api_key") apiKey: String,
+        @Query("date") date: String
+    ): Apod
 }
