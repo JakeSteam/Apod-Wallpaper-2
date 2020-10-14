@@ -8,14 +8,18 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.PagedList
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_browse.*
 import kotlinx.android.synthetic.main.fragment_browse.view.*
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 import uk.co.jakelee.apodwallpaper.R
 import uk.co.jakelee.apodwallpaper.app.architecture.IView
+import uk.co.jakelee.apodwallpaper.model.Apod
 import uk.co.jakelee.apodwallpaper.ui.browse.BrowseAdapter
 
 class BrowseFragment : Fragment(), IView<BrowseState> {
@@ -31,30 +35,38 @@ class BrowseFragment : Fragment(), IView<BrowseState> {
         val root = inflater.inflate(R.layout.fragment_browse, container, false)
         root.recyclerView.adapter = adapter
 
-        // Observing the state
-        browseViewModel.state.observe(viewLifecycleOwner) {
-            render(it)
-        }
+        browseViewModel.state.observe(viewLifecycleOwner) { render(it) }
+        sendIntent(BrowseIntent.FetchApods)
 
-        // Fetching data when the fragment is created
-        lifecycleScope.launch {
-            browseViewModel.intents.send(BrowseIntent.FetchApods)
-        }
         return root
     }
 
     override fun render(state: BrowseState) {
         with(state) {
-            progress.isVisible = isLoading
-            if (apods != null && !apods.hasActiveObservers()) {
-                apods.observe(viewLifecycleOwner) {
-                    adapter.submitList(it)
-                }
-            }
+            apods?.let { renderApods(it) }
+            renderProgress(isLoading)
+            errorMessage?.let { renderError(it) }
+        }
+    }
 
-            if (errorMessage != null) {
-                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
-            }
+    private fun renderApods(apods: LiveData<PagedList<Apod>>) {
+        apods.removeObservers(viewLifecycleOwner)
+        apods.observe(viewLifecycleOwner) { adapter.submitList(it) }
+    }
+
+    private fun renderProgress(isLoading: Boolean) {
+        progress.isVisible = isLoading
+    }
+
+    private fun renderError(error: String) {
+        val snackbar = Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_INDEFINITE)
+        snackbar.setAction(R.string.button_retry) { sendIntent(BrowseIntent.FetchApods) }
+        snackbar.show()
+    }
+
+    private fun sendIntent(intent: BrowseIntent) {
+        lifecycleScope.launch {
+            browseViewModel.intents.send(intent)
         }
     }
 }

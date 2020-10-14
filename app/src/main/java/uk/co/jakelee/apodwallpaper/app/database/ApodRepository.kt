@@ -42,27 +42,23 @@ class ApodRepository(
         )
     }
 
-    data class ApodResponse(val results: LiveData<PagedList<Apod>>?, val error: String?)
-
-    suspend fun getApods(scope: CoroutineScope): LiveData<PagedList<Apod>> {
-        Log.d("PAGES", "Starting try")
+    suspend fun getApods(callbackScope: CoroutineScope, errorCallback: ((String) -> Unit)?): LiveData<PagedList<Apod>> {
         val callback: () -> Unit = {
-            scope.launch(Dispatchers.IO) {
-                Log.d("PAGES", "Page: $currentPage")
-                val pageRange = pageToDateRange(currentPage++)
-                Log.d("PAGES", "Start: ${pageRange.startDate}, end: ${pageRange.endDate}")
-
-                val apods = apodApi.getApods(
-                    BuildConfig.AUTH_CODE,
-                    pageRange.startDate,
-                    pageRange.endDate
-                )
-                Log.d("PAGES", "About to insert")
-                apodDao.insertAll(apods)
+            callbackScope.launch(Dispatchers.IO) {
+                try {
+                    val pageRange = pageToDateRange(currentPage)
+                    val apods = apodApi.getApods(
+                        BuildConfig.AUTH_CODE,
+                        pageRange.startDate,
+                        pageRange.endDate
+                    )
+                    apodDao.insertAll(apods)
+                    currentPage++
+                } catch (e: Exception) {
+                    errorCallback?.invoke(e.message ?: "")
+                }
             }
         }
-
-        Log.d("PAGES", "Converting to livedata")
         return apodDao.getAll().toLiveData(
             config = browsePageConfig,
             boundaryCallback = BrowseBoundaryCallback(callback))
