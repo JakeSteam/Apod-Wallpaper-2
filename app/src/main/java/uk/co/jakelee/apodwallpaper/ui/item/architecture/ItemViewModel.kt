@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 import uk.co.jakelee.apodwallpaper.app.architecture.IViewModel
 import uk.co.jakelee.apodwallpaper.app.database.ApodRepository
+import uk.co.jakelee.apodwallpaper.model.Apod
 import java.util.*
 
 class ItemViewModel(
@@ -32,17 +33,26 @@ class ItemViewModel(
 
     private fun subscribeToIntents() {
         viewModelScope.launch {
-            intents.consumeAsFlow().collect { browseIntent ->
-                when (browseIntent) {
-                  ItemIntent.FetchLatest -> fetchLatest()
+            intents.consumeAsFlow().collect { itemIntent ->
+                when (itemIntent) {
+                    is ItemIntent.OpenApod -> openApod(itemIntent.apod)
+                    is ItemIntent.OpenDate -> fetchApod(itemIntent.date)
+                    is ItemIntent.FetchLatest -> fetchLatest()
                 }
             }
         }
     }
 
-    private val errorCallback: (String) -> Unit = { error ->
+    private fun openApod(apod: Apod) {
         viewModelScope.launch(Dispatchers.IO) {
-            updateState { it.copy(isLoading = false, errorMessage = error) }
+            updateState { it.copy(isLoading = false, errorMessage = null, apod = apod) }
+        }
+    }
+
+    private fun fetchApod(date: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            updateState { it.copy(isLoading = true, errorMessage = null, apod = null) }
+            updateState { it.copy(isLoading = false, errorMessage = null, apod = apodRepository.getApod(date, true, errorCallback)) }
         }
     }
 
@@ -54,10 +64,9 @@ class ItemViewModel(
         }
     }
 
-    private fun fetchApod(date: String) {
+    private val errorCallback: (String) -> Unit = { error ->
         viewModelScope.launch(Dispatchers.IO) {
-            updateState { it.copy(isLoading = true, errorMessage = null, apod = null) }
-            updateState { it.copy(isLoading = false, errorMessage = null, apod = apodRepository.getApod(date, true, errorCallback)) }
+            updateState { it.copy(isLoading = false, errorMessage = error) }
         }
     }
 

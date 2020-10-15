@@ -14,6 +14,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import uk.co.jakelee.apodwallpaper.R
 import uk.co.jakelee.apodwallpaper.app.architecture.IView
 import uk.co.jakelee.apodwallpaper.model.Apod
+import uk.co.jakelee.apodwallpaper.ui.browse.architecture.BrowseIntent
 
 class ItemFragment : Fragment(), IView<ItemState> {
 
@@ -27,7 +28,11 @@ class ItemFragment : Fragment(), IView<ItemState> {
         val root = inflater.inflate(R.layout.fragment_item, container, false)
 
         itemViewModel.state.observe(viewLifecycleOwner) { render(it) }
-        sendIntent(ItemIntent.FetchLatest)
+        when {
+            passedApod != null -> sendIntent(ItemIntent.OpenApod(passedApod))
+            passedDate != null -> sendIntent(ItemIntent.OpenDate(passedDate))
+            else -> sendIntent(ItemIntent.FetchLatest)
+        }
 
         return root
     }

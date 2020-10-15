@@ -15,7 +15,11 @@
         android:id="@+id/navigation_browse"
         android:name="uk.co.jakelee.apodwallpaper.ui.browse.architecture.BrowseFragment"
         android:label="@string/title_browse"
-        tools:layout="@layout/fragment_browse" />
+        tools:layout="@layout/fragment_browse" >
+        <action
+            android:id="@+id/action_navigation_browse_to_navigation_today"
+            app:destination="@id/navigation_today" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_settings"
