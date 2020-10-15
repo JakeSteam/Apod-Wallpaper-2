@@ -48,8 +48,8 @@ class TodayViewModel(
 
     private fun fetchLatest() {
         viewModelScope.launch(Dispatchers.IO) {
-            updateState { it.copy(isLoading = true) }
-            updateState { it.copy(isLoading = false, apod = apodRepository.getLatestApod(errorCallback)) }
+            updateState { it.copy(isLoading = true, errorMessage = null, apod = null) }
+            updateState { it.copy(isLoading = false, errorMessage = null, apod = apodRepository.getLatestApod(errorCallback)) }
         }
     }
 

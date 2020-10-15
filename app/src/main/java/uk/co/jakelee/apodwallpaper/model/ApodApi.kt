@@ -18,4 +18,9 @@ interface ApodApi {
         @Query("api_key") apiKey: String,
         @Query("date") date: String
     ): Apod
+
+    @GET("apod")
+    suspend fun getLatestApod(
+        @Query("api_key") apiKey: String
+    ): Apod
 }

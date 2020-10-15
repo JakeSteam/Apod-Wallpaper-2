@@ -6,10 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_browse.*
 import kotlinx.android.synthetic.main.fragment_today.*
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -42,20 +40,18 @@ class TodayFragment : Fragment(), IView<TodayState> {
         }
     }
 
-    private fun renderApod(apod: LiveData<Apod>) {
-        apod.observe(viewLifecycleOwner) {
-            text_today.text = "${it.date}: ${it.title}"
-        }
+    private fun renderApod(apod: Apod) {
+        title.text = "${apod.date}: ${apod.title}"
     }
 
     private fun renderProgress(isLoading: Boolean) {
-        //progress.isVisible = isLoading
+        progressBar.isVisible = isLoading
     }
 
     private fun renderError(error: String) {
-        //val snackbar = Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_INDEFINITE)
-        //snackbar.setAction(R.string.button_retry) { sendIntent(TodayIntent.FetchLatest) }
-        //snackbar.show()
+        val snackbar = Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_INDEFINITE)
+        snackbar.setAction(R.string.button_retry) { sendIntent(TodayIntent.FetchLatest) }
+        snackbar.show()
     }
 
     private fun sendIntent(intent: TodayIntent) {
