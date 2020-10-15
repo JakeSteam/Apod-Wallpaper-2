@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_today"
-        android:name="uk.co.jakelee.apodwallpaper.ui.today.architecture.TodayFragment"
+        android:name="uk.co.jakelee.apodwallpaper.ui.item.architecture.ItemFragment"
         android:label="@string/title_today"
-        tools:layout="@layout/fragment_today" />
+        tools:layout="@layout/fragment_item" />
 
     <fragment
         android:id="@+id/navigation_browse"

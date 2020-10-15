@@ -1,10 +1,9 @@
-package uk.co.jakelee.apodwallpaper.ui.today.architecture
+package uk.co.jakelee.apodwallpaper.ui.item.architecture
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collect
@@ -13,17 +12,17 @@ import kotlinx.coroutines.launch
 import uk.co.jakelee.apodwallpaper.app.architecture.IViewModel
 import uk.co.jakelee.apodwallpaper.app.database.ApodRepository
 
-class TodayViewModel(
+class ItemViewModel(
   private val apodRepository: ApodRepository
-) : ViewModel(), IViewModel<TodayState, TodayIntent> {
+) : ViewModel(), IViewModel<ItemState, ItemIntent> {
 
-    override val intents: Channel<TodayIntent> = Channel(Channel.UNLIMITED)
+    override val intents: Channel<ItemIntent> = Channel(Channel.UNLIMITED)
 
-    private val _state = MutableLiveData<TodayState>().apply {
-        value = TodayState()
+    private val _state = MutableLiveData<ItemState>().apply {
+        value = ItemState()
     }
 
-    override val state: LiveData<TodayState>
+    override val state: LiveData<ItemState>
         get() = _state
 
     init {
@@ -34,7 +33,7 @@ class TodayViewModel(
         viewModelScope.launch {
             intents.consumeAsFlow().collect { browseIntent ->
                 when (browseIntent) {
-                  TodayIntent.FetchLatest -> fetchLatest()
+                  ItemIntent.FetchLatest -> fetchLatest()
                 }
             }
         }
@@ -53,7 +52,7 @@ class TodayViewModel(
         }
     }
 
-    private suspend fun updateState(handler: suspend (intent: TodayState) -> TodayState) {
+    private suspend fun updateState(handler: suspend (intent: ItemState) -> ItemState) {
         _state.postValue(handler(state.value!!))
     }
 }
