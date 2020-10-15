@@ -42,6 +42,26 @@ class ApodRepository(
         )
     }
 
+    suspend fun getLatestApod(errorCallback: ((String) -> Unit)?): Apod? {
+        try {
+            // TODO: Extract to a general "get APOD style date" class
+            val cal = Calendar.getInstance()
+            val date = "${cal.get(Calendar.YEAR)}-${cal.get(Calendar.MONTH) + 1}-${cal.get(Calendar.DAY_OF_MONTH)}"
+
+            // Fetch local for today if possible
+            val localApod = apodDao.getByDate(date)
+            if (localApod != null) { return localApod }
+
+            // Otherwise fetch latest from server
+            val remoteApod = apodApi.getLatestApod(BuildConfig.AUTH_CODE)
+            apodDao.insert(remoteApod)
+            return remoteApod
+        } catch (e: Exception) {
+            errorCallback?.invoke(e.message ?: "")
+            return null
+        }
+    }
+
     suspend fun getApods(callbackScope: CoroutineScope, errorCallback: ((String) -> Unit)?): LiveData<PagedList<Apod>> {
         val callback: () -> Unit = {
             callbackScope.launch(Dispatchers.IO) {

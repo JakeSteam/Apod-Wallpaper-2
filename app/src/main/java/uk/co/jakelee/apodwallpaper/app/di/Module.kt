@@ -10,6 +10,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import uk.co.jakelee.apodwallpaper.app.database.ApodRepository
 import uk.co.jakelee.apodwallpaper.app.database.AppDatabase
 import uk.co.jakelee.apodwallpaper.ui.browse.architecture.BrowseViewModel
+import uk.co.jakelee.apodwallpaper.ui.today.architecture.TodayViewModel
 
 val netModule = module {
     fun provideOkHttpClient(): OkHttpClient {
@@ -34,6 +35,7 @@ val databaseModule = module {
 }
 
 val viewModelScope = module {
+    viewModel { TodayViewModel(get()) }
     viewModel { BrowseViewModel(get()) }
 }
 
