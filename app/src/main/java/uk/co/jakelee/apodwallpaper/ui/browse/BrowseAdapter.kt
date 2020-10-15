@@ -4,13 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
 import uk.co.jakelee.apodwallpaper.databinding.ItemThumbnailBinding
 import uk.co.jakelee.apodwallpaper.model.Apod
 
-class BrowseAdapter : PagedListAdapter<Apod, BrowseViewHolder>(BrowseAdapter) {
+class BrowseAdapter(private val clickListener: ((Apod) -> Unit)) : PagedListAdapter<Apod, BrowseViewHolder>(BrowseAdapter) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BrowseViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -22,6 +19,7 @@ class BrowseAdapter : PagedListAdapter<Apod, BrowseViewHolder>(BrowseAdapter) {
         val binding = holder.binding as ItemThumbnailBinding
         binding.run {
             apod = getItem(position)
+            holder.itemView.setOnClickListener { clickListener.invoke(apod) }
             executePendingBindings()
         }
     }

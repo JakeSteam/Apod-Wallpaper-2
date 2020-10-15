@@ -9,7 +9,16 @@
         android:id="@+id/navigation_today"
         android:name="uk.co.jakelee.apodwallpaper.ui.item.architecture.ItemFragment"
         android:label="@string/title_today"
-        tools:layout="@layout/fragment_item" />
+        tools:layout="@layout/fragment_item" >
+        <argument
+            android:name="apod"
+            app:argType="uk.co.jakelee.apodwallpaper.model.Apod"
+            app:nullable="true" />
+        <argument
+            android:name="date"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_browse"
@@ -17,8 +26,9 @@
         android:label="@string/title_browse"
         tools:layout="@layout/fragment_browse" >
         <action
-            android:id="@+id/action_navigation_browse_to_navigation_today"
-            app:destination="@id/navigation_today" />
+            android:id="@+id/open_apod"
+            app:destination="@id/navigation_today">
+        </action>
     </fragment>
 
     <fragment

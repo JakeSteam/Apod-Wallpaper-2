@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_item.*
 import kotlinx.coroutines.launch
@@ -14,11 +15,13 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import uk.co.jakelee.apodwallpaper.R
 import uk.co.jakelee.apodwallpaper.app.architecture.IView
 import uk.co.jakelee.apodwallpaper.model.Apod
+import uk.co.jakelee.apodwallpaper.ui.browse.architecture.BrowseFragmentDirections
 import uk.co.jakelee.apodwallpaper.ui.browse.architecture.BrowseIntent
 
 class ItemFragment : Fragment(), IView<ItemState> {
 
     private val itemViewModel: ItemViewModel by viewModel()
+    private val args: ItemFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,11 +29,10 @@ class ItemFragment : Fragment(), IView<ItemState> {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_item, container, false)
-
         itemViewModel.state.observe(viewLifecycleOwner) { render(it) }
         when {
-            passedApod != null -> sendIntent(ItemIntent.OpenApod(passedApod))
-            passedDate != null -> sendIntent(ItemIntent.OpenDate(passedDate))
+            args.apod != null -> sendIntent(ItemIntent.OpenApod(args.apod))
+            args.date != null -> sendIntent(ItemIntent.OpenDate(args.date.toString()))
             else -> sendIntent(ItemIntent.FetchLatest)
         }
 
