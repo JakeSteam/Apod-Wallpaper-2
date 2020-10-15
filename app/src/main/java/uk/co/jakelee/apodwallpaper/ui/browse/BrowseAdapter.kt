@@ -19,7 +19,7 @@ class BrowseAdapter(private val clickListener: ((Apod) -> Unit)) : PagedListAdap
         val binding = holder.binding as ItemThumbnailBinding
         binding.run {
             apod = getItem(position)
-            holder.itemView.setOnClickListener { clickListener.invoke(apod) }
+            holder.itemView.setOnClickListener { clickListener.invoke(apod!!) }
             executePendingBindings()
         }
     }

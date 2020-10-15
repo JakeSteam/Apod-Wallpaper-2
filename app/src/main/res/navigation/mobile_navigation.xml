@@ -13,11 +13,13 @@
         <argument
             android:name="apod"
             app:argType="uk.co.jakelee.apodwallpaper.model.Apod"
-            app:nullable="true" />
+            app:nullable="true"
+            android:defaultValue="@null" />
         <argument
             android:name="date"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 
     <fragment

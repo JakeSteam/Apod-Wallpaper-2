@@ -31,7 +31,7 @@ class ItemFragment : Fragment(), IView<ItemState> {
         val root = inflater.inflate(R.layout.fragment_item, container, false)
         itemViewModel.state.observe(viewLifecycleOwner) { render(it) }
         when {
-            args.apod != null -> sendIntent(ItemIntent.OpenApod(args.apod))
+            args.apod != null -> sendIntent(ItemIntent.OpenApod(args.apod!!))
             args.date != null -> sendIntent(ItemIntent.OpenDate(args.date.toString()))
             else -> sendIntent(ItemIntent.FetchLatest)
         }
