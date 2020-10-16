@@ -15,7 +15,7 @@ buildscript {
         vector_drawable_version = "1.1.0"
 
         // Navigation
-        navigation_version = "2.3.0"
+        navigation_version = "2.3.1"
 
         // Database
         room_version = "2.2.5"
@@ -42,6 +42,7 @@ buildscript {
     dependencies { 
         classpath "com.android.tools.build:gradle:$gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation_version"
     }
 }
 

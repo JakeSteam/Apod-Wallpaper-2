@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.PagedList
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_browse.*
@@ -24,7 +25,7 @@ import uk.co.jakelee.apodwallpaper.ui.browse.BrowseAdapter
 
 class BrowseFragment : Fragment(), IView<BrowseState> {
 
-    private val adapter = BrowseAdapter()
+    private val adapter = BrowseAdapter { apod: Apod -> sendIntent(BrowseIntent.OpenApod(apod)) }
     private val browseViewModel: BrowseViewModel by viewModel()
 
     override fun onCreateView(
@@ -43,6 +44,7 @@ class BrowseFragment : Fragment(), IView<BrowseState> {
 
     override fun render(state: BrowseState) {
         with(state) {
+            pendingDirection?.let { findNavController().navigate(pendingDirection) }
             apods?.let { renderApods(it) }
             renderProgress(isLoading)
             errorMessage?.let { renderError(it) }

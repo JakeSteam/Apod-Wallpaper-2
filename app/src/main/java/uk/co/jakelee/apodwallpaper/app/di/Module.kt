@@ -2,7 +2,7 @@ package uk.co.jakelee.apodwallpaper.app.di
 
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
-import uk.co.jakelee.apodwallpaper.model.ApodApi
+import uk.co.jakelee.apodwallpaper.network.ApodApi
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -10,7 +10,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import uk.co.jakelee.apodwallpaper.app.database.ApodRepository
 import uk.co.jakelee.apodwallpaper.app.database.AppDatabase
 import uk.co.jakelee.apodwallpaper.ui.browse.architecture.BrowseViewModel
-import uk.co.jakelee.apodwallpaper.ui.today.architecture.TodayViewModel
+import uk.co.jakelee.apodwallpaper.ui.item.architecture.ItemViewModel
 
 val netModule = module {
     fun provideOkHttpClient(): OkHttpClient {
@@ -35,7 +35,7 @@ val databaseModule = module {
 }
 
 val viewModelScope = module {
-    viewModel { TodayViewModel(get()) }
+    viewModel { ItemViewModel(get()) }
     viewModel { BrowseViewModel(get()) }
 }
 

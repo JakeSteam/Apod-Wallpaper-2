@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 import uk.co.jakelee.apodwallpaper.app.architecture.IViewModel
 import uk.co.jakelee.apodwallpaper.app.database.ApodRepository
+import uk.co.jakelee.apodwallpaper.model.Apod
 
 class BrowseViewModel(
   private val apodRepository: ApodRepository
@@ -34,9 +35,17 @@ class BrowseViewModel(
         viewModelScope.launch {
             intents.consumeAsFlow().collect { browseIntent ->
                 when (browseIntent) {
-                  BrowseIntent.FetchApods -> fetchData()
+                    is BrowseIntent.FetchApods -> fetchData()
+                    is BrowseIntent.OpenApod -> openApod(browseIntent.apod)
                 }
             }
+        }
+    }
+
+    private fun fetchData() {
+        viewModelScope.launch(Dispatchers.IO) {
+            updateState { it.copy(isLoading = true) }
+            updateState { it.copy(isLoading = false, apods = apodRepository.getApods(viewModelScope, errorCallback)) }
         }
     }
 
@@ -46,10 +55,9 @@ class BrowseViewModel(
         }
     }
 
-    private fun fetchData() {
+    private fun openApod(apod: Apod) {
         viewModelScope.launch(Dispatchers.IO) {
-            updateState { it.copy(isLoading = true) }
-            updateState { it.copy(isLoading = false, apods = apodRepository.getApods(viewModelScope, errorCallback)) }
+            updateState { it.copy(isLoading = false, pendingDirection = BrowseFragmentDirections.openApod(apod, null)) }
         }
     }
 

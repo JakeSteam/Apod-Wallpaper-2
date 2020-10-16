@@ -1,6 +1,5 @@
 package uk.co.jakelee.apodwallpaper.app.database
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
@@ -9,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import uk.co.jakelee.apodwallpaper.BuildConfig
 import uk.co.jakelee.apodwallpaper.model.Apod
-import uk.co.jakelee.apodwallpaper.model.ApodApi
+import uk.co.jakelee.apodwallpaper.network.ApodApi
 import uk.co.jakelee.apodwallpaper.ui.browse.BrowseBoundaryCallback
 import java.util.*
 
@@ -42,18 +41,16 @@ class ApodRepository(
         )
     }
 
-    suspend fun getLatestApod(errorCallback: ((String) -> Unit)?): Apod? {
+    suspend fun getApod(date: String, explicit: Boolean, errorCallback: ((String) -> Unit)?): Apod? {
         try {
-            // TODO: Extract to a general "get APOD style date" class
-            val cal = Calendar.getInstance()
-            val date = "${cal.get(Calendar.YEAR)}-${cal.get(Calendar.MONTH) + 1}-${cal.get(Calendar.DAY_OF_MONTH)}"
-
-            // Fetch local for today if possible
             val localApod = apodDao.getByDate(date)
             if (localApod != null) { return localApod }
 
-            // Otherwise fetch latest from server
-            val remoteApod = apodApi.getLatestApod(BuildConfig.AUTH_CODE)
+            val remoteApod = if (explicit) {
+                apodApi.getApod(BuildConfig.AUTH_CODE, date)
+            } else {
+                apodApi.getLatestApod(BuildConfig.AUTH_CODE)
+            }
             apodDao.insert(remoteApod)
             return remoteApod
         } catch (e: Exception) {
