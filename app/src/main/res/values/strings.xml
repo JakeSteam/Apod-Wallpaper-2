@@ -6,4 +6,6 @@
     <string name="title_more">More</string>
 
     <string name="button_retry">Retry?</string>
+
+    <string name="single_apod_date">%1$s\'s APOD (© %2$s)</string>
 </resources>

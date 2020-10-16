@@ -39,12 +39,108 @@
                 android:id="@+id/title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{apod.date}"
+                android:text="@{apod.title}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:background="@color/black_65"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
+                android:ellipsize="end"
+                android:paddingTop="8dp"
+                tools:text="@tools:sample/cities"/>
+
+            <TextView
+                android:id="@+id/explanation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{apod.explanation}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                android:background="@color/black_65"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:maxLines="20"
+                android:ellipsize="end"
+                android:padding="8dp"
+                tools:text="@tools:sample/lorem/random"/>
+
+            <ImageView
+                android:id="@+id/controls"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:src="@color/black_65"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/metadata" />
+
+            <ImageView
+                android:id="@+id/previous"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@id/controls"
+                app:layout_constraintTop_toTopOf="@id/controls"
+                app:layout_constraintStart_toStartOf="parent"
+                android:padding="8dp"
+                android:src="@drawable/ic_previous" />
+
+            <ImageView
+                android:id="@+id/save"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@id/controls"
+                app:layout_constraintTop_toTopOf="@id/controls"
+                app:layout_constraintEnd_toStartOf="@id/share"
+                android:padding="8dp"
+                android:src="@drawable/ic_save" />
+
+            <ImageView
+                android:id="@+id/share"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@id/controls"
+                app:layout_constraintTop_toTopOf="@id/controls"
+                app:layout_constraintStart_toStartOf="@id/controls"
+                app:layout_constraintEnd_toEndOf="@id/controls"
+                android:padding="8dp"
+                android:src="@drawable/ic_share" />
+
+            <ImageView
+                android:id="@+id/enlarge"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@id/controls"
+                app:layout_constraintTop_toTopOf="@id/controls"
+                app:layout_constraintStart_toEndOf="@id/share"
+                android:padding="8dp"
+                android:src="@drawable/ic_expand" />
+
+            <ImageView
+                android:id="@+id/next"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@id/controls"
+                app:layout_constraintTop_toTopOf="@id/controls"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:padding="8dp"
+                android:src="@drawable/ic_next" />
+
+            <TextView
+                android:id="@+id/metadata"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{@string/single_apod_date(apod.date, apod.copyright ?? `N/A`)}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                tools:text="Today's APOD"/>
+                android:background="@color/black_65"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:padding="4dp"
+                tools:text="@string/single_apod_date" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
