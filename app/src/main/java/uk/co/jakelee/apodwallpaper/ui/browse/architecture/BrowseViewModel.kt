@@ -57,8 +57,7 @@ class BrowseViewModel(
 
     private fun openApod(apod: Apod) {
         viewModelScope.launch(Dispatchers.IO) {
-            updateState { it.copy(isLoading = true, pendingDirection = BrowseFragmentDirections.openApod(apod, null)) }
-            updateState { it.copy(isLoading = false, pendingDirection = null) }
+            updateState { it.copy(isLoading = false, pendingDirection = BrowseFragmentDirections.openApod(apod, null)) }
         }
     }
 
