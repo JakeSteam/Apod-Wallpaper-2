@@ -23,6 +23,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <androidx.constraintlayout.widget.Group
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="@{ apod != null ? View.VISIBLE : View.GONE }"
+                app:constraint_referenced_ids="imageView, title, explanation, controls, metadata, previous, save, share, enlarge, next"/>
+
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="0dp"
@@ -150,7 +156,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:visibility="@{ isLoading ? View.VISIBLE : View.GONE }"/>
+                android:visibility="@{ isLoading ? View.VISIBLE : View.GONE }" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
