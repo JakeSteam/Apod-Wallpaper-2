@@ -1,6 +1,5 @@
 package uk.co.jakelee.apodwallpaper.app.database
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
@@ -9,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import uk.co.jakelee.apodwallpaper.BuildConfig
 import uk.co.jakelee.apodwallpaper.model.Apod
-import uk.co.jakelee.apodwallpaper.model.ApodApi
+import uk.co.jakelee.apodwallpaper.network.ApodApi
 import uk.co.jakelee.apodwallpaper.ui.browse.BrowseBoundaryCallback
 import java.util.*
 

@@ -2,7 +2,7 @@ package uk.co.jakelee.apodwallpaper.app.di
 
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
-import uk.co.jakelee.apodwallpaper.model.ApodApi
+import uk.co.jakelee.apodwallpaper.network.ApodApi
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit

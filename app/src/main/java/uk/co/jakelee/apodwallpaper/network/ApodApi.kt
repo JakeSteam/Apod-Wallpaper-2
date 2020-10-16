@@ -1,4 +1,4 @@
-package uk.co.jakelee.apodwallpaper.model
+package uk.co.jakelee.apodwallpaper.network
 
 import retrofit2.http.GET
 import retrofit2.http.Query
