@@ -6,5 +6,6 @@ import uk.co.jakelee.apodwallpaper.model.Apod
 sealed class BrowseIntent : IIntent {
     object FetchApods : BrowseIntent()
     class OpenApod(val apod: Apod) : BrowseIntent()
+    object FollowingDirection: BrowseIntent()
 }
 

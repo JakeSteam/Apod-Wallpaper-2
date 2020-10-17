@@ -1,20 +1,19 @@
 package uk.co.jakelee.apodwallpaper.ui.browse.architecture
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.fragment.findNavController
 import androidx.paging.PagedList
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_browse.*
+import kotlinx.android.synthetic.main.fragment_browse.coordinatorLayout
 import kotlinx.android.synthetic.main.fragment_browse.view.*
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -44,7 +43,10 @@ class BrowseFragment : Fragment(), IView<BrowseState> {
 
     override fun render(state: BrowseState) {
         with(state) {
-            pendingDirection?.let { findNavController().navigate(pendingDirection) }
+            pendingDirection?.let {
+                findNavController().navigate(pendingDirection)
+                sendIntent(BrowseIntent.FollowingDirection)
+            }
             apods?.let { renderApods(it) }
             renderProgress(isLoading)
             errorMessage?.let { renderError(it) }
@@ -61,9 +63,10 @@ class BrowseFragment : Fragment(), IView<BrowseState> {
     }
 
     private fun renderError(error: String) {
-        val snackbar = Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_INDEFINITE)
-        snackbar.setAction(R.string.button_retry) { sendIntent(BrowseIntent.FetchApods) }
-        snackbar.show()
+        Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_INDEFINITE).apply {
+            setAction(R.string.button_retry) { sendIntent(BrowseIntent.FetchApods) }
+            show()
+        }
     }
 
     private fun sendIntent(intent: BrowseIntent) {

@@ -37,6 +37,7 @@ class BrowseViewModel(
                 when (browseIntent) {
                     is BrowseIntent.FetchApods -> fetchData()
                     is BrowseIntent.OpenApod -> openApod(browseIntent.apod)
+                    is BrowseIntent.FollowingDirection -> clearPendingDirection()
                 }
             }
         }
@@ -44,7 +45,7 @@ class BrowseViewModel(
 
     private fun fetchData() {
         viewModelScope.launch(Dispatchers.IO) {
-            updateState { it.copy(isLoading = true) }
+            updateState { it.copy(isLoading = true, pendingDirection = null) }
             updateState { it.copy(isLoading = false, apods = apodRepository.getApods(viewModelScope, errorCallback)) }
         }
     }
@@ -58,6 +59,12 @@ class BrowseViewModel(
     private fun openApod(apod: Apod) {
         viewModelScope.launch(Dispatchers.IO) {
             updateState { it.copy(isLoading = false, pendingDirection = BrowseFragmentDirections.openApod(apod, null)) }
+        }
+    }
+
+    private fun clearPendingDirection() {
+        viewModelScope.launch(Dispatchers.IO) {
+            updateState { it.copy(pendingDirection = null) }
         }
     }
 

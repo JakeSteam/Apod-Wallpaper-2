@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">APOD Wallpaper</string>
-    <string name="title_today">Today</string>
+    <string name="title_item">APOD</string>
     <string name="title_browse">Browse</string>
     <string name="title_settings">Settings</string>
     <string name="title_more">More</string>
