@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -16,9 +15,6 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import uk.co.jakelee.apodwallpaper.R
 import uk.co.jakelee.apodwallpaper.app.architecture.IView
 import uk.co.jakelee.apodwallpaper.databinding.FragmentItemBinding
-import uk.co.jakelee.apodwallpaper.model.Apod
-import uk.co.jakelee.apodwallpaper.ui.browse.architecture.BrowseFragmentDirections
-import uk.co.jakelee.apodwallpaper.ui.browse.architecture.BrowseIntent
 
 class ItemFragment : Fragment(), IView<ItemState> {
 
@@ -51,9 +47,10 @@ class ItemFragment : Fragment(), IView<ItemState> {
     }
 
     private fun renderError(error: String) {
-        val snackbar = Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_INDEFINITE)
-        snackbar.setAction(R.string.button_retry) { sendIntent(ItemIntent.FetchLatest) }
-        snackbar.show()
+        Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_INDEFINITE).apply {
+            setAction(R.string.button_retry) { sendIntent(ItemIntent.FetchLatest) }
+            show()
+        }
     }
 
     private fun sendIntent(intent: ItemIntent) {
