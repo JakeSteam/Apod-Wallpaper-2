@@ -98,7 +98,9 @@
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="@id/controls"
                 app:layout_constraintTop_toTopOf="@id/controls"
+                app:layout_constraintStart_toEndOf="@id/previous"
                 app:layout_constraintEnd_toStartOf="@id/share"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 android:padding="8dp"
                 android:src="@drawable/ic_save" />
 
@@ -108,10 +110,23 @@
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="@id/controls"
                 app:layout_constraintTop_toTopOf="@id/controls"
-                app:layout_constraintStart_toStartOf="@id/controls"
-                app:layout_constraintEnd_toEndOf="@id/controls"
+                app:layout_constraintStart_toEndOf="@id/save"
+                app:layout_constraintEnd_toStartOf="@id/calendar"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 android:padding="8dp"
                 android:src="@drawable/ic_share" />
+
+            <ImageView
+                android:id="@+id/calendar"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@id/controls"
+                app:layout_constraintTop_toTopOf="@id/controls"
+                app:layout_constraintStart_toEndOf="@id/share"
+                app:layout_constraintEnd_toStartOf="@id/enlarge"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                android:padding="8dp"
+                android:src="@drawable/ic_calendar" />
 
             <ImageView
                 android:id="@+id/enlarge"
@@ -119,7 +134,9 @@
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="@id/controls"
                 app:layout_constraintTop_toTopOf="@id/controls"
-                app:layout_constraintStart_toEndOf="@id/share"
+                app:layout_constraintStart_toEndOf="@id/calendar"
+                app:layout_constraintEnd_toStartOf="@id/next"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 android:padding="8dp"
                 android:src="@drawable/ic_expand" />
 
