@@ -9,6 +9,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
+import uk.co.jakelee.apodwallpaper.NavigationDirections
 import uk.co.jakelee.apodwallpaper.app.architecture.IViewModel
 import uk.co.jakelee.apodwallpaper.app.database.ApodRepository
 import uk.co.jakelee.apodwallpaper.model.Apod
@@ -38,36 +39,49 @@ class ItemViewModel(
                     is ItemIntent.OpenApod -> openApod(itemIntent.apod)
                     is ItemIntent.OpenDate -> fetchApod(itemIntent.date)
                     is ItemIntent.FetchLatest -> fetchLatest()
+                    is ItemIntent.ExpandApod -> expandApod()
+                    is ItemIntent.FollowingDirection -> clearPendingDirection()
                 }
             }
         }
     }
 
-    private fun openApod(apod: Apod) {
-        viewModelScope.launch(Dispatchers.IO) {
-            updateState { it.copy(isLoading = false, errorMessage = null, apod = apod) }
-        }
+    private var currentApod: Apod? = null
+
+    private fun openApod(apod: Apod) = viewModelScope.launch(Dispatchers.IO) {
+        currentApod = apod
+        updateState { it.copy(isLoading = false, errorMessage = null, apod = apod) }
     }
 
-    private fun fetchApod(date: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            updateState { it.copy(isLoading = true, errorMessage = null, apod = null) }
-            updateState { it.copy(isLoading = false, errorMessage = null, apod = apodRepository.getApod(date, true, errorCallback)) }
-        }
+    private fun fetchApod(date: String) = viewModelScope.launch(Dispatchers.IO) {
+        updateState { it.copy(isLoading = true, errorMessage = null, apod = null) }
+        val apod = apodRepository.getApod(date, true, errorCallback)
+        currentApod = apod
+        updateState { it.copy(isLoading = false, errorMessage = null, apod = apod) }
     }
 
-    private fun fetchLatest() {
+    private fun fetchLatest() = viewModelScope.launch(Dispatchers.IO) {
         val todayDate = getTodaysDate()
-        viewModelScope.launch(Dispatchers.IO) {
-            updateState { it.copy(isLoading = true, errorMessage = null, apod = null) }
-            updateState { it.copy(isLoading = false, errorMessage = null, apod = apodRepository.getApod(todayDate, false, errorCallback)) }
-        }
+        updateState { it.copy(isLoading = true, errorMessage = null, apod = null) }
+        val apod = apodRepository.getApod(todayDate, false, errorCallback)
+        currentApod = apod
+        updateState { it.copy(isLoading = false, errorMessage = null, apod = apod) }
     }
 
     private val errorCallback: (String) -> Unit = { error ->
         viewModelScope.launch(Dispatchers.IO) {
             updateState { it.copy(isLoading = false, errorMessage = error) }
         }
+    }
+
+    private fun expandApod() = viewModelScope.launch(Dispatchers.IO) {
+        currentApod?.url?.let { url ->
+            updateState { it.copy(pendingDirection = ItemFragmentDirections.expandApod(url)) }
+        }
+    }
+
+    private fun clearPendingDirection() = viewModelScope.launch(Dispatchers.IO) {
+        updateState { it.copy(pendingDirection = null) }
     }
 
     private suspend fun updateState(handler: suspend (intent: ItemState) -> ItemState) {

@@ -27,7 +27,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:visibility="@{ apod != null ? View.VISIBLE : View.GONE }"
-                app:constraint_referenced_ids="imageView, title, explanation, controls, metadata, previous, save, share, enlarge, next"/>
+                app:constraint_referenced_ids="imageView, title, explanation, controls, metadata, previous, save, share, expand, next"/>
 
             <ImageView
                 android:id="@+id/imageView"
@@ -123,13 +123,13 @@
                 app:layout_constraintBottom_toBottomOf="@id/controls"
                 app:layout_constraintTop_toTopOf="@id/controls"
                 app:layout_constraintStart_toEndOf="@id/share"
-                app:layout_constraintEnd_toStartOf="@id/enlarge"
+                app:layout_constraintEnd_toStartOf="@id/expand"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 android:padding="8dp"
                 android:src="@drawable/ic_calendar" />
 
             <ImageView
-                android:id="@+id/enlarge"
+                android:id="@+id/expand"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="@id/controls"

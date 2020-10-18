@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_item.*
@@ -28,6 +29,8 @@ class ItemFragment : Fragment(), IView<ItemState> {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_item, container, false)
+        binding.expand.setOnClickListener { sendIntent(ItemIntent.ExpandApod) }
+
         itemViewModel.state.observe(viewLifecycleOwner) { render(it) }
         when {
             args.apod != null -> sendIntent(ItemIntent.OpenApod(args.apod!!))
@@ -40,6 +43,10 @@ class ItemFragment : Fragment(), IView<ItemState> {
 
     override fun render(state: ItemState) {
         with(state) {
+            pendingDirection?.let {
+                findNavController().navigate(pendingDirection)
+                sendIntent(ItemIntent.FollowingDirection)
+            }
             apod?.let { binding.apod = apod }
             binding.isLoading = isLoading
             errorMessage?.let { renderError(it) }
