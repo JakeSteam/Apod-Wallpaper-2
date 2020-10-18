@@ -2,8 +2,13 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
+    android:id="@+id/navigation"
     app:startDestination="@+id/navigation_item">
+
+    <action
+        android:id="@+id/open_apod"
+        app:destination="@id/navigation_item">
+    </action>
 
     <fragment
         android:id="@+id/navigation_item"
@@ -27,10 +32,6 @@
         android:name="uk.co.jakelee.apodwallpaper.ui.browse.architecture.BrowseFragment"
         android:label="@string/title_browse"
         tools:layout="@layout/fragment_browse" >
-        <action
-            android:id="@+id/open_apod"
-            app:destination="@id/navigation_item">
-        </action>
     </fragment>
 
     <fragment

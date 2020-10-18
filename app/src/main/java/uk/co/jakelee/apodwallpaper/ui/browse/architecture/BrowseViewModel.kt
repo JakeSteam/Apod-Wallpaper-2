@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
+import uk.co.jakelee.apodwallpaper.NavigationDirections
 import uk.co.jakelee.apodwallpaper.app.architecture.IViewModel
 import uk.co.jakelee.apodwallpaper.app.database.ApodRepository
 import uk.co.jakelee.apodwallpaper.model.Apod
@@ -58,7 +58,7 @@ class BrowseViewModel(
 
     private fun openApod(apod: Apod) {
         viewModelScope.launch(Dispatchers.IO) {
-            updateState { it.copy(isLoading = false, pendingDirection = BrowseFragmentDirections.openApod(apod, null)) }
+            updateState { it.copy(isLoading = false, pendingDirection = NavigationDirections.openApod(apod, null)) }
         }
     }
 
