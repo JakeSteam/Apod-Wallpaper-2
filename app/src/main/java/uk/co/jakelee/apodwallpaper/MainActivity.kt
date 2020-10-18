@@ -8,6 +8,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
+import uk.co.jakelee.apodwallpaper.app.DeepLinkParser
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,16 +37,14 @@ class MainActivity : AppCompatActivity() {
   }
 
   private fun tryNavigateDeepLink(navController: NavController, intent: Intent?) {
-    if (intent == null || intent.action != Intent.ACTION_VIEW || intent.data == null) return
-    val data = intent.data!!
-
-    val action = if (data.scheme == "apod") data.host else data.pathSegments.getOrNull(0)
-    val parameter = if (data.scheme == "apod") data.pathSegments.getOrNull(0) else data.pathSegments.getOrNull(1)
-    when (action) {
-      "browse" -> navController.navigate(R.id.navigation_browse)
-      "settings" -> navController.navigate(R.id.navigation_settings)
-      "more" -> navController.navigate(R.id.navigation_more)
-      "day" -> navController.navigate(NavigationDirections.openApod(null, parameter))
+    DeepLinkParser(intent).parse()?.let {
+      when (it.action) {
+        DeepLinkParser.LinkActions.DAY -> navController.navigate(NavigationDirections.openApod(null, it.parameter))
+        DeepLinkParser.LinkActions.BROWSE -> navController.navigate(R.id.navigation_browse)
+        DeepLinkParser.LinkActions.SETTINGS -> navController.navigate(R.id.navigation_settings)
+        DeepLinkParser.LinkActions.MORE -> navController.navigate(R.id.navigation_more)
+      }
     }
   }
+
 }
