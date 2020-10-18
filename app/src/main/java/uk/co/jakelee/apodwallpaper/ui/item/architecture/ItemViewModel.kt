@@ -39,26 +39,33 @@ class ItemViewModel(
                     is ItemIntent.OpenApod -> openApod(itemIntent.apod)
                     is ItemIntent.OpenDate -> fetchApod(itemIntent.date)
                     is ItemIntent.FetchLatest -> fetchLatest()
-                    is ItemIntent.ExpandApod -> expandApod(itemIntent.apodUrl)
+                    is ItemIntent.ExpandApod -> expandApod()
                     is ItemIntent.FollowingDirection -> clearPendingDirection()
                 }
             }
         }
     }
 
+    private var currentApod: Apod? = null
+
     private fun openApod(apod: Apod) = viewModelScope.launch(Dispatchers.IO) {
+        currentApod = apod
         updateState { it.copy(isLoading = false, errorMessage = null, apod = apod) }
     }
 
     private fun fetchApod(date: String) = viewModelScope.launch(Dispatchers.IO) {
         updateState { it.copy(isLoading = true, errorMessage = null, apod = null) }
-        updateState { it.copy(isLoading = false, errorMessage = null, apod = apodRepository.getApod(date, true, errorCallback)) }
+        val apod = apodRepository.getApod(date, true, errorCallback)
+        currentApod = apod
+        updateState { it.copy(isLoading = false, errorMessage = null, apod = apod) }
     }
 
     private fun fetchLatest() = viewModelScope.launch(Dispatchers.IO) {
         val todayDate = getTodaysDate()
         updateState { it.copy(isLoading = true, errorMessage = null, apod = null) }
-        updateState { it.copy(isLoading = false, errorMessage = null, apod = apodRepository.getApod(todayDate, false, errorCallback)) }
+        val apod = apodRepository.getApod(todayDate, false, errorCallback)
+        currentApod = apod
+        updateState { it.copy(isLoading = false, errorMessage = null, apod = apod) }
     }
 
     private val errorCallback: (String) -> Unit = { error ->
@@ -67,8 +74,10 @@ class ItemViewModel(
         }
     }
 
-    private fun expandApod(apodUrl: String) = viewModelScope.launch(Dispatchers.IO) {
-        updateState { it.copy(isLoading = false, pendingDirection = NavigationDirections.expandApod(apodUrl)) }
+    private fun expandApod() = viewModelScope.launch(Dispatchers.IO) {
+        currentApod?.url?.let { url ->
+            updateState { it.copy(pendingDirection = ItemFragmentDirections.expandApod(url)) }
+        }
     }
 
     private fun clearPendingDirection() = viewModelScope.launch(Dispatchers.IO) {

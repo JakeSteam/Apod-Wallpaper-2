@@ -16,7 +16,6 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import uk.co.jakelee.apodwallpaper.R
 import uk.co.jakelee.apodwallpaper.app.architecture.IView
 import uk.co.jakelee.apodwallpaper.databinding.FragmentItemBinding
-import uk.co.jakelee.apodwallpaper.ui.browse.architecture.BrowseIntent
 
 class ItemFragment : Fragment(), IView<ItemState> {
 
@@ -30,6 +29,8 @@ class ItemFragment : Fragment(), IView<ItemState> {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_item, container, false)
+        binding.expand.setOnClickListener { sendIntent(ItemIntent.ExpandApod) }
+
         itemViewModel.state.observe(viewLifecycleOwner) { render(it) }
         when {
             args.apod != null -> sendIntent(ItemIntent.OpenApod(args.apod!!))

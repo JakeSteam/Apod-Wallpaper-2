@@ -27,17 +27,16 @@
             android:defaultValue="@null" />
         <action
             android:id="@+id/expand_apod"
-            app:destination="@id/navigation_item_expanded">
-            <argument
-                android:name="apodUrl"
-                app:argType="string" />
-        </action>
+            app:destination="@id/navigation_item_expanded" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_item_expanded"
-        android:name="uk.co.jakelee.apodwallpaper.ui.item.expanded.architecture.ItemExpandedFragment"
-        tools:layout="@layout/fragment_item_expanded" >
+        android:name="uk.co.jakelee.apodwallpaper.ui.item.ItemExpandedFragment"
+        tools:layout="@layout/fragment_expanded_item">
+        <argument
+            android:name="apodUrl"
+            app:argType="string" />
     </fragment>
 
     <fragment
