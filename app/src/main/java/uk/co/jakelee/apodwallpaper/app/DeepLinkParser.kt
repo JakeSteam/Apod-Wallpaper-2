@@ -3,7 +3,7 @@ package uk.co.jakelee.apodwallpaper.app
 import android.content.Intent
 import android.net.Uri
 
-class DeepLinkParser(val intent: Intent?) {
+class DeepLinkParser(private val intent: Intent?) {
 
     enum class LinkActions(val action: String) {
         DAY("day"),
