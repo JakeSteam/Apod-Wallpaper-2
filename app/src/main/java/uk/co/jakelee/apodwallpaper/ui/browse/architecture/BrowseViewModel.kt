@@ -43,11 +43,9 @@ class BrowseViewModel(
         }
     }
 
-    private fun fetchData() {
-        viewModelScope.launch(Dispatchers.IO) {
-            updateState { it.copy(isLoading = true, pendingDirection = null) }
-            updateState { it.copy(isLoading = false, apods = apodRepository.getApods(viewModelScope, errorCallback)) }
-        }
+    private fun fetchData() = viewModelScope.launch(Dispatchers.IO) {
+        updateState { it.copy(isLoading = true, pendingDirection = null) }
+        updateState { it.copy(isLoading = false, apods = apodRepository.getApods(viewModelScope, errorCallback)) }
     }
 
     private val errorCallback: (String) -> Unit = { error ->
@@ -56,16 +54,12 @@ class BrowseViewModel(
         }
     }
 
-    private fun openApod(apod: Apod) {
-        viewModelScope.launch(Dispatchers.IO) {
-            updateState { it.copy(isLoading = false, pendingDirection = NavigationDirections.openApod(apod, null)) }
-        }
+    private fun openApod(apod: Apod) = viewModelScope.launch(Dispatchers.IO) {
+        updateState { it.copy(isLoading = false, pendingDirection = NavigationDirections.openApod(apod, null)) }
     }
 
-    private fun clearPendingDirection() {
-        viewModelScope.launch(Dispatchers.IO) {
-            updateState { it.copy(pendingDirection = null) }
-        }
+    private fun clearPendingDirection() = viewModelScope.launch(Dispatchers.IO) {
+        updateState { it.copy(pendingDirection = null) }
     }
 
     private suspend fun updateState(handler: suspend (intent: BrowseState) -> BrowseState) {

@@ -15,7 +15,7 @@ import uk.co.jakelee.apodwallpaper.app.database.ApodRepository
 import uk.co.jakelee.apodwallpaper.model.Apod
 import java.util.*
 
-class ItemViewModel(
+class ItemExpandedViewModel(
   private val apodRepository: ApodRepository
 ) : ViewModel(), IViewModel<ItemState, ItemIntent> {
 

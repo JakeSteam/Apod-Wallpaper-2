@@ -3,7 +3,7 @@ package uk.co.jakelee.apodwallpaper.ui.item.architecture
 import uk.co.jakelee.apodwallpaper.app.architecture.IIntent
 import uk.co.jakelee.apodwallpaper.model.Apod
 
-sealed class ItemIntent : IIntent {
+sealed class ItemExpandedIntent : IIntent {
     object FetchLatest : ItemIntent()
     class OpenApod(val apod: Apod): ItemIntent()
     class OpenDate(val date: String): ItemIntent()
