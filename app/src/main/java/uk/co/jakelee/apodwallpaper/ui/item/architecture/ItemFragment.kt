@@ -30,6 +30,8 @@ class ItemFragment : Fragment(), IView<ItemState> {
     ): View? {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_item, container, false)
         binding.expand.setOnClickListener { sendIntent(ItemIntent.ExpandApod) }
+        binding.previous.setOnClickListener { sendIntent(ItemIntent.PreviousApod) }
+        binding.next.setOnClickListener { sendIntent(ItemIntent.NextApod) }
 
         itemViewModel.state.observe(viewLifecycleOwner) { render(it) }
         when {

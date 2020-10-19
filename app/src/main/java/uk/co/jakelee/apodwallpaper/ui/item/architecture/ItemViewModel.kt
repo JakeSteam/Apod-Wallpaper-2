@@ -28,6 +28,8 @@ class ItemViewModel(
     override val state: LiveData<ItemState>
         get() = _state
 
+    private var currentApod: Apod? = null
+
     init {
         subscribeToIntents()
     }
@@ -40,13 +42,13 @@ class ItemViewModel(
                     is ItemIntent.OpenDate -> fetchApod(itemIntent.date)
                     is ItemIntent.FetchLatest -> fetchLatest()
                     is ItemIntent.ExpandApod -> expandApod()
+                    is ItemIntent.PreviousApod -> openPreviousApod()
+                    is ItemIntent.NextApod -> openNextApod()
                     is ItemIntent.FollowingDirection -> clearPendingDirection()
                 }
             }
         }
     }
-
-    private var currentApod: Apod? = null
 
     private fun openApod(apod: Apod) = viewModelScope.launch(Dispatchers.IO) {
         currentApod = apod
@@ -78,6 +80,14 @@ class ItemViewModel(
         currentApod?.url?.let { url ->
             updateState { it.copy(pendingDirection = ItemFragmentDirections.expandApod(url)) }
         }
+    }
+
+    private fun openPreviousApod() {
+
+    }
+
+    private fun openNextApod() {
+
     }
 
     private fun clearPendingDirection() = viewModelScope.launch(Dispatchers.IO) {

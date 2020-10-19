@@ -8,6 +8,8 @@ sealed class ItemIntent : IIntent {
     class OpenApod(val apod: Apod): ItemIntent()
     class OpenDate(val date: String): ItemIntent()
     object ExpandApod: ItemIntent()
+    object PreviousApod: ItemIntent()
+    object NextApod: ItemIntent()
     object FollowingDirection: ItemIntent()
 }
 
