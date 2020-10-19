@@ -10,13 +10,15 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 import uk.co.jakelee.apodwallpaper.NavigationDirections
+import uk.co.jakelee.apodwallpaper.app.ApodDateParser
 import uk.co.jakelee.apodwallpaper.app.architecture.IViewModel
 import uk.co.jakelee.apodwallpaper.app.database.ApodRepository
 import uk.co.jakelee.apodwallpaper.model.Apod
 import java.util.*
 
 class ItemViewModel(
-  private val apodRepository: ApodRepository
+  private val apodRepository: ApodRepository,
+  private val apodDateParser: ApodDateParser
 ) : ViewModel(), IViewModel<ItemState, ItemIntent> {
 
     override val intents: Channel<ItemIntent> = Channel(Channel.UNLIMITED)
@@ -52,7 +54,7 @@ class ItemViewModel(
 
     private fun openApod(apod: Apod) = viewModelScope.launch(Dispatchers.IO) {
         currentApod = apod
-        updateState { it.copy(isLoading = false, errorMessage = null, apod = apod) }
+        updateState { it.copy(isLoading = false, errorMessage = null, apod = apod, ) }
     }
 
     private fun fetchApod(date: String) = viewModelScope.launch(Dispatchers.IO) {
@@ -82,12 +84,24 @@ class ItemViewModel(
         }
     }
 
-    private fun openPreviousApod() {
-
+    private fun openPreviousApod() = viewModelScope.launch(Dispatchers.IO) {
+        currentApod?.let { apod ->
+            apodDateParser.getPreviousDate(apod.date)?.let { previousDate ->
+                val previousApod = apodRepository.getApod(previousDate, true, errorCallback)
+                currentApod = previousApod
+                updateState { it.copy(isLoading = false, errorMessage = null, apod = previousApod) }
+            }
+        }
     }
 
-    private fun openNextApod() {
-
+    private fun openNextApod() = viewModelScope.launch(Dispatchers.IO) {
+        currentApod?.let { apod ->
+            apodDateParser.getNextDate(apod.date)?.let { nextDate ->
+                val nextApod = apodRepository.getApod(nextDate, true, errorCallback)
+                currentApod = nextApod
+                updateState { it.copy(isLoading = false, errorMessage = null, apod = nextApod) }
+            }
+        }
     }
 
     private fun clearPendingDirection() = viewModelScope.launch(Dispatchers.IO) {

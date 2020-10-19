@@ -37,7 +37,7 @@ val databaseModule = module {
 }
 
 val viewModelScope = module {
-    viewModel { ItemViewModel(get()) }
+    viewModel { ItemViewModel(get(), get()) }
     viewModel { BrowseViewModel(get()) }
 }
 
