@@ -53,23 +53,18 @@ class ItemViewModel(
     }
 
     private fun openApod(apod: Apod) = viewModelScope.launch(Dispatchers.IO) {
-        currentApod = apod
-        updateState { it.copy(isLoading = false, errorMessage = null, apod = apod, ) }
+        emitApod(apod)
     }
 
     private fun fetchApod(date: String) = viewModelScope.launch(Dispatchers.IO) {
         updateState { it.copy(isLoading = true, errorMessage = null, apod = null) }
-        val apod = apodRepository.getApod(date, true, errorCallback)
-        currentApod = apod
-        updateState { it.copy(isLoading = false, errorMessage = null, apod = apod) }
+        emitApod(apodRepository.getApod(date, true, errorCallback))
     }
 
     private fun fetchLatest() = viewModelScope.launch(Dispatchers.IO) {
-        val todayDate = getTodaysDate()
+        val todayDate = apodDateParser.currentApodDate()
         updateState { it.copy(isLoading = true, errorMessage = null, apod = null) }
-        val apod = apodRepository.getApod(todayDate, false, errorCallback)
-        currentApod = apod
-        updateState { it.copy(isLoading = false, errorMessage = null, apod = apod) }
+        emitApod(apodRepository.getApod(todayDate, false, errorCallback))
     }
 
     private val errorCallback: (String) -> Unit = { error ->
@@ -87,9 +82,7 @@ class ItemViewModel(
     private fun openPreviousApod() = viewModelScope.launch(Dispatchers.IO) {
         currentApod?.let { apod ->
             apodDateParser.getPreviousDate(apod.date)?.let { previousDate ->
-                val previousApod = apodRepository.getApod(previousDate, true, errorCallback)
-                currentApod = previousApod
-                updateState { it.copy(isLoading = false, errorMessage = null, apod = previousApod) }
+                emitApod(apodRepository.getApod(previousDate, true, errorCallback))
             }
         }
     }
@@ -97,11 +90,14 @@ class ItemViewModel(
     private fun openNextApod() = viewModelScope.launch(Dispatchers.IO) {
         currentApod?.let { apod ->
             apodDateParser.getNextDate(apod.date)?.let { nextDate ->
-                val nextApod = apodRepository.getApod(nextDate, true, errorCallback)
-                currentApod = nextApod
-                updateState { it.copy(isLoading = false, errorMessage = null, apod = nextApod) }
+                emitApod(apodRepository.getApod(nextDate, true, errorCallback))
             }
         }
+    }
+
+    private suspend fun emitApod(apod: Apod?) {
+        currentApod = apod
+        updateState { it.copy(isLoading = false, errorMessage = null, apod = apod) }
     }
 
     private fun clearPendingDirection() = viewModelScope.launch(Dispatchers.IO) {

@@ -43,6 +43,8 @@ class ApodDateParser {
         return null
     }
 
+    fun currentApodDate(): String = calendarToApodDate(Calendar.getInstance())
+
     private fun apodDateToCalendar(apodDate: String): Calendar? {
         return try {
             val calendar = Calendar.getInstance()
