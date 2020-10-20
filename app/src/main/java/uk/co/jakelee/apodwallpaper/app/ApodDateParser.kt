@@ -8,7 +8,7 @@ class ApodDateParser {
 
     data class ApodDateRange(val startDate: String, val endDate: String)
 
-    private val apodDateFormat = SimpleDateFormat("yyyy-MM-dd")
+    private val apodDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT)
 
     fun pageToDateRange(page: Int): ApodDateRange {
         val targetDate = Calendar.getInstance()
