@@ -10,13 +10,15 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 import uk.co.jakelee.apodwallpaper.NavigationDirections
+import uk.co.jakelee.apodwallpaper.app.ApodDateParser
 import uk.co.jakelee.apodwallpaper.app.architecture.IViewModel
 import uk.co.jakelee.apodwallpaper.app.database.ApodRepository
 import uk.co.jakelee.apodwallpaper.model.Apod
 import java.util.*
 
 class ItemViewModel(
-  private val apodRepository: ApodRepository
+  private val apodRepository: ApodRepository,
+  private val apodDateParser: ApodDateParser
 ) : ViewModel(), IViewModel<ItemState, ItemIntent> {
 
     override val intents: Channel<ItemIntent> = Channel(Channel.UNLIMITED)
@@ -27,6 +29,8 @@ class ItemViewModel(
 
     override val state: LiveData<ItemState>
         get() = _state
+
+    private var currentApod: Apod? = null
 
     init {
         subscribeToIntents()
@@ -40,32 +44,27 @@ class ItemViewModel(
                     is ItemIntent.OpenDate -> fetchApod(itemIntent.date)
                     is ItemIntent.FetchLatest -> fetchLatest()
                     is ItemIntent.ExpandApod -> expandApod()
+                    is ItemIntent.PreviousApod -> openPreviousApod()
+                    is ItemIntent.NextApod -> openNextApod()
                     is ItemIntent.FollowingDirection -> clearPendingDirection()
                 }
             }
         }
     }
 
-    private var currentApod: Apod? = null
-
     private fun openApod(apod: Apod) = viewModelScope.launch(Dispatchers.IO) {
-        currentApod = apod
-        updateState { it.copy(isLoading = false, errorMessage = null, apod = apod) }
+        emitApod(apod)
     }
 
     private fun fetchApod(date: String) = viewModelScope.launch(Dispatchers.IO) {
         updateState { it.copy(isLoading = true, errorMessage = null, apod = null) }
-        val apod = apodRepository.getApod(date, true, errorCallback)
-        currentApod = apod
-        updateState { it.copy(isLoading = false, errorMessage = null, apod = apod) }
+        emitApod(apodRepository.getApod(date, true, errorCallback))
     }
 
     private fun fetchLatest() = viewModelScope.launch(Dispatchers.IO) {
-        val todayDate = getTodaysDate()
+        val todayDate = apodDateParser.currentApodDate()
         updateState { it.copy(isLoading = true, errorMessage = null, apod = null) }
-        val apod = apodRepository.getApod(todayDate, false, errorCallback)
-        currentApod = apod
-        updateState { it.copy(isLoading = false, errorMessage = null, apod = apod) }
+        emitApod(apodRepository.getApod(todayDate, false, errorCallback))
     }
 
     private val errorCallback: (String) -> Unit = { error ->
@@ -80,6 +79,30 @@ class ItemViewModel(
         }
     }
 
+    private fun openPreviousApod() = viewModelScope.launch(Dispatchers.IO) {
+        currentApod?.let { apod ->
+            apodDateParser.getPreviousDate(apod.date)?.let { previousDate ->
+                emitApod(apodRepository.getApod(previousDate, true, errorCallback))
+            }
+        }
+    }
+
+    private fun openNextApod() = viewModelScope.launch(Dispatchers.IO) {
+        currentApod?.let { apod ->
+            val nextDate = apodDateParser.getNextDate(apod.date)
+            if (nextDate != null) {
+                emitApod(apodRepository.getApod(nextDate, true, errorCallback))
+            } else {
+                errorCallback.invoke("You're already viewing the latest APOD!")
+            }
+        }
+    }
+
+    private suspend fun emitApod(apod: Apod?) {
+        currentApod = apod
+        updateState { it.copy(isLoading = false, errorMessage = null, apod = apod) }
+    }
+
     private fun clearPendingDirection() = viewModelScope.launch(Dispatchers.IO) {
         updateState { it.copy(pendingDirection = null) }
     }
@@ -88,9 +111,4 @@ class ItemViewModel(
         _state.postValue(handler(state.value!!))
     }
 
-    // TODO: Extract to a general "get APOD style date" class
-    private fun getTodaysDate(): String {
-        val cal = Calendar.getInstance()
-        return "${cal.get(Calendar.YEAR)}-${cal.get(Calendar.MONTH) + 1}-${cal.get(Calendar.DAY_OF_MONTH)}"
-    }
 }

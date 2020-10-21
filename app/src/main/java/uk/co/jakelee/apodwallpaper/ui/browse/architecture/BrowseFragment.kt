@@ -63,7 +63,7 @@ class BrowseFragment : Fragment(), IView<BrowseState> {
     }
 
     private fun renderError(error: String) {
-        Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_INDEFINITE).apply {
+        Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_LONG).apply {
             setAction(R.string.button_retry) { sendIntent(BrowseIntent.FetchApods) }
             show()
         }

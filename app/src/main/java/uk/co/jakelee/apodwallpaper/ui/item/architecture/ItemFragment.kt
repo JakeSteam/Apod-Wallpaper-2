@@ -9,19 +9,29 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.datepicker.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_item.*
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 import uk.co.jakelee.apodwallpaper.R
+import uk.co.jakelee.apodwallpaper.app.ApodDateParser
 import uk.co.jakelee.apodwallpaper.app.architecture.IView
 import uk.co.jakelee.apodwallpaper.databinding.FragmentItemBinding
+import java.util.*
 
-class ItemFragment : Fragment(), IView<ItemState> {
+class ItemFragment() : Fragment(), IView<ItemState> {
 
     private lateinit var binding: FragmentItemBinding
     private val itemViewModel: ItemViewModel by viewModel()
     private val args: ItemFragmentArgs by navArgs()
+
+    private val parser = ApodDateParser()
+    private val calendarConstraint = CalendarConstraints.Builder()
+        .setValidator(CompositeDateValidator.allOf(listOf(
+            DateValidatorPointForward.from(Calendar.getInstance().apply { set(1995, 5, 15) }.timeInMillis),
+            DateValidatorPointBackward.now()
+        ))).build()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,7 +39,10 @@ class ItemFragment : Fragment(), IView<ItemState> {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_item, container, false)
+        binding.previous.setOnClickListener { sendIntent(ItemIntent.PreviousApod) }
+        binding.calendar.setOnClickListener { showDatePicker() }
         binding.expand.setOnClickListener { sendIntent(ItemIntent.ExpandApod) }
+        binding.next.setOnClickListener { sendIntent(ItemIntent.NextApod) }
 
         itemViewModel.state.observe(viewLifecycleOwner) { render(it) }
         when {
@@ -37,7 +50,6 @@ class ItemFragment : Fragment(), IView<ItemState> {
             args.date != null -> sendIntent(ItemIntent.OpenDate(args.date.toString()))
             else -> sendIntent(ItemIntent.FetchLatest)
         }
-
         return binding.root
     }
 
@@ -54,7 +66,7 @@ class ItemFragment : Fragment(), IView<ItemState> {
     }
 
     private fun renderError(error: String) {
-        Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_INDEFINITE).apply {
+        Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_LONG).apply {
             setAction(R.string.button_retry) { sendIntent(ItemIntent.FetchLatest) }
             show()
         }
@@ -64,5 +76,23 @@ class ItemFragment : Fragment(), IView<ItemState> {
         lifecycleScope.launch {
             itemViewModel.intents.send(intent)
         }
+    }
+
+    private fun showDatePicker() {
+        val currentDate = binding.apod?.date?.let {
+            parser.apodDateToCalendar(it)?.timeInMillis
+        }
+        MaterialDatePicker.Builder.datePicker()
+            .setSelection(currentDate ?: System.currentTimeMillis())
+            .setCalendarConstraints(calendarConstraint)
+            .build()
+            .apply { addOnPositiveButtonClickListener { handleCalendarResult(it) } }
+            .show(childFragmentManager, "")
+    }
+
+    private fun handleCalendarResult(time: Long) {
+        val cal = Calendar.getInstance().apply { timeInMillis = time }
+        val targetDate = parser.calendarToApodDate(cal)
+        sendIntent(ItemIntent.OpenDate(targetDate))
     }
 }
