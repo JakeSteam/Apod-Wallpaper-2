@@ -1,5 +1,6 @@
 package uk.co.jakelee.apodwallpaper.app.di
 
+import android.app.WallpaperManager
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
 import uk.co.jakelee.apodwallpaper.network.ApodApi
@@ -8,6 +9,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import uk.co.jakelee.apodwallpaper.app.ApodDateParser
+import uk.co.jakelee.apodwallpaper.app.WallpaperHandler
 import uk.co.jakelee.apodwallpaper.app.database.ApodRepository
 import uk.co.jakelee.apodwallpaper.app.database.AppDatabase
 import uk.co.jakelee.apodwallpaper.ui.browse.architecture.BrowseViewModel
@@ -45,6 +47,10 @@ val apiModule = module {
     fun provideUserApi(retrofit: Retrofit): ApodApi {
         return retrofit.create(ApodApi::class.java)
     }
-
     single { provideUserApi(get()) }
+}
+
+val wallpaperModule = module {
+    single { WallpaperManager.getInstance(get()) }
+    single { WallpaperHandler(get()) }
 }
