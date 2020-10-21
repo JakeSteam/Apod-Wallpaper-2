@@ -45,11 +45,12 @@ class ApodDateParser {
 
     fun currentApodDate(): String = calendarToApodDate(Calendar.getInstance())
 
-    private fun apodDateToCalendar(apodDate: String): Calendar? {
+    fun apodDateToCalendar(apodDate: String): Calendar? {
         return try {
             val calendar = Calendar.getInstance()
             apodDateFormat.parse(apodDate)?.let {
                 calendar.time = it
+                calendar.add(Calendar.HOUR, 12)
                 return calendar
             }
             null
