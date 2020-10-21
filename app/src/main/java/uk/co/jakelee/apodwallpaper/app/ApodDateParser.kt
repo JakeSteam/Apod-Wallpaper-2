@@ -36,7 +36,7 @@ class ApodDateParser {
         apodDateToCalendar(date)?.let {
             it.add(Calendar.DAY_OF_YEAR, 1)
             val now = Calendar.getInstance()
-            if (it.get(Calendar.YEAR) < now.get(Calendar.YEAR) || it.get(Calendar.DAY_OF_YEAR) < now.get(Calendar.DAY_OF_YEAR)) {
+            if (it.get(Calendar.YEAR) <= now.get(Calendar.YEAR) && it.get(Calendar.DAY_OF_YEAR) <= now.get(Calendar.DAY_OF_YEAR)) {
                 return calendarToApodDate(it)
             }
         }
@@ -58,5 +58,5 @@ class ApodDateParser {
         }
     }
 
-    private fun calendarToApodDate(calendar: Calendar) = apodDateFormat.format(calendar.time)
+    fun calendarToApodDate(calendar: Calendar) = apodDateFormat.format(calendar.time)
 }

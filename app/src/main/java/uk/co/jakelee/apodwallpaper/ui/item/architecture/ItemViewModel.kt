@@ -89,8 +89,11 @@ class ItemViewModel(
 
     private fun openNextApod() = viewModelScope.launch(Dispatchers.IO) {
         currentApod?.let { apod ->
-            apodDateParser.getNextDate(apod.date)?.let { nextDate ->
+            val nextDate = apodDateParser.getNextDate(apod.date)
+            if (nextDate != null) {
                 emitApod(apodRepository.getApod(nextDate, true, errorCallback))
+            } else {
+                errorCallback.invoke("You're already viewing the latest APOD!")
             }
         }
     }

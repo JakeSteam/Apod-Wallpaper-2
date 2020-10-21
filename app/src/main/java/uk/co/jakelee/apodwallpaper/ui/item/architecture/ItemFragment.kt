@@ -9,13 +9,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_item.*
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 import uk.co.jakelee.apodwallpaper.R
+import uk.co.jakelee.apodwallpaper.app.ApodDateParser
 import uk.co.jakelee.apodwallpaper.app.architecture.IView
 import uk.co.jakelee.apodwallpaper.databinding.FragmentItemBinding
+import java.util.*
 
 class ItemFragment : Fragment(), IView<ItemState> {
 
@@ -30,6 +33,16 @@ class ItemFragment : Fragment(), IView<ItemState> {
     ): View? {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_item, container, false)
         binding.expand.setOnClickListener { sendIntent(ItemIntent.ExpandApod) }
+        binding.calendar.setOnClickListener {
+            val picker = MaterialDatePicker.Builder.datePicker().build()
+            picker.addOnPositiveButtonClickListener {
+                val parser = ApodDateParser()
+                val a = Calendar.getInstance()
+                a.timeInMillis = it
+                sendIntent(ItemIntent.OpenDate(parser.calendarToApodDate(a)))
+            }
+            picker.show(requireFragmentManager(), "a")
+        }
         binding.previous.setOnClickListener { sendIntent(ItemIntent.PreviousApod) }
         binding.next.setOnClickListener { sendIntent(ItemIntent.NextApod) }
 

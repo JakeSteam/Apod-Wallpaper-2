@@ -7,6 +7,7 @@ sealed class ItemIntent : IIntent {
     object FetchLatest : ItemIntent()
     class OpenApod(val apod: Apod): ItemIntent()
     class OpenDate(val date: String): ItemIntent()
+    object OpenCalendar: ItemIntent()
     object ExpandApod: ItemIntent()
     object PreviousApod: ItemIntent()
     object NextApod: ItemIntent()
