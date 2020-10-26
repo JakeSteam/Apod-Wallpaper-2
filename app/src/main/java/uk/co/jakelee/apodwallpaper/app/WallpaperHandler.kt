@@ -13,6 +13,8 @@ class WallpaperHandler(
     fun updateWallpaper(bitmap: Bitmap) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N || manager.isSetWallpaperAllowed) {
             manager.setBitmap(bitmap)
+        } else {
+            Log.i("WALL", "Can't set wallpaper ")
         }
     }
 
