@@ -31,6 +31,9 @@ buildscript {
         // DI
         koin_version = "2.1.5"
 
+        // WorkManager
+        workmanager_version = "2.4.0"
+
         // Testing
         junit_version = "4.13"
         test_junit_version = "1.1.2"
