@@ -7,11 +7,12 @@ import kotlinx.coroutines.coroutineScope
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import uk.co.jakelee.apodwallpaper.app.ApodDateParser
+import uk.co.jakelee.apodwallpaper.app.NotificationHelper
 import uk.co.jakelee.apodwallpaper.app.database.ApodRepository
 import java.util.concurrent.TimeUnit
 
 class ApodWorker(
-    appContext: Context,
+    private val appContext: Context,
     workerParams: WorkerParameters
 ): CoroutineWorker(appContext, workerParams), KoinComponent {
 
@@ -23,14 +24,14 @@ class ApodWorker(
         // check apod
         val apod = apodRepository.getApod(apodDateParser.currentApodDate(), false, null)
         Log.i("WORK", "Apod? ${apod?.title}")
+        apod?.let {
+            // download
 
-        // download apod to file
+            // set as wallpaper
 
-        // set as wallpaper
-
-        // notify
-
-        // Indicate whether the work finished successfully with the Result
+            // notify
+            NotificationHelper(appContext).show(it)
+        }
         Result.success()
     }
 
