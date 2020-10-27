@@ -1,39 +1,25 @@
 package uk.co.jakelee.apodwallpaper.ui.settings
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.navigation.fragment.findNavController
 import androidx.preference.*
 import uk.co.jakelee.apodwallpaper.R
 
-class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
+class SettingsFragment : SettingsBaseFragment() {
+
+    override val preferencesFile = R.xml.preferences
+
+    override fun onSwitchPreferenceChanged(pref: SwitchPreferenceCompat) {}
+
+    override fun onEditTextPreferenceChanged(pref: EditTextPreference) {}
+
+    override fun onSeekBarPreferenceChanged(pref: SeekBarPreference) {}
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setHasOptionsMenu(true)
-        addPreferencesFromResource(R.xml.preferences)
-
+        super.onCreatePreferences(savedInstanceState, rootKey)
         findPreference<Preference>("toNotifications")?.setOnPreferenceClickListener {
             findNavController().navigate(R.id.open_settings_notifications)
             true
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        preferenceManager.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
-    }
-
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
-        val pref: Preference = findPreference(key) ?: return
-        when (pref) {
-            is SwitchPreferenceCompat -> { }
-            is EditTextPreference -> { }
-            is SeekBarPreference -> { }
         }
     }
 }
