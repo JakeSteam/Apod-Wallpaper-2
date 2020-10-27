@@ -3,19 +3,35 @@ package uk.co.jakelee.apodwallpaper.app.work
 import android.content.Context
 import android.util.Log
 import androidx.work.*
+import kotlinx.coroutines.coroutineScope
+import org.koin.core.KoinComponent
+import org.koin.core.inject
+import uk.co.jakelee.apodwallpaper.app.ApodDateParser
+import uk.co.jakelee.apodwallpaper.app.database.ApodRepository
 import java.util.concurrent.TimeUnit
 
-class ApodWorker(appContext: Context, workerParams: WorkerParameters):
-    Worker(appContext, workerParams) {
-    override fun doWork(): Result {
+class ApodWorker(
+    appContext: Context,
+    workerParams: WorkerParameters
+): CoroutineWorker(appContext, workerParams), KoinComponent {
+
+    private val apodRepository: ApodRepository by inject()
+    private val apodDateParser = ApodDateParser()
+
+    override suspend fun doWork() = coroutineScope {
         Log.i("WORK", "Starting work!")
         // check apod
+        val apod = apodRepository.getApod(apodDateParser.currentApodDate(), false, null)
+        Log.i("WORK", "Apod? ${apod?.title}")
+
         // download apod to file
+
         // set as wallpaper
+
         // notify
 
         // Indicate whether the work finished successfully with the Result
-        return Result.success()
+        Result.success()
     }
 
     companion object {
@@ -29,7 +45,7 @@ class ApodWorker(appContext: Context, workerParams: WorkerParameters):
 
         fun getOneOffWorkRequest(): WorkRequest {
             return OneTimeWorkRequestBuilder<ApodWorker>()
-                .setInitialDelay(2, TimeUnit.MINUTES)
+                .setInitialDelay(1, TimeUnit.MINUTES)
                 .build()
         }
     }
