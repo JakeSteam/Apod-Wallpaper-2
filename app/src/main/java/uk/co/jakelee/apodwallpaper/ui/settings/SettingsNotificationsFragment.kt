@@ -2,20 +2,14 @@ package uk.co.jakelee.apodwallpaper.ui.settings
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.navigation.fragment.findNavController
 import androidx.preference.*
 import uk.co.jakelee.apodwallpaper.R
 
-class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
+class SettingsNotificationsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setHasOptionsMenu(true)
-        addPreferencesFromResource(R.xml.preferences)
-
-        findPreference<Preference>("toNotifications")?.setOnPreferenceClickListener {
-            findNavController().navigate(R.id.open_settings_notifications)
-            true
-        }
+        addPreferencesFromResource(R.xml.preferences_notifications)
     }
 
     override fun onResume() {

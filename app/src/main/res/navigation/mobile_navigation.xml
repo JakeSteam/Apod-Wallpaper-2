@@ -49,12 +49,21 @@
     <fragment
         android:id="@+id/navigation_settings"
         android:name="uk.co.jakelee.apodwallpaper.ui.settings.SettingsFragment"
-        android:label="@string/title_settings"
-        tools:layout="@layout/fragment_settings" />
+        android:label="@string/title_settings" >
+        <action
+            android:id="@+id/open_settings_notifications"
+            app:destination="@id/navigation_settings_notifications" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_settings_notifications"
+        android:name="uk.co.jakelee.apodwallpaper.ui.settings.SettingsNotificationsFragment"
+        android:label="@string/title_settings"  />
 
     <fragment
         android:id="@+id/navigation_more"
         android:name="uk.co.jakelee.apodwallpaper.ui.more.MoreFragment"
         android:label="@string/title_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_more" />
+
 </navigation>
