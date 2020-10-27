@@ -1,6 +1,7 @@
 package uk.co.jakelee.apodwallpaper.ui.item.architecture
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.work.WorkManager
 import com.google.android.material.datepicker.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_item.*
@@ -17,6 +19,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import uk.co.jakelee.apodwallpaper.R
 import uk.co.jakelee.apodwallpaper.app.ApodDateParser
 import uk.co.jakelee.apodwallpaper.app.architecture.IView
+import uk.co.jakelee.apodwallpaper.app.work.ApodWorker
 import uk.co.jakelee.apodwallpaper.databinding.FragmentItemBinding
 import java.util.*
 
@@ -43,6 +46,10 @@ class ItemFragment() : Fragment(), IView<ItemState> {
         binding.calendar.setOnClickListener { showDatePicker() }
         binding.expand.setOnClickListener { sendIntent(ItemIntent.ExpandApod) }
         binding.next.setOnClickListener { sendIntent(ItemIntent.NextApod) }
+        binding.save.setOnClickListener {
+            Log.i("WORK", "Scheduling work!")
+            WorkManager.getInstance(requireContext()).enqueue(ApodWorker.getOneOffWorkRequest())
+        }
 
         itemViewModel.state.observe(viewLifecycleOwner) { render(it) }
         when {
