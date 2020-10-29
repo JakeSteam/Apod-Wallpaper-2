@@ -43,12 +43,30 @@
     <string name="scheduling_settings">Scheduling Settings</string>
     <string name="to_scheduling_settings">toScheduling</string>
 
-    <string name="pref_sync_time">pref_sync_time</string>
-    <string name="pref_sync_time_title">Sync time</string>
-    <string name="pref_sync_time_desc">The hour of day to sync for wallpapers</string>
-    <integer name="pref_sync_time_default_value">7</integer>
-    <integer name="pref_sync_time_min">0</integer>
-    <integer name="pref_sync_time_max">23</integer>
+    <string name="pref_category_scheduling_timing">Timing</string>
+
+    <string name="pref_sync_hour">pref_sync_hour</string>
+    <string name="pref_sync_hour_title">Sync hour</string>
+    <string name="pref_sync_hour_desc">The hour of day to sync</string>
+    <integer name="pref_sync_hour_default_value">7</integer>
+    <integer name="pref_sync_hour_min">0</integer>
+    <integer name="pref_sync_hour_max">23</integer>
+
+    <string name="pref_sync_minute">pref_sync_minute</string>
+    <string name="pref_sync_minute_title">Sync minute</string>
+    <string name="pref_sync_minute_desc">The minutes past the hour to sync</string>
+    <integer name="pref_sync_minute_default_value">0</integer>
+    <integer name="pref_sync_minute_min">0</integer>
+    <integer name="pref_sync_minute_max">59</integer>
+
+    <string name="pref_sync_flexibility">pref_sync_flexibility</string>
+    <string name="pref_sync_flexibility_title">Flexibility minutes</string>
+    <string name="pref_sync_flexibility_desc">How many minutes the sync time can be \"off\" by. Higher values may improve battery usage.</string>
+    <integer name="pref_sync_flexibility_default_value">60</integer>
+    <integer name="pref_sync_flexibility_min">0</integer>
+    <integer name="pref_sync_flexibility_max">300</integer>
+
+    <string name="pref_category_scheduling_constraints">Constraints</string>
 
     <string name="pref_wifi_only">pref_wifi_only</string>
     <string name="pref_wifi_only_title">WiFi only</string>

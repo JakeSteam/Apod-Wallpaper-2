@@ -2,15 +2,36 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <PreferenceCategory app:title="@string/pref_category_scheduling_timing">
     <SeekBarPreference
         app:key="@string/pref_sync_hour"
         app:title="@string/pref_sync_hour_title"
         app:summary="@string/pref_sync_hour_desc"
-        app:defaultValue="@integer/pref_sync_e_default_value"
-        app:min="@integer/pref_sync_time_min"
-        android:max="@integer/pref_sync_time_max"
+        app:defaultValue="@integer/pref_sync_hour_default_value"
+        app:min="@integer/pref_sync_hour_min"
+        android:max="@integer/pref_sync_hour_max"
         app:showSeekBarValue="true"/>
 
+    <SeekBarPreference
+        app:key="@string/pref_sync_minute"
+        app:title="@string/pref_sync_minute_title"
+        app:summary="@string/pref_sync_minute_desc"
+        app:defaultValue="@integer/pref_sync_minute_default_value"
+        app:min="@integer/pref_sync_minute_min"
+        android:max="@integer/pref_sync_minute_max"
+        app:showSeekBarValue="true"/>
+
+        <SeekBarPreference
+            app:key="@string/pref_sync_flexibility"
+            app:title="@string/pref_sync_flexibility_title"
+            app:summary="@string/pref_sync_flexibility_desc"
+            app:defaultValue="@integer/pref_sync_flexibility_default_value"
+            app:min="@integer/pref_sync_flexibility_min"
+            android:max="@integer/pref_sync_flexibility_max"
+            app:showSeekBarValue="true"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/pref_category_scheduling_constraints">
     <SwitchPreferenceCompat
         app:defaultValue="@string/pref_wifi_only_default_value"
         app:key="@string/pref_wifi_only"
@@ -28,5 +49,6 @@
         app:key="@string/pref_lowbatteryoff_only"
         app:summary="@string/pref_lowbatteryoff_only_desc"
         app:title="@string/pref_lowbatteryoff_only_title" />
+    </PreferenceCategory>
 
 </PreferenceScreen>
