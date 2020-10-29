@@ -25,6 +25,7 @@
     <string name="pref_generate_key_title">Request a custom key</string>
     <string name="pref_generate_key_desc">A custom key improves reliability, and only requires a name &amp; email.</string>
     <string name="pref_generate_key_url">https://api.nasa.gov/</string>
+    <string name="to_generate_key">toGenerateKey</string>
     <string name="pref_category_other_settings">Other settings</string>
 
     <!-- Advanced -->
@@ -38,6 +39,77 @@
     <!-- Notifications -->
     <string name="notification_settings">Notification Settings</string>
     <string name="to_notification_settings">toNotifications</string>
+
+    <string name="pref_category_notifications_preview">Preview</string>
+
+    <string name="to_preview_notification">toPreviewNotification</string>
+    <string name="pref_preview_notification_title">Preview notification</string>
+    <string name="pref_preview_notification_desc">Display a notification now to check your settings.</string>
+
+    <string name="pref_category_notifications_configure">Configure</string>
+
+    <string name="pref_notif_enabled">pref_notif_enabled</string>
+    <string name="pref_notif_enabled_title">Display notifications</string>
+    <string name="pref_notif_enabled_desc">When enabled, you will receive notifications when a new image has been downloaded.</string>
+    <string name="pref_notif_enabled_default_value">true</string>
+
+    <string name="pref_notif_led">pref_notif_led</string>
+    <string name="pref_notif_led_title">LED</string>
+    <string name="pref_notif_led_desc">When enabled, the notification will light up your LED (if available).</string>
+    <string name="pref_notif_led_default_value">true</string>
+
+    <string name="pref_notif_led_colour">pref_notif_led_colour</string>
+    <string name="pref_notif_led_colour_title">LED Colour</string>
+    <string name="pref_notif_led_colour_default_value">White</string>
+    <string-array name="pref_notif_led_colour_keys">
+        <item>White</item>
+        <item>Silver</item>
+        <item>Grey</item>
+        <item>Aqua</item>
+        <item>Teal</item>
+        <item>Red</item>
+        <item>Maroon</item>
+        <item>Fuchsia</item>
+        <item>Purple</item>
+        <item>Lime</item>
+        <item>Green</item>
+        <item>Yellow</item>
+        <item>Olive</item>
+        <item>Blue</item>
+        <item>Navy</item>
+    </string-array>
+    <string-array name="pref_notif_led_colour_values">
+        <item>#FFFFFF</item>
+        <item>#C0C0C0</item>
+        <item>#808080</item>
+        <item>#00FFFF</item>
+        <item>#008080</item>
+        <item>#FF0000</item>
+        <item>#800000</item>
+        <item>#FF00FF</item>
+        <item>#800080</item>
+        <item>#00FF00</item>
+        <item>#008000</item>
+        <item>#FFFF00</item>
+        <item>#808000</item>
+        <item>#0000FF</item>
+        <item>#000080</item>
+    </string-array>
+
+    <string name="pref_notif_sound">pref_notif_sound</string>
+    <string name="pref_notif_sound_title">Sound</string>
+    <string name="pref_notif_sound_desc">When enabled, the notification will make a little beep noise.</string>
+    <string name="pref_notif_sound_default_value">false</string>
+
+    <string name="pref_notif_vibrate">pref_notif_vibrate</string>
+    <string name="pref_notif_vibrate_title">Vibrate</string>
+    <string name="pref_notif_vibrate_desc">When enabled, the notification will vibrate once.</string>
+    <string name="pref_notif_vibrate_default_value">true</string>
+
+    <string name="pref_notif_preview">pref_notif_preview</string>
+    <string name="pref_notif_preview_title">Rich preview</string>
+    <string name="pref_notif_preview_desc">When enabled, the notification can be expanded to view the image instead of the description.</string>
+    <string name="pref_notif_preview_default_value">true</string>
 
     <!-- Scheduling -->
     <string name="scheduling_settings">Scheduling Settings</string>
@@ -61,7 +133,7 @@
 
     <string name="pref_sync_flexibility">pref_sync_flexibility</string>
     <string name="pref_sync_flexibility_title">Flexibility minutes</string>
-    <string name="pref_sync_flexibility_desc">How many minutes the sync time can be \"off\" by. Higher values may improve battery usage.</string>
+    <string name="pref_sync_flexibility_desc">How many minutes the sync time can be \"off\" by. Higher values may improve battery usage</string>
     <integer name="pref_sync_flexibility_default_value">60</integer>
     <integer name="pref_sync_flexibility_min">0</integer>
     <integer name="pref_sync_flexibility_max">300</integer>
@@ -87,6 +159,4 @@
     <string name="storage_settings">Storage Settings</string>
     <string name="to_storage_settings">toStorage</string>
 
-    <!-- Other -->
-    <string name="to_generate_key">toGenerateKey</string>
 </resources>

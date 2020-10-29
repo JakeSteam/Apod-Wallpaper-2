@@ -1,13 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <SwitchPreferenceCompat
-        app:key="notificationsd"
-        app:title="Enable message notifications"/>
+    <PreferenceCategory app:title="@string/pref_category_notifications_preview">
+        <Preference
+            app:key="@string/to_preview_notification"
+            app:persistent="false"
+            app:dependency="@string/pref_notif_enabled"
+            app:summary="@string/pref_preview_notification_desc"
+            app:title="@string/pref_preview_notification_title" />
+    </PreferenceCategory>
 
-    <Preference
-        app:key="feedback"
-        app:title="Send feedback"
-        app:summary="Report technical issues or suggest new features"/>
+    <PreferenceCategory app:title="@string/pref_category_notifications_configure">
+        <SwitchPreferenceCompat
+            app:defaultValue="@string/pref_notif_enabled_default_value"
+            app:key="@string/pref_notif_enabled"
+            app:summary="@string/pref_notif_enabled_desc"
+            app:title="@string/pref_notif_enabled_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="@string/pref_notif_led_default_value"
+            app:dependency="@string/pref_notif_enabled"
+            app:key="@string/pref_notif_led"
+            app:summary="@string/pref_notif_led_desc"
+            app:title="@string/pref_notif_led_title" />
+
+        <ListPreference
+            app:key="@string/pref_notif_led_colour"
+            app:defaultValue="@string/pref_notif_led_colour_default_value"
+            app:dependency="@string/pref_notif_led"
+            app:useSimpleSummaryProvider="true"
+            app:entries="@array/pref_notif_led_colour_keys"
+            app:entryValues="@array/pref_notif_led_colour_values"
+            app:title="@string/pref_notif_led_colour_title"/>
+
+        <SwitchPreferenceCompat
+            app:defaultValue="@string/pref_notif_sound_default_value"
+            app:key="@string/pref_notif_sound"
+            app:dependency="@string/pref_notif_enabled"
+            app:summary="@string/pref_notif_sound_desc"
+            app:title="@string/pref_notif_sound_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="@string/pref_notif_vibrate_default_value"
+            app:key="@string/pref_notif_vibrate"
+            app:dependency="@string/pref_notif_enabled"
+            app:summary="@string/pref_notif_vibrate_desc"
+            app:title="@string/pref_notif_vibrate_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="@string/pref_notif_preview_default_value"
+            app:key="@string/pref_notif_preview"
+            app:dependency="@string/pref_notif_enabled"
+            app:summary="@string/pref_notif_preview_desc"
+            app:title="@string/pref_notif_preview_title" />
+    </PreferenceCategory>
 
 </PreferenceScreen>
