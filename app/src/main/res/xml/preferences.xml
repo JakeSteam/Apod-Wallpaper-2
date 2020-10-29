@@ -1,38 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <PreferenceCategory app:title="@string/pref_category_custom_key">
+
+    <EditTextPreference
+        app:key="@string/pref_custom_key"
+        app:title="@string/pref_custom_key_title"
+        app:dialogTitle="@string/pref_custom_key_dialog_title"
+        app:dialogMessage="@string/pref_custom_key_dialog_desc"
+        app:useSimpleSummaryProvider="true"/>
+
     <Preference
-        app:key="toAdvanced"
+        app:key="@string/to_generate_key"
         app:persistent="false"
-        app:title="Advanced" />
+        app:title="@string/pref_generate_key_title"
+        app:summary="@string/pref_generate_key_desc"/>
+    </PreferenceCategory>
 
+    <PreferenceCategory app:title="@string/pref_category_other_settings">
     <Preference
-        app:key="toImages"
+        app:key="@string/to_advanced_settings"
         app:persistent="false"
-        app:title="Images" />
+        app:title="@string/advanced_settings" />
 
     <Preference
-        app:key="toNotifications"
+        app:key="@string/to_image_settings"
         app:persistent="false"
-        app:title="Notifications" />
+        app:title="@string/image_settings" />
 
     <Preference
-        app:key="toScheduling"
+        app:key="@string/to_notification_settings"
         app:persistent="false"
-        app:title="Scheduling" />
+        app:title="@string/notification_settings" />
 
     <Preference
-        app:key="toStorage"
+        app:key="@string/to_scheduling_settings"
         app:persistent="false"
-        app:title="Storage" />
-
-    <SwitchPreferenceCompat
-        app:key="notificationsd"
-        app:title="Home"/>
+        app:title="@string/scheduling_settings" />
 
     <Preference
-        app:key="feedback"
-        app:title="Send feedback"
-        app:summary="Report technical issues or suggest new features"/>
+        app:key="@string/to_storage_settings"
+        app:persistent="false"
+        app:title="@string/storage_settings" />
+    </PreferenceCategory>
 
 </PreferenceScreen>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- General -->
+    <string name="pref_category_custom_key">Custom key</string>
+    <string name="pref_custom_key">pref_custom_key</string>
+    <string name="pref_custom_key_title">Set custom APOD key (Recommended)</string>
+    <string name="pref_custom_key_dialog_title">Set custom APOD key</string>
+    <string name="pref_custom_key_dialog_desc">Using a custom APOD key ensures greater reliability, follow the link on the main settings screen for help generating one.</string>
+    <string name="pref_custom_key_default"></string>
+
+    <string name="pref_generate_key_title">Request a custom key</string>
+    <string name="pref_generate_key_desc">A custom key improves reliability, and only requires a name &amp; email.</string>
+
+    <string name="pref_category_other_settings">Other settings</string>
+    <!-- Advanced -->
+    <string name="advanced_settings">Advanced Settings</string>
+    <string name="to_advanced_settings">toAdvanced</string>
+
+    <!-- Images -->
+    <string name="image_settings">Image Settings</string>
+    <string name="to_image_settings">toImages</string>
+
+    <!-- Notifications -->
+    <string name="notification_settings">Notification Settings</string>
+    <string name="to_notification_settings">toNotifications</string>
+
+    <!-- Scheduling -->
+    <string name="scheduling_settings">Scheduling Settings</string>
+    <string name="to_scheduling_settings">toScheduling</string>
+
+    <!-- Storage -->
+    <string name="storage_settings">Storage Settings</string>
+    <string name="to_storage_settings">toStorage</string>
+
+    <!-- Other -->
+    <string name="to_generate_key">toGenerateKey</string>
+</resources>
