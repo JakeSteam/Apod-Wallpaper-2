@@ -13,6 +13,14 @@ abstract class SettingsBaseFragment: PreferenceFragmentCompat(), SharedPreferenc
     abstract fun onSwitchPreferenceChanged(pref: SwitchPreferenceCompat)
     abstract fun onEditTextPreferenceChanged(pref: EditTextPreference)
     abstract fun onSeekBarPreferenceChanged(pref: SeekBarPreference)
+    abstract fun onNavigationPreferenceClicked(pref: Preference)
+
+    override fun onPreferenceTreeClick(preference: Preference?): Boolean {
+        if (preference?.isPersistent == false) {
+            onNavigationPreferenceClicked(preference)
+        }
+        return super.onPreferenceTreeClick(preference)
+    }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(preferencesFile)

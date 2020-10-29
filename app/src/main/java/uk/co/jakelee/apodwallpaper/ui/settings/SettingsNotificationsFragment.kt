@@ -12,4 +12,6 @@ class SettingsNotificationsFragment : SettingsBaseFragment() {
     override fun onEditTextPreferenceChanged(pref: EditTextPreference) {}
 
     override fun onSeekBarPreferenceChanged(pref: SeekBarPreference) {}
+
+    override fun onNavigationPreferenceClicked(pref: Preference) {}
 }

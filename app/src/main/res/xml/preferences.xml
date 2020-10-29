@@ -3,6 +3,7 @@
 
     <Preference
         app:key="toNotifications"
+        app:persistent="false"
         app:title="Test" />
 
     <SwitchPreferenceCompat
