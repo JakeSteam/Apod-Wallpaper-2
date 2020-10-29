@@ -1,13 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <SwitchPreferenceCompat
-        app:key="notificationsd"
-        app:title="Storage"/>
+    <PreferenceCategory app:title="@string/pref_category_storage_configure">
+        <SwitchPreferenceCompat
+            app:defaultValue="@string/pref_keep_old_images_default_value"
+            app:key="@string/pref_keep_old_images"
+            app:summary="@string/pref_keep_old_images_desc"
+            app:title="@string/pref_keep_old_images_title" />
 
-    <Preference
-        app:key="feedback"
-        app:title="Send feedback"
-        app:summary="Report technical issues or suggest new features"/>
+        <EditTextPreference
+            app:defaultValue="@string/pref_image_location_default_value"
+            app:key="@string/pref_image_location"
+            app:dialogMessage="@string/pref_image_location_desc"
+            app:dialogTitle="@string/pref_image_location_title"
+            app:useSimpleSummaryProvider="true"
+            app:title="@string/pref_image_location_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/pref_category_storage_size">
+        <Preference
+            app:summary="13 (15.5MB)"
+            app:persistent="false"
+            app:key="@string/pref_image_files"
+            app:title="@string/pref_image_files_metadata" />
+
+        <Preference
+            app:summary="133 (416KB)"
+            app:persistent="false"
+            app:key="@string/pref_image_rows"
+            app:title="@string/pref_image_rows_metadata" />
+    </PreferenceCategory>
 
 </PreferenceScreen>

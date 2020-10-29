@@ -163,4 +163,23 @@
     <string name="storage_settings">Storage Settings</string>
     <string name="to_storage_settings">toStorage</string>
 
+    <string name="pref_category_storage_configure">Configure</string>
+
+    <string name="pref_keep_old_images">pref_keep_old_images</string>
+    <string name="pref_keep_old_images_title">Keep previous images</string>
+    <string name="pref_keep_old_images_desc">When enabled, previous images will be kept downloaded until manually deleted.</string>
+    <string name="pref_keep_old_images_default_value">false</string>
+
+    <string name="pref_image_location">pref_image_location</string>
+    <string name="pref_image_location_title">Image storage location</string>
+    <string name="pref_image_location_desc">Choose a custom folder to save downloaded images into.</string>
+    <string name="pref_image_location_default_value">App cache</string>
+
+    <string name="pref_image_files">pref_image_files</string>
+    <string name="pref_image_files_metadata">Clear APOD images</string>
+    <string name="pref_image_rows">pref_image_rows</string>
+    <string name="pref_image_rows_metadata">Clear APOD data</string>
+
+    <string name="pref_category_storage_size">Storage space</string>
+
 </resources>
