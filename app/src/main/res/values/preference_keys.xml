@@ -32,6 +32,10 @@
     <string name="advanced_settings">Advanced Settings</string>
     <string name="to_advanced_settings">toAdvanced</string>
 
+    <string name="pref_reset_app_data_title">Reset app data</string>
+    <string name="pref_reset_app_data_desc">Clear all app data, including storage, settings, and cache.</string>
+    <string name="to_reset_app_data">toGenerateKey</string>
+
     <!-- Images -->
     <string name="image_settings">Image Settings</string>
     <string name="to_image_settings">toImages</string>

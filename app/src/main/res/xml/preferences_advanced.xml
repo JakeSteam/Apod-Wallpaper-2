@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <SwitchPreferenceCompat
-        app:key="notificationsd"
-        app:title="Advanced"/>
-
     <Preference
-        app:key="feedback"
-        app:title="Send feedback"
-        app:summary="Report technical issues or suggest new features"/>
+            app:key="@string/to_reset_app_data"
+            app:persistent="false"
+            app:summary="@string/pref_reset_app_data_desc"
+            app:title="@string/pref_reset_app_data_title" />
 
 </PreferenceScreen>
