@@ -1,47 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <PreferenceCategory app:title="@string/pref_category_targets">
+        <SwitchPreferenceCompat
+            app:defaultValue="@string/pref_target_wallpaper_default"
+            app:key="@string/pref_target_wallpaper"
+            app:summary="@string/pref_target_wallpaper_desc"
+            app:title="@string/pref_target_wallpaper_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="@string/pref_target_lockscreen_default"
+            app:key="@string/pref_target_lockscreen"
+            app:summary="@string/pref_target_lockscreen_desc"
+            app:title="@string/pref_target_lockscreen_title" />
+    </PreferenceCategory>
+
     <PreferenceCategory app:title="@string/pref_category_custom_key">
+        <EditTextPreference
+            app:dialogMessage="@string/pref_custom_key_dialog_desc"
+            app:dialogTitle="@string/pref_custom_key_dialog_title"
+            app:key="@string/pref_custom_key"
+            app:title="@string/pref_custom_key_title"
+            app:useSimpleSummaryProvider="true" />
 
-    <EditTextPreference
-        app:key="@string/pref_custom_key"
-        app:title="@string/pref_custom_key_title"
-        app:dialogTitle="@string/pref_custom_key_dialog_title"
-        app:dialogMessage="@string/pref_custom_key_dialog_desc"
-        app:useSimpleSummaryProvider="true"/>
-
-    <Preference
-        app:key="@string/to_generate_key"
-        app:persistent="false"
-        app:title="@string/pref_generate_key_title"
-        app:summary="@string/pref_generate_key_desc"/>
+        <Preference
+            app:key="@string/to_generate_key"
+            app:persistent="false"
+            app:summary="@string/pref_generate_key_desc"
+            app:title="@string/pref_generate_key_title" />
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/pref_category_other_settings">
-    <Preference
-        app:key="@string/to_advanced_settings"
-        app:persistent="false"
-        app:title="@string/advanced_settings" />
 
-    <Preference
-        app:key="@string/to_image_settings"
-        app:persistent="false"
-        app:title="@string/image_settings" />
+        <Preference
+            app:key="@string/to_image_settings"
+            app:persistent="false"
+            app:title="@string/image_settings" />
 
-    <Preference
-        app:key="@string/to_notification_settings"
-        app:persistent="false"
-        app:title="@string/notification_settings" />
+        <Preference
+            app:key="@string/to_notification_settings"
+            app:persistent="false"
+            app:title="@string/notification_settings" />
 
-    <Preference
-        app:key="@string/to_scheduling_settings"
-        app:persistent="false"
-        app:title="@string/scheduling_settings" />
+        <Preference
+            app:key="@string/to_scheduling_settings"
+            app:persistent="false"
+            app:title="@string/scheduling_settings" />
 
-    <Preference
-        app:key="@string/to_storage_settings"
-        app:persistent="false"
-        app:title="@string/storage_settings" />
+        <Preference
+            app:key="@string/to_storage_settings"
+            app:persistent="false"
+            app:title="@string/storage_settings" />
+
+        <Preference
+            app:key="@string/to_advanced_settings"
+            app:persistent="false"
+            app:title="@string/advanced_settings" />
     </PreferenceCategory>
 
 </PreferenceScreen>

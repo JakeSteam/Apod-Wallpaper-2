@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SeekBarPreference
+        app:key="@string/pref_sync_hour"
+        app:title="@string/pref_sync_hour_title"
+        app:summary="@string/pref_sync_hour_desc"
+        app:defaultValue="@integer/pref_sync_e_default_value"
+        app:min="@integer/pref_sync_time_min"
+        android:max="@integer/pref_sync_time_max"
+        app:showSeekBarValue="true"/>
 
     <SwitchPreferenceCompat
-        app:key="notificationsd"
-        app:title="Scheduling"/>
+        app:defaultValue="@string/pref_wifi_only_default_value"
+        app:key="@string/pref_wifi_only"
+        app:summary="@string/pref_wifi_only_desc"
+        app:title="@string/pref_wifi_only_title" />
 
-    <Preference
-        app:key="feedback"
-        app:title="Send feedback"
-        app:summary="Report technical issues or suggest new features"/>
+    <SwitchPreferenceCompat
+        app:defaultValue="@string/pref_charging_only_default_value"
+        app:key="@string/pref_charging_only"
+        app:summary="@string/pref_charging_only_desc"
+        app:title="@string/pref_charging_only_title" />
+
+    <SwitchPreferenceCompat
+        app:defaultValue="@string/pref_lowbatteryoff_only_default_value"
+        app:key="@string/pref_lowbatteryoff_only"
+        app:summary="@string/pref_lowbatteryoff_only_desc"
+        app:title="@string/pref_lowbatteryoff_only_title" />
 
 </PreferenceScreen>

@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- General -->
+    <!-- Targets -->
+    <string name="pref_category_targets">Automatic targets</string>
+
+    <string name="pref_target_wallpaper">pref_target_wallpaper</string>
+    <string name="pref_target_wallpaper_title">Set wallpaper</string>
+    <string name="pref_target_wallpaper_desc">Set a new daily wallpaper</string>
+    <string name="pref_target_wallpaper_default">true</string>
+
+    <string name="pref_target_lockscreen">pref_target_lockscreen</string>
+    <string name="pref_target_lockscreen_title">Set lock screen</string>
+    <string name="pref_target_lockscreen_desc">Set a new daily lock screen</string>
+    <string name="pref_target_lockscreen_default">true</string>
+
+    <!-- Custom key -->
     <string name="pref_category_custom_key">Custom key</string>
+
     <string name="pref_custom_key">pref_custom_key</string>
     <string name="pref_custom_key_title">Set custom APOD key (Recommended)</string>
     <string name="pref_custom_key_dialog_title">Set custom APOD key</string>
@@ -10,8 +24,9 @@
 
     <string name="pref_generate_key_title">Request a custom key</string>
     <string name="pref_generate_key_desc">A custom key improves reliability, and only requires a name &amp; email.</string>
-
+    <string name="pref_generate_key_url">https://api.nasa.gov/</string>
     <string name="pref_category_other_settings">Other settings</string>
+
     <!-- Advanced -->
     <string name="advanced_settings">Advanced Settings</string>
     <string name="to_advanced_settings">toAdvanced</string>
@@ -27,6 +42,28 @@
     <!-- Scheduling -->
     <string name="scheduling_settings">Scheduling Settings</string>
     <string name="to_scheduling_settings">toScheduling</string>
+
+    <string name="pref_sync_time">pref_sync_time</string>
+    <string name="pref_sync_time_title">Sync time</string>
+    <string name="pref_sync_time_desc">The hour of day to sync for wallpapers</string>
+    <integer name="pref_sync_time_default_value">7</integer>
+    <integer name="pref_sync_time_min">0</integer>
+    <integer name="pref_sync_time_max">23</integer>
+
+    <string name="pref_wifi_only">pref_wifi_only</string>
+    <string name="pref_wifi_only_title">WiFi only</string>
+    <string name="pref_wifi_only_desc">Only sync on wifi</string>
+    <string name="pref_wifi_only_default_value">false</string>
+
+    <string name="pref_charging_only">pref_charging_only</string>
+    <string name="pref_charging_only_title">Charging only</string>
+    <string name="pref_charging_only_desc">Only sync when charging</string>
+    <string name="pref_charging_only_default_value">false</string>
+
+    <string name="pref_lowbatteryoff_only">pref_lowbatteryoff_only</string>
+    <string name="pref_lowbatteryoff_only_title">Non-power saving mode only</string>
+    <string name="pref_lowbatteryoff_only_desc">Only sync when low battery mode is off</string>
+    <string name="pref_lowbatteryoff_only_default_value">false</string>
 
     <!-- Storage -->
     <string name="storage_settings">Storage Settings</string>

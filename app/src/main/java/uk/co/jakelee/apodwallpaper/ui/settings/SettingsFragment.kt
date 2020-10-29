@@ -23,7 +23,7 @@ class SettingsFragment : SettingsBaseFragment() {
             getString(R.string.to_notification_settings) -> findNavController().navigate(R.id.open_settings_notifications)
             getString(R.string.to_scheduling_settings) -> findNavController().navigate(R.id.open_settings_scheduling)
             getString(R.string.to_storage_settings) -> findNavController().navigate(R.id.open_settings_storage)
-            getString(R.string.to_generate_key) -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://api.nasa.gov/")))
+            getString(R.string.to_generate_key) -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.pref_generate_key_url))))
         }
     }
 
