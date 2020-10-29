@@ -16,7 +16,11 @@ class SettingsFragment : SettingsBaseFragment() {
 
     override fun onNavigationPreferenceClicked(pref: Preference) {
         when (pref.key) {
+            "toAdvanced" -> findNavController().navigate(R.id.open_settings_advanced)
+            "toImages" -> findNavController().navigate(R.id.open_settings_images)
             "toNotifications" -> findNavController().navigate(R.id.open_settings_notifications)
+            "toScheduling" -> findNavController().navigate(R.id.open_settings_scheduling)
+            "toStorage" -> findNavController().navigate(R.id.open_settings_storage)
         }
     }
 

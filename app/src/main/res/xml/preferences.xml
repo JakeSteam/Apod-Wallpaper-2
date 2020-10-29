@@ -2,9 +2,29 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Preference
+        app:key="toAdvanced"
+        app:persistent="false"
+        app:title="Advanced" />
+
+    <Preference
+        app:key="toImages"
+        app:persistent="false"
+        app:title="Images" />
+
+    <Preference
         app:key="toNotifications"
         app:persistent="false"
-        app:title="Test" />
+        app:title="Notifications" />
+
+    <Preference
+        app:key="toScheduling"
+        app:persistent="false"
+        app:title="Scheduling" />
+
+    <Preference
+        app:key="toStorage"
+        app:persistent="false"
+        app:title="Storage" />
 
     <SwitchPreferenceCompat
         app:key="notificationsd"
