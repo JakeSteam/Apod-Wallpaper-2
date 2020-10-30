@@ -13,6 +13,8 @@ abstract class SettingsBaseFragment: PreferenceFragmentCompat(), SharedPreferenc
     abstract fun onSwitchPreferenceChanged(pref: SwitchPreferenceCompat)
     abstract fun onEditTextPreferenceChanged(pref: EditTextPreference)
     abstract fun onSeekBarPreferenceChanged(pref: SeekBarPreference)
+    abstract fun onListPreferenceChanged(pref: ListPreference)
+
     abstract fun onNavigationPreferenceClicked(pref: Preference)
 
     override fun onPreferenceTreeClick(preference: Preference?): Boolean {
@@ -42,6 +44,7 @@ abstract class SettingsBaseFragment: PreferenceFragmentCompat(), SharedPreferenc
             is SwitchPreferenceCompat -> onSwitchPreferenceChanged(pref)
             is EditTextPreference -> onEditTextPreferenceChanged(pref)
             is SeekBarPreference -> onSeekBarPreferenceChanged(pref)
+            is ListPreference -> onListPreferenceChanged(pref)
         }
     }
 

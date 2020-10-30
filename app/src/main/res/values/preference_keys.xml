@@ -22,7 +22,7 @@
     <string name="pref_custom_key_dialog_desc">Using a custom APOD key ensures greater reliability, follow the link on the main settings screen for help generating one.</string>
     <string name="pref_custom_key_default"></string>
 
-    <string name="pref_generate_key_title">Request a custom key</string>
+    <string name="pref_generate_key_title">Request a custom APOD key</string>
     <string name="pref_generate_key_desc">A custom key improves reliability, and only requires a name &amp; email.</string>
     <string name="pref_generate_key_url">https://api.nasa.gov/</string>
     <string name="to_generate_key">toGenerateKey</string>
@@ -32,13 +32,50 @@
     <string name="advanced_settings">Advanced Settings</string>
     <string name="to_advanced_settings">toAdvanced</string>
 
+    <string name="pref_theme">pref_theme</string>
+    <string name="pref_theme_title">App theme</string>
+    <string name="pref_theme_default_value">Automatic</string>
+    <string-array name="pref_theme_keys">
+        <item>Automatic</item>
+        <item>Dark</item>
+        <item>Light</item>
+    </string-array>
+    <string-array name="pref_theme_values">
+        <item>AUTO</item>
+        <item>DARK</item>
+        <item>LIGHT</item>
+    </string-array>
+
     <string name="pref_reset_app_data_title">Reset app data</string>
     <string name="pref_reset_app_data_desc">Clear all app data, including storage, settings, and cache.</string>
-    <string name="to_reset_app_data">toGenerateKey</string>
+    <string name="to_reset_app_data">toResetAppData</string>
 
     <!-- Images -->
     <string name="image_settings">Image Settings</string>
     <string name="to_image_settings">toImages</string>
+
+    <string name="pref_category_images_requirements">Image requirements</string>
+
+    <string name="pref_images_width">pref_images_width</string>
+    <string name="pref_images_width_title">Minimum image width</string>
+    <string name="pref_images_width_desc">The minimum pixels wide an image must be before being chosen as a wallpaper.</string>
+    <integer name="pref_images_width_default_value">0</integer>
+    <integer name="pref_images_width_min">0</integer>
+    <integer name="pref_images_width_max">3000</integer>
+
+    <string name="pref_images_height">pref_images_height</string>
+    <string name="pref_images_height_title">Minimum image height</string>
+    <string name="pref_images_height_desc">The minimum pixels tall an image must be before being chosen as a wallpaper.</string>
+    <integer name="pref_images_height_default_value">0</integer>
+    <integer name="pref_images_height_min">0</integer>
+    <integer name="pref_images_height_max">3000</integer>
+
+    <string name="pref_category_images_modifications">Image modifications</string>
+
+    <string name="pref_notif_enabled">pref_notif_enabled</string>
+    <string name="pref_notif_enabled_title">Display notifications</string>
+    <string name="pref_notif_enabled_desc">When enabled, you will receive notifications when a new image has been downloaded.</string>
+    <string name="pref_notif_enabled_default_value">true</string>
 
     <!-- Notifications -->
     <string name="notification_settings">Notification Settings</string>
@@ -52,10 +89,10 @@
 
     <string name="pref_category_notifications_configure">Configure</string>
 
-    <string name="pref_notif_enabled">pref_notif_enabled</string>
-    <string name="pref_notif_enabled_title">Display notifications</string>
-    <string name="pref_notif_enabled_desc">When enabled, you will receive notifications when a new image has been downloaded.</string>
-    <string name="pref_notif_enabled_default_value">true</string>
+    <string name="pref_greyscale_enabled">pref_greyscale_enabled</string>
+    <string name="pref_greyscale_enabled_title">Use greyscale images</string>
+    <string name="pref_greyscale_enabled_desc">When enabled, all images will be converted to black and white before being used. Only applies to new images.</string>
+    <string name="pref_greyscale_enabled_default_value">false</string>
 
     <string name="pref_notif_led">pref_notif_led</string>
     <string name="pref_notif_led_title">LED</string>

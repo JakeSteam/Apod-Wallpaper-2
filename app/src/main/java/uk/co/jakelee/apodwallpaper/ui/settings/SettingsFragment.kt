@@ -16,6 +16,8 @@ class SettingsFragment : SettingsBaseFragment() {
 
     override fun onSeekBarPreferenceChanged(pref: SeekBarPreference) {}
 
+    override fun onListPreferenceChanged(pref: ListPreference) {}
+
     override fun onNavigationPreferenceClicked(pref: Preference) {
         when (pref.key) {
             getString(R.string.to_advanced_settings) -> findNavController().navigate(R.id.open_settings_advanced)

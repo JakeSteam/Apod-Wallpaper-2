@@ -13,5 +13,7 @@ class SettingsImagesFragment : SettingsBaseFragment() {
 
     override fun onSeekBarPreferenceChanged(pref: SeekBarPreference) {}
 
+    override fun onListPreferenceChanged(pref: ListPreference) {}
+
     override fun onNavigationPreferenceClicked(pref: Preference) {}
 }
