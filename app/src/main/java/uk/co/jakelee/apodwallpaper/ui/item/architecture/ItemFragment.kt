@@ -16,6 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_item.*
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
+import uk.co.jakelee.apodwallpaper.ActionBarActivity
 import uk.co.jakelee.apodwallpaper.R
 import uk.co.jakelee.apodwallpaper.app.ApodDateParser
 import uk.co.jakelee.apodwallpaper.app.architecture.IView
@@ -23,7 +24,7 @@ import uk.co.jakelee.apodwallpaper.app.work.ApodWorker
 import uk.co.jakelee.apodwallpaper.databinding.FragmentItemBinding
 import java.util.*
 
-class ItemFragment() : Fragment(), IView<ItemState> {
+class ItemFragment : Fragment(), IView<ItemState> {
 
     private lateinit var binding: FragmentItemBinding
     private val itemViewModel: ItemViewModel by viewModel()
@@ -66,7 +67,10 @@ class ItemFragment() : Fragment(), IView<ItemState> {
                 findNavController().navigate(pendingDirection)
                 sendIntent(ItemIntent.FollowingDirection)
             }
-            apod?.let { binding.apod = apod }
+            apod?.let {
+                (activity as ActionBarActivity).setTitle(getString(R.string.single_apod_title, it.date))
+                binding.apod = apod
+            }
             binding.isLoading = isLoading
             errorMessage?.let { renderError(it) }
         }
