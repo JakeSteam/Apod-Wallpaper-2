@@ -27,7 +27,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:visibility="@{ apod != null ? View.VISIBLE : View.GONE }"
-                app:constraint_referenced_ids="imageView, title, explanation, controls, metadata, previous, save, share, expand, next"/>
+                app:constraint_referenced_ids="imageView, title, explanation, controls, previous, save, share, expand, next"/>
 
             <ImageView
                 android:id="@+id/imageView"
@@ -73,6 +73,22 @@
                 android:padding="8dp"
                 tools:text="@tools:sample/lorem/random"/>
 
+            <TextView
+                android:id="@+id/copyright"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{@string/copyright(apod.copyright)}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/controls"
+                android:background="@color/black_65"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:padding="4dp"
+                android:visibility="@{ apod.copyright != null ? View.VISIBLE : View.GONE }"
+                tools:text="@string/copyright" />
+
             <ImageView
                 android:id="@+id/controls"
                 android:layout_width="0dp"
@@ -80,7 +96,7 @@
                 android:src="@color/black_65"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/metadata" />
+                app:layout_constraintBottom_toBottomOf="parent" />
 
             <ImageView
                 android:id="@+id/previous"
@@ -149,21 +165,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:padding="8dp"
                 android:src="@drawable/ic_next" />
-
-            <TextView
-                android:id="@+id/metadata"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@{@string/single_apod_date(apod.date, apod.copyright ?? `N/A`)}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:background="@color/black_65"
-                android:gravity="center"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                android:padding="4dp"
-                tools:text="@string/single_apod_date" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
