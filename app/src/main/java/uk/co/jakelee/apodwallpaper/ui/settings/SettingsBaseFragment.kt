@@ -4,14 +4,8 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.annotation.XmlRes
 import androidx.preference.*
-import uk.co.jakelee.apodwallpaper.ActionBarActivity
 
 abstract class SettingsBaseFragment: PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        (activity as? ActionBarActivity)?.showActionBar()
-    }
 
     @get:XmlRes
     abstract val preferencesFile: Int

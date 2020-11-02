@@ -33,9 +33,7 @@ class MainActivity : ActionBarActivity, AppCompatActivity() {
     tryNavigateDeepLink(navController, intent)
   }
 
-  override fun showActionBar() = supportActionBar?.show() ?: Unit
-
-  override fun hideActionBar() = supportActionBar?.hide() ?: Unit
+  override fun setTitle(title: String) = supportActionBar?.setTitle(title) ?: Unit
 
   override fun onSupportNavigateUp(): Boolean {
     return navController.navigateUp() || super.onSupportNavigateUp()

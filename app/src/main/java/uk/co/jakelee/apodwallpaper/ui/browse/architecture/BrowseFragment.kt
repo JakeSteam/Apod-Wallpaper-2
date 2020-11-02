@@ -17,7 +17,6 @@ import kotlinx.android.synthetic.main.fragment_browse.view.*
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 import uk.co.jakelee.apodwallpaper.R
-import uk.co.jakelee.apodwallpaper.ActionBarActivity
 import uk.co.jakelee.apodwallpaper.app.architecture.IView
 import uk.co.jakelee.apodwallpaper.model.Apod
 import uk.co.jakelee.apodwallpaper.ui.browse.BrowseAdapter
@@ -32,7 +31,6 @@ class BrowseFragment : Fragment(), IView<BrowseState> {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        (activity as? ActionBarActivity)?.hideActionBar()
         val root = inflater.inflate(R.layout.fragment_browse, container, false)
         root.recyclerView.adapter = adapter
 
