@@ -1,8 +1,11 @@
 package uk.co.jakelee.apodwallpaper.ui.settings
 
-import androidx.appcompat.app.AppCompatDelegate.*
+import android.app.ActivityManager
+import android.content.Context.ACTIVITY_SERVICE
+import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
 import androidx.preference.*
 import uk.co.jakelee.apodwallpaper.R
+
 
 class SettingsAdvancedFragment : SettingsBaseFragment() {
 
@@ -26,5 +29,11 @@ class SettingsAdvancedFragment : SettingsBaseFragment() {
         }
     }
 
-    override fun onNavigationPreferenceClicked(pref: Preference) {}
+    override fun onNavigationPreferenceClicked(pref: Preference) {
+        when (pref.key) {
+            getString(R.string.to_reset_app_data) -> {
+                (requireActivity().getSystemService(ACTIVITY_SERVICE) as ActivityManager).clearApplicationUserData()
+            }
+        }
+    }
 }

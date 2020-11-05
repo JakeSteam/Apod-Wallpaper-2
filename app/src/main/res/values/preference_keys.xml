@@ -34,7 +34,7 @@
 
     <string name="pref_theme">pref_theme</string>
     <string name="pref_theme_title">App theme</string>
-    <string name="pref_theme_default_value">Automatic</string>
+    <string name="pref_theme_default_value">2</string>
     <string-array name="pref_theme_keys">
         <item>Use dark theme</item>
         <item>Use light theme</item>
@@ -103,7 +103,7 @@
 
     <string name="pref_notif_led_colour">pref_notif_led_colour</string>
     <string name="pref_notif_led_colour_title">LED Colour</string>
-    <string name="pref_notif_led_colour_default_value">White</string>
+    <string name="pref_notif_led_colour_default_value">#FFFFFF</string>
     <string-array name="pref_notif_led_colour_keys">
         <item>White</item>
         <item>Silver</item>
