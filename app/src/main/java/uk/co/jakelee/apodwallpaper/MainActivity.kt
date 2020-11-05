@@ -3,11 +3,13 @@ package uk.co.jakelee.apodwallpaper
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.PreferenceManager
 import kotlinx.android.synthetic.main.activity_main.*
 import uk.co.jakelee.apodwallpaper.app.DeepLinkParser
 
@@ -18,6 +20,10 @@ class MainActivity : ActionBarActivity, AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
+
+    PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_theme), "2")?.toIntOrNull()?.let {
+      AppCompatDelegate.setDefaultNightMode(it)
+    }
 
     val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
     navController = navHostFragment.navController

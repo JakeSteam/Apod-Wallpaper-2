@@ -1,6 +1,5 @@
 package uk.co.jakelee.apodwallpaper.ui.settings
 
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.*
 import androidx.preference.*
 import uk.co.jakelee.apodwallpaper.R
@@ -22,13 +21,9 @@ class SettingsAdvancedFragment : SettingsBaseFragment() {
     }
 
     private fun handleThemeChange(pref: String) {
-        val theme = when (pref) {
-            "AUTO" -> MODE_NIGHT_FOLLOW_SYSTEM
-            "DARK" -> MODE_NIGHT_YES
-            "LIGHT" -> MODE_NIGHT_NO
-            else -> null
+        pref.toIntOrNull()?.let {
+            setDefaultNightMode(it)
         }
-        theme?.let { setDefaultNightMode(it) }
     }
 
     override fun onNavigationPreferenceClicked(pref: Preference) {}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ui_background">#000000</color>
+    <color name="ui_background_65">#A6000000</color>
+    <color name="icon_tint">#FFFFFF</color>
+    <color name="text">#FFFFFF</color>
+</resources>
