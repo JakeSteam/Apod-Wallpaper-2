@@ -35,8 +35,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:textAlignment="center"
-            android:background="@color/black_65"
-            android:textColor="@android:color/white" />
+            android:background="@color/ui_background_65"
+            android:textColor="@color/text" />
 
         <TextView
             android:id="@+id/title"
@@ -48,8 +48,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/date"
             android:textAlignment="center"
-            android:background="@color/black_65"
-            android:textColor="@android:color/white" />
+            android:background="@color/ui_background_65"
+            android:textColor="@color/text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

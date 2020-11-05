@@ -49,9 +49,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:background="@color/black_65"
+                android:background="@color/ui_background_65"
+                android:textColor="@color/text"
                 android:gravity="center"
-                android:textColor="@android:color/white"
                 android:textSize="22sp"
                 android:ellipsize="end"
                 android:paddingTop="8dp"
@@ -65,8 +65,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title"
-                android:background="@color/black_65"
-                android:textColor="@android:color/white"
+                android:background="@color/ui_background_65"
+                android:textColor="@color/text"
                 android:textSize="14sp"
                 android:maxLines="20"
                 android:ellipsize="end"
@@ -81,9 +81,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/controls"
-                android:background="@color/black_65"
+                android:background="@color/ui_background_65"
+                android:textColor="@color/text"
                 android:gravity="center"
-                android:textColor="@android:color/white"
                 android:textSize="14sp"
                 android:padding="4dp"
                 android:visibility="@{ apod.copyright != null ? View.VISIBLE : View.GONE }"
@@ -93,7 +93,7 @@
                 android:id="@+id/controls"
                 android:layout_width="0dp"
                 android:layout_height="52dp"
-                android:src="@color/black_65"
+                android:src="@color/ui_background_65"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
@@ -105,6 +105,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/controls"
                 app:layout_constraintTop_toTopOf="@id/controls"
                 app:layout_constraintStart_toStartOf="parent"
+                app:tint="@color/icon_tint"
                 android:padding="8dp"
                 android:src="@drawable/ic_previous" />
 
@@ -117,6 +118,7 @@
                 app:layout_constraintStart_toEndOf="@id/previous"
                 app:layout_constraintEnd_toStartOf="@id/share"
                 app:layout_constraintHorizontal_chainStyle="packed"
+                app:tint="@color/icon_tint"
                 android:padding="8dp"
                 android:src="@drawable/ic_save" />
 
@@ -130,6 +132,7 @@
                 app:layout_constraintEnd_toStartOf="@id/calendar"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 android:padding="8dp"
+                app:tint="@color/icon_tint"
                 android:src="@drawable/ic_share" />
 
             <ImageView
@@ -142,6 +145,7 @@
                 app:layout_constraintEnd_toStartOf="@id/expand"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 android:padding="8dp"
+                app:tint="@color/icon_tint"
                 android:src="@drawable/ic_calendar" />
 
             <ImageView
@@ -154,6 +158,7 @@
                 app:layout_constraintEnd_toStartOf="@id/next"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 android:padding="8dp"
+                app:tint="@color/icon_tint"
                 android:src="@drawable/ic_expand" />
 
             <ImageView
@@ -164,6 +169,7 @@
                 app:layout_constraintTop_toTopOf="@id/controls"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:padding="8dp"
+                app:tint="@color/icon_tint"
                 android:src="@drawable/ic_next" />
 
             <ProgressBar
