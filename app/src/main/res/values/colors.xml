@@ -8,4 +8,6 @@
     <color name="ui_background_65">#A6FFFFFF</color>
     <color name="icon_tint">#000000</color>
     <color name="text">#000000</color>
+
+    <color name="bottom_bar_background">#EEEEEE</color>
 </resources>

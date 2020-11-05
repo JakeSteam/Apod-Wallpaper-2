@@ -4,4 +4,6 @@
     <color name="ui_background_65">#A6000000</color>
     <color name="icon_tint">#FFFFFF</color>
     <color name="text">#FFFFFF</color>
+
+    <color name="bottom_bar_background">@color/ui_background</color>
 </resources>
