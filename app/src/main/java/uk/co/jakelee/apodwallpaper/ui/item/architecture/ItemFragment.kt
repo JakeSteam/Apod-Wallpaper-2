@@ -43,6 +43,7 @@ class ItemFragment : Fragment(), IView<ItemState> {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_item, container, false)
+        binding.link.setOnClickListener { sendIntent(ItemIntent.OpenApodUrl) }
         binding.previous.setOnClickListener { sendIntent(ItemIntent.PreviousApod) }
         binding.calendar.setOnClickListener { showDatePicker() }
         binding.expand.setOnClickListener { sendIntent(ItemIntent.ExpandApod) }

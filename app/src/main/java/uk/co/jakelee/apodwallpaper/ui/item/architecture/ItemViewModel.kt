@@ -40,6 +40,7 @@ class ItemViewModel(
         viewModelScope.launch {
             intents.consumeAsFlow().collect { itemIntent ->
                 when (itemIntent) {
+                    is ItemIntent.OpenApodUrl -> openApodUrl()
                     is ItemIntent.OpenApod -> openApod(itemIntent.apod)
                     is ItemIntent.OpenDate -> fetchApod(itemIntent.date)
                     is ItemIntent.FetchLatest -> fetchLatest()
@@ -50,6 +51,10 @@ class ItemViewModel(
                 }
             }
         }
+    }
+
+    private fun openApodUrl() {
+        
     }
 
     private fun openApod(apod: Apod) = viewModelScope.launch(Dispatchers.IO) {

@@ -39,6 +39,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:src="@color/ui_background"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
             <TextView
@@ -58,13 +59,30 @@
                 tools:text="@tools:sample/cities"/>
 
             <TextView
+                android:id="@+id/link"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{@string/single_apod_link(apod.url)}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                android:background="@color/ui_background_65"
+                android:textColor="@color/text"
+                android:textSize="14sp"
+                android:maxLines="20"
+                android:ellipsize="end"
+                android:padding="8dp"
+                android:visibility="@{ apod.image ? View.GONE : View.VISIBLE }"
+                tools:text="@tools:sample/lorem"/>
+
+            <TextView
                 android:id="@+id/explanation"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{apod.explanation}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@id/link"
                 android:background="@color/ui_background_65"
                 android:textColor="@color/text"
                 android:textSize="14sp"
