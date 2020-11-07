@@ -41,7 +41,6 @@ class ItemViewModel(
         viewModelScope.launch {
             intents.consumeAsFlow().collect { itemIntent ->
                 when (itemIntent) {
-                    is ItemIntent.OpenApodUrl -> openApodUrl()
                     is ItemIntent.OpenApod -> openApod(itemIntent.apod)
                     is ItemIntent.OpenDate -> fetchApod(itemIntent.date)
                     is ItemIntent.FetchLatest -> fetchLatest()
@@ -51,12 +50,6 @@ class ItemViewModel(
                     is ItemIntent.FollowingDirection -> clearPendingDirection()
                 }
             }
-        }
-    }
-
-    private fun openApodUrl() = viewModelScope.launch(Dispatchers.IO) {
-        currentApod?.url?.let { url ->
-            updateState { it.copy(pendingUri = Uri.parse(url)) }
         }
     }
 
