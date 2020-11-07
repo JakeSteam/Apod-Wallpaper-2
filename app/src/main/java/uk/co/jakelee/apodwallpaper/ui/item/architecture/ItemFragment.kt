@@ -66,6 +66,7 @@ class ItemFragment : Fragment(), IView<ItemState> {
             pendingDirection?.let {
                 findNavController().navigate(pendingDirection)
                 sendIntent(ItemIntent.FollowingDirection)
+                return
             }
             apod?.let {
                 (activity as ActionBarActivity).setTitle(getString(R.string.single_apod_title, it.date))
