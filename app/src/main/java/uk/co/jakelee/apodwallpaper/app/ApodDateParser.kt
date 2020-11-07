@@ -35,12 +35,18 @@ class ApodDateParser {
     fun getNextDate(date: String): String? {
         apodDateToCalendar(date)?.let {
             it.add(Calendar.DAY_OF_YEAR, 1)
-            val now = Calendar.getInstance()
-            if (it.get(Calendar.YEAR) <= now.get(Calendar.YEAR) && it.get(Calendar.DAY_OF_YEAR) <= now.get(Calendar.DAY_OF_YEAR)) {
+            if (isPreviousDate(it)) {
                 return calendarToApodDate(it)
             }
         }
         return null
+    }
+
+    private fun isPreviousDate(calendar: Calendar): Boolean {
+        val now = Calendar.getInstance()
+        val isPreviousYear = calendar.get(Calendar.YEAR) < now.get(Calendar.YEAR)
+        val isPreviousDayThisYear = calendar.get(Calendar.YEAR) == now.get(Calendar.YEAR) && calendar.get(Calendar.DAY_OF_YEAR) <= now.get(Calendar.DAY_OF_YEAR)
+        return isPreviousYear || isPreviousDayThisYear
     }
 
     fun currentApodDate(): String = calendarToApodDate(Calendar.getInstance())
