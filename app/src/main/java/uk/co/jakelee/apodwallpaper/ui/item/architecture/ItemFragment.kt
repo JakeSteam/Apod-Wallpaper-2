@@ -43,7 +43,6 @@ class ItemFragment : Fragment(), IView<ItemState> {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_item, container, false)
-        binding.link.setOnClickListener { sendIntent(ItemIntent.OpenApodUrl) }
         binding.previous.setOnClickListener { sendIntent(ItemIntent.PreviousApod) }
         binding.calendar.setOnClickListener { showDatePicker() }
         binding.expand.setOnClickListener { sendIntent(ItemIntent.ExpandApod) }
@@ -67,6 +66,7 @@ class ItemFragment : Fragment(), IView<ItemState> {
             pendingDirection?.let {
                 findNavController().navigate(pendingDirection)
                 sendIntent(ItemIntent.FollowingDirection)
+                return
             }
             apod?.let {
                 (activity as ActionBarActivity).setTitle(getString(R.string.single_apod_title, it.date))

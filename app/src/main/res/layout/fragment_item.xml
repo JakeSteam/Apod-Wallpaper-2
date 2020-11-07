@@ -73,7 +73,8 @@
                 android:ellipsize="end"
                 android:padding="8dp"
                 android:visibility="@{ apod.image ? View.GONE : View.VISIBLE }"
-                tools:text="@tools:sample/lorem"/>
+                android:autoLink="web"
+                tools:text="@string/single_apod_link"/>
 
             <TextView
                 android:id="@+id/explanation"

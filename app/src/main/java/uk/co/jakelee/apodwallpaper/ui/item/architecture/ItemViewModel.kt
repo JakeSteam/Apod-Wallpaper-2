@@ -1,5 +1,6 @@
 package uk.co.jakelee.apodwallpaper.ui.item.architecture
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -53,8 +54,10 @@ class ItemViewModel(
         }
     }
 
-    private fun openApodUrl() {
-        
+    private fun openApodUrl() = viewModelScope.launch(Dispatchers.IO) {
+        currentApod?.url?.let { url ->
+            updateState { it.copy(pendingUri = Uri.parse(url)) }
+        }
     }
 
     private fun openApod(apod: Apod) = viewModelScope.launch(Dispatchers.IO) {
