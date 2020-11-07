@@ -22,6 +22,7 @@ import uk.co.jakelee.apodwallpaper.app.ApodDateParser
 import uk.co.jakelee.apodwallpaper.app.architecture.IView
 import uk.co.jakelee.apodwallpaper.app.work.ApodWorker
 import uk.co.jakelee.apodwallpaper.databinding.FragmentItemBinding
+import uk.co.jakelee.apodwallpaper.model.ApodError
 import java.util.*
 
 class ItemFragment : Fragment(), IView<ItemState> {
@@ -77,9 +78,11 @@ class ItemFragment : Fragment(), IView<ItemState> {
         }
     }
 
-    private fun renderError(error: String) {
-        Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_LONG).apply {
-            setAction(R.string.button_retry) { sendIntent(ItemIntent.FetchLatest) }
+    private fun renderError(error: ApodError) {
+        Snackbar.make(coordinatorLayout, error.error, Snackbar.LENGTH_LONG).apply {
+            if (error.date.isNotEmpty()) {
+                setAction(R.string.button_retry) { sendIntent(ItemIntent.OpenDate(error.date)) }
+            }
             show()
         }
     }
