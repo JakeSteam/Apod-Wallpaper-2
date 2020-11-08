@@ -16,6 +16,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:labelVisibilityMode="labeled"
+        app:itemIconTint="@drawable/bottom_nav_icons"
+        app:itemTextColor="@drawable/bottom_nav_icons"
         app:menu="@menu/bottom_nav_menu" />
 
     <androidx.fragment.app.FragmentContainerView

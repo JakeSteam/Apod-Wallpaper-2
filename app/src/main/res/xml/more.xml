@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <Preference
         app:key="@string/to_give_feedback"
         app:persistent="false"
         app:summary="@string/pref_give_feedback_desc"
-        app:title="@string/pref_give_feedback_title" />
+        app:title="@string/pref_give_feedback_title"
+        android:icon="@drawable/ic_more_feedback"/>
 
     <Preference
         app:key="@string/to_source_code"
         app:persistent="false"
         app:summary="@string/pref_source_code_desc"
-        app:title="@string/pref_source_code_title" />
+        app:title="@string/pref_source_code_title"
+        android:icon="@drawable/ic_more_source"/>
 
     <Preference
         app:key="@string/to_planning_board"
         app:persistent="false"
         app:summary="@string/pref_planning_board_desc"
-        app:title="@string/pref_planning_board_title" />
+        app:title="@string/pref_planning_board_title"
+        android:icon="@drawable/ic_more_planning"/>
 
     <Preference
         app:key="@string/to_other_apps"
         app:persistent="false"
         app:summary="@string/pref_other_apps_desc"
-        app:title="@string/pref_other_apps_title" />
+        app:title="@string/pref_other_apps_title"
+        android:icon="@drawable/ic_more_other_apps"/>
 
 </PreferenceScreen>

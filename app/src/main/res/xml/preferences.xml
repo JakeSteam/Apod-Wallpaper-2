@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory app:title="@string/pref_category_targets">
         <SwitchPreferenceCompat
             app:defaultValue="@string/pref_target_wallpaper_default"
             app:key="@string/pref_target_wallpaper"
             app:summary="@string/pref_target_wallpaper_desc"
-            app:title="@string/pref_target_wallpaper_title" />
+            app:title="@string/pref_target_wallpaper_title"
+            android:icon="@drawable/ic_settings_wallpaper"/>
 
         <SwitchPreferenceCompat
             app:defaultValue="@string/pref_target_lockscreen_default"
             app:key="@string/pref_target_lockscreen"
             app:summary="@string/pref_target_lockscreen_desc"
-            app:title="@string/pref_target_lockscreen_title" />
+            app:title="@string/pref_target_lockscreen_title"
+            android:icon="@drawable/ic_settings_lock"/>
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/pref_category_custom_key">
@@ -21,13 +24,15 @@
             app:dialogTitle="@string/pref_custom_key_dialog_title"
             app:key="@string/pref_custom_key"
             app:title="@string/pref_custom_key_title"
+            app:icon="@drawable/ic_settings_custom_key"
             app:useSimpleSummaryProvider="true" />
 
         <Preference
             app:key="@string/to_generate_key"
             app:persistent="false"
             app:summary="@string/pref_generate_key_desc"
-            app:title="@string/pref_generate_key_title" />
+            app:title="@string/pref_generate_key_title"
+            android:icon="@drawable/ic_web"/>
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/pref_category_other_settings">
@@ -35,27 +40,32 @@
         <Preference
             app:key="@string/to_image_settings"
             app:persistent="false"
-            app:title="@string/image_settings" />
+            app:title="@string/image_settings"
+            android:icon="@drawable/ic_settings_wallpaper"/>
 
         <Preference
             app:key="@string/to_notification_settings"
             app:persistent="false"
-            app:title="@string/notification_settings" />
+            app:title="@string/notification_settings"
+            android:icon="@drawable/ic_settings_notifications"/>
 
         <Preference
             app:key="@string/to_scheduling_settings"
             app:persistent="false"
-            app:title="@string/scheduling_settings" />
+            app:title="@string/scheduling_settings"
+            android:icon="@drawable/ic_settings_sync_time"/>
 
         <Preference
             app:key="@string/to_storage_settings"
             app:persistent="false"
-            app:title="@string/storage_settings" />
+            app:title="@string/storage_settings"
+            android:icon="@drawable/ic_settings_storage"/>
 
         <Preference
             app:key="@string/to_advanced_settings"
             app:persistent="false"
-            app:title="@string/advanced_settings" />
+            app:title="@string/advanced_settings"
+            android:icon="@drawable/ic_settings"/>
     </PreferenceCategory>
 
 </PreferenceScreen>

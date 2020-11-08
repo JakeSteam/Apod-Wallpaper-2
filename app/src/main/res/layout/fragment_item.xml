@@ -56,6 +56,9 @@
                 android:textSize="22sp"
                 android:ellipsize="end"
                 android:paddingTop="8dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:maxLines="2"
                 tools:text="@tools:sample/cities"/>
 
             <TextView
