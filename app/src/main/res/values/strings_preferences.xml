@@ -36,6 +36,8 @@
     <string name="pref_images_width_desc">The minimum pixels wide an image must be before being chosen as a wallpaper.</string>
     <string name="pref_images_height_title">Minimum image height</string>
     <string name="pref_images_height_desc">The minimum pixels tall an image must be before being chosen as a wallpaper.</string>
+    <string name="pref_images_ratio_title">Maximum width/height ratio (%)</string>
+    <string name="pref_images_ratio_desc">50%: Width can be at most half height.\n100%: Width can be at most equal to height.\n200%: Width can be at most 2x height.</string>
     <string name="pref_category_images_modifications">Image modifications</string>
     <string name="pref_notif_enabled_title">Display notifications</string>
     <string name="pref_notif_enabled_desc">When enabled, you will receive notifications when a new image has been downloaded.</string>

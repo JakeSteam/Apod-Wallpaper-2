@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ListPreference
-        app:key="@string/pref_theme"
+        android:icon="@drawable/ic_settings_theme"
         app:defaultValue="@string/pref_theme_default_value"
         app:dependency="@string/pref_theme"
-        app:useSimpleSummaryProvider="true"
         app:entries="@array/pref_theme_keys"
         app:entryValues="@array/pref_theme_values"
+        app:key="@string/pref_theme"
         app:title="@string/pref_theme_title"
-        android:icon="@drawable/ic_settings_theme"/>
+        app:useSimpleSummaryProvider="true" />
 
     <Preference
-            app:key="@string/to_reset_app_data"
-            app:persistent="false"
-            app:summary="@string/pref_reset_app_data_desc"
-            app:title="@string/pref_reset_app_data_title"
-        android:icon="@drawable/ic_settings_reset_app"/>
+        android:icon="@drawable/ic_settings_reset_app"
+        app:key="@string/to_reset_app_data"
+        app:persistent="false"
+        app:summary="@string/pref_reset_app_data_desc"
+        app:title="@string/pref_reset_app_data_title" />
 
 </PreferenceScreen>

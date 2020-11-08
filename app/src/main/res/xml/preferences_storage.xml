@@ -10,24 +10,24 @@
 
         <EditTextPreference
             app:defaultValue="@string/pref_image_location_default_value"
-            app:key="@string/pref_image_location"
             app:dialogMessage="@string/pref_image_location_desc"
             app:dialogTitle="@string/pref_image_location_title"
-            app:useSimpleSummaryProvider="true"
-            app:title="@string/pref_image_location_title" />
+            app:key="@string/pref_image_location"
+            app:title="@string/pref_image_location_title"
+            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/pref_category_storage_size">
         <Preference
-            app:summary="13 (15.5MB)"
-            app:persistent="false"
             app:key="@string/pref_image_files"
+            app:persistent="false"
+            app:summary="13 (15.5MB)"
             app:title="@string/pref_image_files_metadata" />
 
         <Preference
-            app:summary="133 (416KB)"
-            app:persistent="false"
             app:key="@string/pref_image_rows"
+            app:persistent="false"
+            app:summary="133 (416KB)"
             app:title="@string/pref_image_rows_metadata" />
     </PreferenceCategory>
 

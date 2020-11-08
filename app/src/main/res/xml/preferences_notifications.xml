@@ -1,66 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory app:title="@string/pref_category_notifications_preview">
         <Preference
+            android:icon="@drawable/ic_settings_instant_notif"
+            app:dependency="@string/pref_notif_enabled"
             app:key="@string/to_preview_notification"
             app:persistent="false"
-            app:dependency="@string/pref_notif_enabled"
             app:summary="@string/pref_preview_notification_desc"
-            app:title="@string/pref_preview_notification_title"
-            android:icon="@drawable/ic_settings_instant_notif"/>
+            app:title="@string/pref_preview_notification_title" />
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/pref_category_notifications_configure">
         <SwitchPreferenceCompat
+            android:icon="@drawable/ic_settings_notifications"
             app:defaultValue="@string/pref_notif_enabled_default_value"
             app:key="@string/pref_notif_enabled"
             app:summary="@string/pref_notif_enabled_desc"
-            app:title="@string/pref_notif_enabled_title"
-            android:icon="@drawable/ic_settings_notifications"/>
+            app:title="@string/pref_notif_enabled_title" />
 
         <SwitchPreferenceCompat
+            android:icon="@drawable/ic_settings_led"
             app:defaultValue="@string/pref_notif_led_default_value"
             app:dependency="@string/pref_notif_enabled"
             app:key="@string/pref_notif_led"
             app:summary="@string/pref_notif_led_desc"
-            app:title="@string/pref_notif_led_title"
-            android:icon="@drawable/ic_settings_led"/>
+            app:title="@string/pref_notif_led_title" />
 
         <ListPreference
-            app:key="@string/pref_notif_led_colour"
+            android:icon="@drawable/ic_settings_colour"
             app:defaultValue="@string/pref_notif_led_colour_default_value"
             app:dependency="@string/pref_notif_led"
-            app:useSimpleSummaryProvider="true"
             app:entries="@array/pref_notif_led_colour_keys"
             app:entryValues="@array/pref_notif_led_colour_values"
-            android:icon="@drawable/ic_settings_colour"
-            app:title="@string/pref_notif_led_colour_title"/>
+            app:key="@string/pref_notif_led_colour"
+            app:title="@string/pref_notif_led_colour_title"
+            app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
+            android:icon="@drawable/ic_settings_sound"
             app:defaultValue="@string/pref_notif_sound_default_value"
+            app:dependency="@string/pref_notif_enabled"
             app:key="@string/pref_notif_sound"
-            app:dependency="@string/pref_notif_enabled"
             app:summary="@string/pref_notif_sound_desc"
-            app:title="@string/pref_notif_sound_title"
-            android:icon="@drawable/ic_settings_sound"/>
+            app:title="@string/pref_notif_sound_title" />
 
         <SwitchPreferenceCompat
+            android:icon="@drawable/ic_settings_vibrate"
             app:defaultValue="@string/pref_notif_vibrate_default_value"
-            app:key="@string/pref_notif_vibrate"
             app:dependency="@string/pref_notif_enabled"
+            app:key="@string/pref_notif_vibrate"
             app:summary="@string/pref_notif_vibrate_desc"
-            app:title="@string/pref_notif_vibrate_title"
-            android:icon="@drawable/ic_settings_vibrate"/>
+            app:title="@string/pref_notif_vibrate_title" />
 
         <SwitchPreferenceCompat
+            android:icon="@drawable/ic_settings_preview"
             app:defaultValue="@string/pref_notif_preview_default_value"
-            app:key="@string/pref_notif_preview"
             app:dependency="@string/pref_notif_enabled"
+            app:key="@string/pref_notif_preview"
             app:summary="@string/pref_notif_preview_desc"
-            app:title="@string/pref_notif_preview_title"
-            android:icon="@drawable/ic_settings_preview"/>
+            app:title="@string/pref_notif_preview_title" />
     </PreferenceCategory>
 
 </PreferenceScreen>

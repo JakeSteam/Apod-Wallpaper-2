@@ -33,6 +33,10 @@
     <integer name="pref_images_height_default_value">0</integer>
     <integer name="pref_images_height_min">0</integer>
     <integer name="pref_images_height_max">3000</integer>
+    <string name="pref_images_ratio">filtering_ratio</string>
+    <integer name="pref_images_ratio_default_value">50</integer>
+    <integer name="pref_images_ratio_min">30</integer>
+    <integer name="pref_images_ratio_max">400</integer>
     <string name="pref_notif_enabled">notifications_enabled</string>
     <string name="pref_notif_enabled_default_value">true</string>
 
