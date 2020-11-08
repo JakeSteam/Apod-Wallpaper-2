@@ -3,12 +3,12 @@
     <!-- Targets -->
     <string name="pref_category_targets">Automatic targets</string>
 
-    <string name="pref_target_wallpaper">pref_target_wallpaper</string>
+    <string name="pref_target_wallpaper">wallpaper_enabled</string>
     <string name="pref_target_wallpaper_title">Set wallpaper</string>
     <string name="pref_target_wallpaper_desc">Set a new daily wallpaper</string>
     <string name="pref_target_wallpaper_default">true</string>
 
-    <string name="pref_target_lockscreen">pref_target_lockscreen</string>
+    <string name="pref_target_lockscreen">lockscreen_enabled</string>
     <string name="pref_target_lockscreen_title">Set lock screen</string>
     <string name="pref_target_lockscreen_desc">Set a new daily lock screen</string>
     <string name="pref_target_lockscreen_default">true</string>
@@ -16,7 +16,7 @@
     <!-- Custom key -->
     <string name="pref_category_custom_key">Custom key</string>
 
-    <string name="pref_custom_key">pref_custom_key</string>
+    <string name="pref_custom_key">custom_key</string>
     <string name="pref_custom_key_title">Set custom APOD key (Recommended)</string>
     <string name="pref_custom_key_dialog_title">Set custom APOD key</string>
     <string name="pref_custom_key_dialog_desc">Using a custom APOD key ensures greater reliability, follow the link on the main settings screen for help generating one.</string>
@@ -58,14 +58,14 @@
 
     <string name="pref_category_images_requirements">Image requirements</string>
 
-    <string name="pref_images_width">pref_images_width</string>
+    <string name="pref_images_width">filtering_width</string>
     <string name="pref_images_width_title">Minimum image width</string>
     <string name="pref_images_width_desc">The minimum pixels wide an image must be before being chosen as a wallpaper.</string>
     <integer name="pref_images_width_default_value">0</integer>
     <integer name="pref_images_width_min">0</integer>
     <integer name="pref_images_width_max">3000</integer>
 
-    <string name="pref_images_height">pref_images_height</string>
+    <string name="pref_images_height">filtering_height</string>
     <string name="pref_images_height_title">Minimum image height</string>
     <string name="pref_images_height_desc">The minimum pixels tall an image must be before being chosen as a wallpaper.</string>
     <integer name="pref_images_height_default_value">0</integer>
@@ -74,7 +74,7 @@
 
     <string name="pref_category_images_modifications">Image modifications</string>
 
-    <string name="pref_notif_enabled">pref_notif_enabled</string>
+    <string name="pref_notif_enabled">notifications_enabled</string>
     <string name="pref_notif_enabled_title">Display notifications</string>
     <string name="pref_notif_enabled_desc">When enabled, you will receive notifications when a new image has been downloaded.</string>
     <string name="pref_notif_enabled_default_value">true</string>
@@ -91,17 +91,17 @@
 
     <string name="pref_category_notifications_configure">Configure</string>
 
-    <string name="pref_greyscale_enabled">pref_greyscale_enabled</string>
+    <string name="pref_greyscale_enabled">use_greyscale_images</string>
     <string name="pref_greyscale_enabled_title">Use greyscale images</string>
     <string name="pref_greyscale_enabled_desc">When enabled, all images will be converted to black and white before being used. Only applies to new images.</string>
     <string name="pref_greyscale_enabled_default_value">false</string>
 
-    <string name="pref_notif_led">pref_notif_led</string>
+    <string name="pref_notif_led">notifications_led</string>
     <string name="pref_notif_led_title">LED</string>
     <string name="pref_notif_led_desc">When enabled, the notification will light up your LED (if available).</string>
     <string name="pref_notif_led_default_value">true</string>
 
-    <string name="pref_notif_led_colour">pref_notif_led_colour</string>
+    <string name="pref_notif_led_colour">notifications_colour</string>
     <string name="pref_notif_led_colour_title">LED Colour</string>
     <string name="pref_notif_led_colour_default_value">#FFFFFF</string>
     <string-array name="pref_notif_led_colour_keys">
@@ -139,17 +139,17 @@
         <item>#000080</item>
     </string-array>
 
-    <string name="pref_notif_sound">pref_notif_sound</string>
+    <string name="pref_notif_sound">notifications_sound</string>
     <string name="pref_notif_sound_title">Sound</string>
     <string name="pref_notif_sound_desc">When enabled, the notification will make a little beep noise.</string>
     <string name="pref_notif_sound_default_value">false</string>
 
-    <string name="pref_notif_vibrate">pref_notif_vibrate</string>
+    <string name="pref_notif_vibrate">notifications_vibrate</string>
     <string name="pref_notif_vibrate_title">Vibrate</string>
     <string name="pref_notif_vibrate_desc">When enabled, the notification will vibrate once.</string>
     <string name="pref_notif_vibrate_default_value">true</string>
 
-    <string name="pref_notif_preview">pref_notif_preview</string>
+    <string name="pref_notif_preview">notifications_preview</string>
     <string name="pref_notif_preview_title">Rich preview</string>
     <string name="pref_notif_preview_desc">When enabled, the notification can be expanded to view the image instead of the description.</string>
     <string name="pref_notif_preview_default_value">true</string>
@@ -160,7 +160,7 @@
 
     <string name="pref_category_scheduling_timing">Timing</string>
 
-    <string name="pref_sync_hour">pref_sync_hour</string>
+    <string name="pref_sync_hour">automatic_check_time</string>
     <string name="pref_sync_hour_title">Sync hour</string>
     <string name="pref_sync_hour_desc">The hour of day to sync</string>
     <integer name="pref_sync_hour_default_value">7</integer>
@@ -174,7 +174,7 @@
     <integer name="pref_sync_minute_min">0</integer>
     <integer name="pref_sync_minute_max">59</integer>
 
-    <string name="pref_sync_flexibility">pref_sync_flexibility</string>
+    <string name="pref_sync_flexibility">automatic_check_variation</string>
     <string name="pref_sync_flexibility_title">Flexibility minutes</string>
     <string name="pref_sync_flexibility_desc">How many minutes the sync time can be \"off\" by. Higher values may improve battery usage</string>
     <integer name="pref_sync_flexibility_default_value">60</integer>
@@ -183,7 +183,7 @@
 
     <string name="pref_category_scheduling_constraints">Constraints</string>
 
-    <string name="pref_wifi_only">pref_wifi_only</string>
+    <string name="pref_wifi_only">automatic_check_wifi</string>
     <string name="pref_wifi_only_title">WiFi only</string>
     <string name="pref_wifi_only_desc">Only sync on wifi</string>
     <string name="pref_wifi_only_default_value">false</string>
