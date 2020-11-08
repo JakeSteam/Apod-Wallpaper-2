@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".ui.item.architecture.ItemFragment"
-            android:background="@color/black">
+            android:background="@color/ui_background">
 
             <com.github.chrisbanes.photoview.PhotoView
                 android:id="@+id/imageView"
@@ -30,7 +30,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:padding="16dp"
-                android:background="@color/black_65"
+                android:background="@color/ui_background_65"
+                app:tint="@color/icon_tint"
                 android:src="@drawable/ic_close" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

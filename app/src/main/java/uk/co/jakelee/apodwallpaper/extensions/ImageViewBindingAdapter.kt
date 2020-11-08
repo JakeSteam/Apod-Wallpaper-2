@@ -10,7 +10,7 @@ import uk.co.jakelee.apodwallpaper.R
 fun ImageView.setImageUrl(imageUrl: String?) = imageUrl?.let {
     Glide.with(this.context)
         .load(imageUrl)
-        .placeholder(R.color.black)
+        .placeholder(R.color.ui_background)
         .transition(DrawableTransitionOptions.withCrossFade())
         .into(this)
 }

@@ -1,5 +1,6 @@
 package uk.co.jakelee.apodwallpaper.ui.item.architecture
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,6 +15,7 @@ import uk.co.jakelee.apodwallpaper.app.ApodDateParser
 import uk.co.jakelee.apodwallpaper.app.architecture.IViewModel
 import uk.co.jakelee.apodwallpaper.app.database.ApodRepository
 import uk.co.jakelee.apodwallpaper.model.Apod
+import uk.co.jakelee.apodwallpaper.model.ApodError
 import java.util.*
 
 class ItemViewModel(
@@ -67,7 +69,7 @@ class ItemViewModel(
         emitApod(apodRepository.getApod(todayDate, false, errorCallback))
     }
 
-    private val errorCallback: (String) -> Unit = { error ->
+    private val errorCallback: (ApodError) -> Unit = { error ->
         viewModelScope.launch(Dispatchers.IO) {
             updateState { it.copy(isLoading = false, errorMessage = error) }
         }
@@ -93,7 +95,7 @@ class ItemViewModel(
             if (nextDate != null) {
                 emitApod(apodRepository.getApod(nextDate, true, errorCallback))
             } else {
-                errorCallback.invoke("You're already viewing the latest APOD!")
+                errorCallback.invoke(ApodError("", "You're already viewing the latest APOD!"))
             }
         }
     }

@@ -10,7 +10,8 @@ buildscript {
 
         // UI
         appcompat_version = "1.2.0"
-        constraint_layout_version = "2.0.1"
+        constraint_layout_version = "2.0.2"
+        preference_version = "1.1.1"
         material_version = "1.2.1"
         vector_drawable_version = "1.1.0"
 
@@ -30,6 +31,9 @@ buildscript {
 
         // DI
         koin_version = "2.1.5"
+
+        // WorkManager
+        workmanager_version = "2.4.0"
 
         // Testing
         junit_version = "4.13"

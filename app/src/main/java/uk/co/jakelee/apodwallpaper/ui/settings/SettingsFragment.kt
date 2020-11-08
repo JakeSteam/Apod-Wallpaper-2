@@ -1,31 +1,32 @@
 package uk.co.jakelee.apodwallpaper.ui.settings
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import android.content.Intent
+import android.net.Uri
+import androidx.navigation.fragment.findNavController
+import androidx.preference.*
 import uk.co.jakelee.apodwallpaper.R
 
-class SettingsFragment : Fragment() {
+class SettingsFragment : SettingsBaseFragment() {
 
-  private lateinit var settingsViewModel: SettingsViewModel
+    override val preferencesFile = R.xml.preferences
 
-  override fun onCreateView(
-      inflater: LayoutInflater,
-      container: ViewGroup?,
-      savedInstanceState: Bundle?
-  ): View? {
-    settingsViewModel =
-        ViewModelProviders.of(this).get(SettingsViewModel::class.java)
-    val root = inflater.inflate(R.layout.fragment_settings, container, false)
-    val textView: TextView = root.findViewById(R.id.text_settings)
-    settingsViewModel.text.observe(viewLifecycleOwner, Observer {
-      textView.text = it
-    })
-    return root
-  }
+    override fun onSwitchPreferenceChanged(pref: SwitchPreferenceCompat) {}
+
+    override fun onEditTextPreferenceChanged(pref: EditTextPreference) {}
+
+    override fun onSeekBarPreferenceChanged(pref: SeekBarPreference) {}
+
+    override fun onListPreferenceChanged(pref: ListPreference) {}
+
+    override fun onNavigationPreferenceClicked(pref: Preference) {
+        when (pref.key) {
+            getString(R.string.to_advanced_settings) -> findNavController().navigate(R.id.open_settings_advanced)
+            getString(R.string.to_image_settings) -> findNavController().navigate(R.id.open_settings_images)
+            getString(R.string.to_notification_settings) -> findNavController().navigate(R.id.open_settings_notifications)
+            getString(R.string.to_scheduling_settings) -> findNavController().navigate(R.id.open_settings_scheduling)
+            getString(R.string.to_storage_settings) -> findNavController().navigate(R.id.open_settings_storage)
+            getString(R.string.to_generate_key) -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.pref_generate_key_url))))
+        }
+    }
+
 }

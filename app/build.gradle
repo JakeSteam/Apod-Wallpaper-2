@@ -50,6 +50,7 @@ dependencies {
 
     // UI
     implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "androidx.preference:preference-ktx:$preference_version"
     implementation "com.google.android.material:material:$material_version"
     implementation "androidx.vectordrawable:vectordrawable:$vector_drawable_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
@@ -77,6 +78,9 @@ dependencies {
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-android-scope:$koin_version"
     implementation "org.koin:koin-android-viewmodel:$koin_version"
+
+    // WorkManager
+    implementation "androidx.work:work-runtime-ktx:$workmanager_version"
 
     // Testing
     testImplementation "junit:junit:$junit_version"

@@ -7,5 +7,7 @@
 
     <string name="button_retry">Retry?</string>
 
-    <string name="single_apod_date">%1$s\'s APOD (© %2$s)</string>
+    <string name="copyright">© %1$s</string>
+    <string name="single_apod_title">APOD for %1$s</string>
+    <string name="single_apod_link">This APOD has no image, only a link: %1$s</string>
 </resources>
