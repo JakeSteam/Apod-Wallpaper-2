@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Preference
+        app:key="@string/to_give_feedback"
+        app:persistent="false"
+        app:summary="@string/pref_give_feedback_desc"
+        app:title="@string/pref_give_feedback_title" />
+
+    <Preference
+        app:key="@string/to_source_code"
+        app:persistent="false"
+        app:summary="@string/pref_source_code_desc"
+        app:title="@string/pref_source_code_title" />
+
+    <Preference
+        app:key="@string/to_planning_board"
+        app:persistent="false"
+        app:summary="@string/pref_planning_board_desc"
+        app:title="@string/pref_planning_board_title" />
+
+    <Preference
+        app:key="@string/to_other_apps"
+        app:persistent="false"
+        app:summary="@string/pref_other_apps_desc"
+        app:title="@string/pref_other_apps_title" />
+
+</PreferenceScreen>

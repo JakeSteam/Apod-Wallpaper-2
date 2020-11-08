@@ -221,4 +221,30 @@
 
     <string name="pref_category_storage_size">Storage space</string>
 
+    <!-- More -->
+    <string name="pref_give_feedback_title">App feedback</string>
+    <string name="pref_give_feedback_desc">Got any suggestions, bugs, or general feedback?</string>
+    <string name="pref_give_feedback_store">Play Store</string>
+    <string name="pref_give_feedback_store_url">market://details?id=%1$s</string>
+    <string name="pref_give_feedback_email">Email</string>
+    <string name="pref_give_feedback_email_mailto">mailto:apod@jakelee.co.uk</string>
+    <string name="pref_give_feedback_twitter">Twitter</string>
+    <string name="pref_give_feedback_twitter_url">https://twitter.com/JakeLeeUK</string>
+    <string name="to_give_feedback">toGiveFeedback</string>
+
+    <string name="pref_source_code_title">View source code</string>
+    <string name="pref_source_code_desc">Daily APOD Wallpaper is fully open source, take a look / help out if you like!</string>
+    <string name="pref_source_code_url">https://github.com/JakeSteam/Apod-Wallpaper-2/</string>
+    <string name="to_source_code">toSourceCode</string>
+
+    <string name="pref_planning_board_title">View planning board</string>
+    <string name="pref_planning_board_desc">Check out upcoming features and in-development work before it is released!</string>
+    <string name="pref_planning_board_url">https://github.com/JakeSteam/Apod-Wallpaper-2/projects/1?fullscreen=true</string>
+    <string name="to_planning_board">toPlanningBoard</string>
+
+    <string name="pref_other_apps_title">View my other apps</string>
+    <string name="pref_other_apps_desc">I originally started Android dev making games, you might like one or two!</string>
+    <string name="pref_other_apps_url">https://play.google.com/store/apps/dev?id=7913107864735774894</string>
+    <string name="to_other_apps">toOtherApps</string>
+
 </resources>

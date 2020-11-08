@@ -1,31 +1,55 @@
 package uk.co.jakelee.apodwallpaper.ui.more
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import android.content.DialogInterface
+import android.content.Intent
+import android.net.Uri
+import androidx.appcompat.app.AlertDialog
+import androidx.preference.*
+import uk.co.jakelee.apodwallpaper.BuildConfig
 import uk.co.jakelee.apodwallpaper.R
+import uk.co.jakelee.apodwallpaper.ui.settings.SettingsBaseFragment
 
-class MoreFragment : Fragment() {
+class MoreFragment : SettingsBaseFragment() {
 
-  private lateinit var moreViewModel: MoreViewModel
+    override val preferencesFile = R.xml.more
 
-  override fun onCreateView(
-      inflater: LayoutInflater,
-      container: ViewGroup?,
-      savedInstanceState: Bundle?
-  ): View? {
-    moreViewModel =
-        ViewModelProviders.of(this).get(MoreViewModel::class.java)
-    val root = inflater.inflate(R.layout.fragment_more, container, false)
-    val textView: TextView = root.findViewById(R.id.text_more)
-    moreViewModel.text.observe(viewLifecycleOwner, Observer {
-      textView.text = it
-    })
-    return root
-  }
+    override fun onSwitchPreferenceChanged(pref: SwitchPreferenceCompat) {}
+
+    override fun onEditTextPreferenceChanged(pref: EditTextPreference) {}
+
+    override fun onSeekBarPreferenceChanged(pref: SeekBarPreference) {}
+
+    override fun onListPreferenceChanged(pref: ListPreference) {}
+
+    override fun onNavigationPreferenceClicked(pref: Preference) {
+        when (pref.key) {
+            getString(R.string.to_give_feedback) -> showGiveFeedbackDialog()
+            getString(R.string.to_source_code) -> openUrl(getString(R.string.pref_source_code_url))
+            getString(R.string.to_planning_board) -> openUrl(getString(R.string.pref_planning_board_url))
+            getString(R.string.to_other_apps) -> openUrl(getString(R.string.pref_other_apps_url))
+        }
+    }
+
+    private fun showGiveFeedbackDialog() = AlertDialog.Builder(requireActivity())
+        .setTitle(R.string.pref_give_feedback_title)
+        .setMessage(R.string.pref_give_feedback_desc)
+        .setPositiveButton(R.string.pref_give_feedback_store) { _, _ ->
+            openUrl(getString(R.string.pref_give_feedback_store_url, BuildConfig.APPLICATION_ID))
+        }
+        .setNegativeButton(R.string.pref_give_feedback_email) { _, _ ->
+            val intent = Intent(Intent.ACTION_SENDTO)
+            intent.data = Uri.parse(getString(R.string.pref_give_feedback_email_mailto))
+            startActivity(intent)
+        }
+        .setNeutralButton(R.string.pref_give_feedback_twitter) { _, _ ->
+            openUrl(getString(R.string.pref_give_feedback_twitter_url))
+        }
+        .show()
+
+    private fun openUrl(url: String) {
+        try {
+            val uri = Uri.parse(url)
+            startActivity(Intent(Intent.ACTION_VIEW, uri))
+        } catch (e: Exception) { }
+    }
 }
