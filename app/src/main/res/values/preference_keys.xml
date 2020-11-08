@@ -1,126 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Targets -->
-    <string name="pref_category_targets">Automatic targets</string>
-
     <string name="pref_target_wallpaper">wallpaper_enabled</string>
-    <string name="pref_target_wallpaper_title">Set wallpaper</string>
-    <string name="pref_target_wallpaper_desc">Set a new daily wallpaper</string>
     <string name="pref_target_wallpaper_default">true</string>
-
     <string name="pref_target_lockscreen">lockscreen_enabled</string>
-    <string name="pref_target_lockscreen_title">Set lock screen</string>
-    <string name="pref_target_lockscreen_desc">Set a new daily lock screen</string>
     <string name="pref_target_lockscreen_default">true</string>
 
     <!-- Custom key -->
-    <string name="pref_category_custom_key">Custom key</string>
-
     <string name="pref_custom_key">custom_key</string>
-    <string name="pref_custom_key_title">Set custom APOD key (Recommended)</string>
-    <string name="pref_custom_key_dialog_title">Set custom APOD key</string>
-    <string name="pref_custom_key_dialog_desc">Using a custom APOD key ensures greater reliability, follow the link on the main settings screen for help generating one.</string>
     <string name="pref_custom_key_default"></string>
-
-    <string name="pref_generate_key_title">Request a custom APOD key</string>
-    <string name="pref_generate_key_desc">A custom key improves reliability, and only requires a name &amp; email.</string>
-    <string name="pref_generate_key_url">https://api.nasa.gov/</string>
     <string name="to_generate_key">toGenerateKey</string>
-    <string name="pref_category_other_settings">Other settings</string>
 
     <!-- Advanced -->
-    <string name="advanced_settings">Advanced Settings</string>
     <string name="to_advanced_settings">toAdvanced</string>
-
     <string name="pref_theme">pref_theme</string>
-    <string name="pref_theme_title">App theme</string>
     <string name="pref_theme_default_value">2</string>
-    <string-array name="pref_theme_keys">
-        <item>Use dark theme</item>
-        <item>Use light theme</item>
-        <item>Use real time</item>
-        <item>Use device setting</item>
-    </string-array>
     <string-array name="pref_theme_values">
         <item>2</item>
         <item>1</item>
         <item>0</item>
         <item>-1</item>
     </string-array>
-
-    <string name="pref_reset_app_data_title">Reset app data</string>
-    <string name="pref_reset_app_data_desc">Clear all app data, including storage, settings, and cache.</string>
     <string name="to_reset_app_data">toResetAppData</string>
 
     <!-- Images -->
-    <string name="image_settings">Image Settings</string>
     <string name="to_image_settings">toImages</string>
-
-    <string name="pref_category_images_requirements">Image requirements</string>
-
     <string name="pref_images_width">filtering_width</string>
-    <string name="pref_images_width_title">Minimum image width</string>
-    <string name="pref_images_width_desc">The minimum pixels wide an image must be before being chosen as a wallpaper.</string>
     <integer name="pref_images_width_default_value">0</integer>
     <integer name="pref_images_width_min">0</integer>
     <integer name="pref_images_width_max">3000</integer>
-
     <string name="pref_images_height">filtering_height</string>
-    <string name="pref_images_height_title">Minimum image height</string>
-    <string name="pref_images_height_desc">The minimum pixels tall an image must be before being chosen as a wallpaper.</string>
     <integer name="pref_images_height_default_value">0</integer>
     <integer name="pref_images_height_min">0</integer>
     <integer name="pref_images_height_max">3000</integer>
-
-    <string name="pref_category_images_modifications">Image modifications</string>
-
     <string name="pref_notif_enabled">notifications_enabled</string>
-    <string name="pref_notif_enabled_title">Display notifications</string>
-    <string name="pref_notif_enabled_desc">When enabled, you will receive notifications when a new image has been downloaded.</string>
     <string name="pref_notif_enabled_default_value">true</string>
 
     <!-- Notifications -->
-    <string name="notification_settings">Notification Settings</string>
     <string name="to_notification_settings">toNotifications</string>
-
-    <string name="pref_category_notifications_preview">Preview</string>
-
     <string name="to_preview_notification">toPreviewNotification</string>
-    <string name="pref_preview_notification_title">Preview notification</string>
-    <string name="pref_preview_notification_desc">Display a notification now to check your settings.</string>
-
-    <string name="pref_category_notifications_configure">Configure</string>
-
     <string name="pref_greyscale_enabled">use_greyscale_images</string>
-    <string name="pref_greyscale_enabled_title">Use greyscale images</string>
-    <string name="pref_greyscale_enabled_desc">When enabled, all images will be converted to black and white before being used. Only applies to new images.</string>
     <string name="pref_greyscale_enabled_default_value">false</string>
-
     <string name="pref_notif_led">notifications_led</string>
-    <string name="pref_notif_led_title">LED</string>
-    <string name="pref_notif_led_desc">When enabled, the notification will light up your LED (if available).</string>
     <string name="pref_notif_led_default_value">true</string>
-
     <string name="pref_notif_led_colour">notifications_colour</string>
-    <string name="pref_notif_led_colour_title">LED Colour</string>
     <string name="pref_notif_led_colour_default_value">#FFFFFF</string>
-    <string-array name="pref_notif_led_colour_keys">
-        <item>White</item>
-        <item>Silver</item>
-        <item>Grey</item>
-        <item>Aqua</item>
-        <item>Teal</item>
-        <item>Red</item>
-        <item>Maroon</item>
-        <item>Fuchsia</item>
-        <item>Purple</item>
-        <item>Lime</item>
-        <item>Green</item>
-        <item>Yellow</item>
-        <item>Olive</item>
-        <item>Blue</item>
-        <item>Navy</item>
-    </string-array>
     <string-array name="pref_notif_led_colour_values">
         <item>#FFFFFF</item>
         <item>#C0C0C0</item>
@@ -138,113 +62,46 @@
         <item>#0000FF</item>
         <item>#000080</item>
     </string-array>
-
     <string name="pref_notif_sound">notifications_sound</string>
-    <string name="pref_notif_sound_title">Sound</string>
-    <string name="pref_notif_sound_desc">When enabled, the notification will make a little beep noise.</string>
     <string name="pref_notif_sound_default_value">false</string>
-
     <string name="pref_notif_vibrate">notifications_vibrate</string>
-    <string name="pref_notif_vibrate_title">Vibrate</string>
-    <string name="pref_notif_vibrate_desc">When enabled, the notification will vibrate once.</string>
     <string name="pref_notif_vibrate_default_value">true</string>
-
     <string name="pref_notif_preview">notifications_preview</string>
-    <string name="pref_notif_preview_title">Rich preview</string>
-    <string name="pref_notif_preview_desc">When enabled, the notification can be expanded to view the image instead of the description.</string>
     <string name="pref_notif_preview_default_value">true</string>
 
     <!-- Scheduling -->
-    <string name="scheduling_settings">Scheduling Settings</string>
     <string name="to_scheduling_settings">toScheduling</string>
-
-    <string name="pref_category_scheduling_timing">Timing</string>
-
     <string name="pref_sync_hour">automatic_check_time</string>
-    <string name="pref_sync_hour_title">Sync hour</string>
-    <string name="pref_sync_hour_desc">The hour of day to sync</string>
     <integer name="pref_sync_hour_default_value">7</integer>
     <integer name="pref_sync_hour_min">0</integer>
     <integer name="pref_sync_hour_max">23</integer>
-
     <string name="pref_sync_minute">pref_sync_minute</string>
-    <string name="pref_sync_minute_title">Sync minute</string>
-    <string name="pref_sync_minute_desc">The minutes past the hour to sync</string>
     <integer name="pref_sync_minute_default_value">0</integer>
     <integer name="pref_sync_minute_min">0</integer>
     <integer name="pref_sync_minute_max">59</integer>
-
     <string name="pref_sync_flexibility">automatic_check_variation</string>
-    <string name="pref_sync_flexibility_title">Flexibility minutes</string>
-    <string name="pref_sync_flexibility_desc">How many minutes the sync time can be \"off\" by. Higher values may improve battery usage</string>
     <integer name="pref_sync_flexibility_default_value">60</integer>
     <integer name="pref_sync_flexibility_min">0</integer>
     <integer name="pref_sync_flexibility_max">300</integer>
-
-    <string name="pref_category_scheduling_constraints">Constraints</string>
-
     <string name="pref_wifi_only">automatic_check_wifi</string>
-    <string name="pref_wifi_only_title">WiFi only</string>
-    <string name="pref_wifi_only_desc">Only sync on wifi</string>
     <string name="pref_wifi_only_default_value">false</string>
-
     <string name="pref_charging_only">pref_charging_only</string>
-    <string name="pref_charging_only_title">Charging only</string>
-    <string name="pref_charging_only_desc">Only sync when charging</string>
     <string name="pref_charging_only_default_value">false</string>
-
     <string name="pref_lowbatteryoff_only">pref_lowbatteryoff_only</string>
-    <string name="pref_lowbatteryoff_only_title">Non-power saving mode only</string>
-    <string name="pref_lowbatteryoff_only_desc">Only sync when low battery mode is off</string>
     <string name="pref_lowbatteryoff_only_default_value">false</string>
 
     <!-- Storage -->
-    <string name="storage_settings">Storage Settings</string>
     <string name="to_storage_settings">toStorage</string>
-
-    <string name="pref_category_storage_configure">Configure</string>
-
     <string name="pref_keep_old_images">pref_keep_old_images</string>
-    <string name="pref_keep_old_images_title">Keep previous images</string>
-    <string name="pref_keep_old_images_desc">When enabled, previous images will be kept downloaded until manually deleted.</string>
     <string name="pref_keep_old_images_default_value">false</string>
-
     <string name="pref_image_location">pref_image_location</string>
-    <string name="pref_image_location_title">Image storage location</string>
-    <string name="pref_image_location_desc">Choose a custom folder to save downloaded images into.</string>
-    <string name="pref_image_location_default_value">App cache</string>
-
     <string name="pref_image_files">pref_image_files</string>
-    <string name="pref_image_files_metadata">Clear APOD images</string>
     <string name="pref_image_rows">pref_image_rows</string>
-    <string name="pref_image_rows_metadata">Clear APOD data</string>
-
-    <string name="pref_category_storage_size">Storage space</string>
 
     <!-- More -->
-    <string name="pref_give_feedback_title">App feedback</string>
-    <string name="pref_give_feedback_desc">Got any suggestions, bugs, or general feedback?</string>
-    <string name="pref_give_feedback_store">Play Store</string>
-    <string name="pref_give_feedback_store_url">market://details?id=%1$s</string>
-    <string name="pref_give_feedback_email">Email</string>
-    <string name="pref_give_feedback_email_mailto">mailto:apod@jakelee.co.uk</string>
-    <string name="pref_give_feedback_twitter">Twitter</string>
-    <string name="pref_give_feedback_twitter_url">https://twitter.com/JakeLeeUK</string>
     <string name="to_give_feedback">toGiveFeedback</string>
-
-    <string name="pref_source_code_title">View source code</string>
-    <string name="pref_source_code_desc">Daily APOD Wallpaper is fully open source, take a look / help out if you like!</string>
-    <string name="pref_source_code_url">https://github.com/JakeSteam/Apod-Wallpaper-2/</string>
     <string name="to_source_code">toSourceCode</string>
-
-    <string name="pref_planning_board_title">View planning board</string>
-    <string name="pref_planning_board_desc">Check out upcoming features and in-development work before it is released!</string>
-    <string name="pref_planning_board_url">https://github.com/JakeSteam/Apod-Wallpaper-2/projects/1?fullscreen=true</string>
     <string name="to_planning_board">toPlanningBoard</string>
-
-    <string name="pref_other_apps_title">View my other apps</string>
-    <string name="pref_other_apps_desc">I originally started Android dev making games, you might like one or two!</string>
-    <string name="pref_other_apps_url">https://play.google.com/store/apps/dev?id=7913107864735774894</string>
     <string name="to_other_apps">toOtherApps</string>
 
 </resources>
