@@ -33,16 +33,16 @@ class MoreFragment : SettingsBaseFragment() {
     private fun showGiveFeedbackDialog() = AlertDialog.Builder(requireActivity())
         .setTitle(R.string.pref_give_feedback_title)
         .setMessage(R.string.pref_give_feedback_desc)
-        .setPositiveButton(R.string.pref_give_feedback_store) { _, _ ->
-            openUrl(getString(R.string.pref_give_feedback_store_url, BuildConfig.APPLICATION_ID))
+        .setNeutralButton(R.string.pref_give_feedback_store) { _, _ ->
+            openUrl(getString(R.string.pref_give_feedback_twitter_url))
         }
         .setNegativeButton(R.string.pref_give_feedback_email) { _, _ ->
             val intent = Intent(Intent.ACTION_SENDTO)
             intent.data = Uri.parse(getString(R.string.pref_give_feedback_email_mailto))
             startActivity(intent)
         }
-        .setNeutralButton(R.string.pref_give_feedback_twitter) { _, _ ->
-            openUrl(getString(R.string.pref_give_feedback_twitter_url))
+        .setPositiveButton(R.string.pref_give_feedback_twitter) { _, _ ->
+            openUrl(getString(R.string.pref_give_feedback_store_url, BuildConfig.APPLICATION_ID))
         }
         .show()
 
