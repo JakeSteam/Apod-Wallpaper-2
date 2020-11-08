@@ -79,9 +79,9 @@
     <string name="scheduling_settings">Scheduling Settings</string>
     <string name="pref_category_scheduling_timing">Timing</string>
     <string name="pref_sync_hour_title">Sync hour</string>
-    <string name="pref_sync_hour_desc">The hour of day to sync</string>
+    <string name="pref_sync_hour_desc">The hour of day to sync.</string>
     <string name="pref_sync_minute_title">Sync minute</string>
-    <string name="pref_sync_minute_desc">The minutes past the hour to sync</string>
+    <string name="pref_sync_minute_desc">The minutes past the hour to sync.</string>
     <string name="pref_sync_flexibility_title">Flexibility minutes</string>
     <string name="pref_sync_flexibility_desc">How many minutes the sync time can be \"off\" by. Higher values may improve battery usage.</string>
     <string name="pref_category_scheduling_constraints">Constraints</string>

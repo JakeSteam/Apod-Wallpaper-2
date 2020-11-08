@@ -53,7 +53,7 @@
             app:key="@string/to_scheduling_settings"
             app:persistent="false"
             app:title="@string/scheduling_settings"
-            android:icon="@drawable/ic_settings_hour"/>
+            android:icon="@drawable/ic_settings_sync_time"/>
 
         <Preference
             app:key="@string/to_storage_settings"

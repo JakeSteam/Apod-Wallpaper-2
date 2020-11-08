@@ -11,7 +11,7 @@
             app:showSeekBarValue="true"
             app:summary="@string/pref_sync_hour_desc"
             app:title="@string/pref_sync_hour_title"
-            android:icon="@drawable/ic_settings_hour"/>
+            android:icon="@drawable/ic_settings_sync_time"/>
 
         <SeekBarPreference
             android:max="@integer/pref_sync_minute_max"
@@ -20,7 +20,8 @@
             app:min="@integer/pref_sync_minute_min"
             app:showSeekBarValue="true"
             app:summary="@string/pref_sync_minute_desc"
-            app:title="@string/pref_sync_minute_title" />
+            app:title="@string/pref_sync_minute_title"
+            android:icon="@drawable/ic_settings_sync_time"/>
 
         <SeekBarPreference
             android:max="@integer/pref_sync_flexibility_max"
