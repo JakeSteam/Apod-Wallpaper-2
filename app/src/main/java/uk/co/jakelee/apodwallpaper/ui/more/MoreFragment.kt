@@ -34,7 +34,7 @@ class MoreFragment : SettingsBaseFragment() {
         .setTitle(R.string.pref_give_feedback_title)
         .setMessage(R.string.pref_give_feedback_desc)
         .setNeutralButton(R.string.pref_give_feedback_store) { _, _ ->
-            openUrl(getString(R.string.pref_give_feedback_twitter_url))
+            openUrl(getString(R.string.pref_give_feedback_store_url, BuildConfig.APPLICATION_ID))
         }
         .setNegativeButton(R.string.pref_give_feedback_email) { _, _ ->
             val intent = Intent(Intent.ACTION_SENDTO)
@@ -42,7 +42,7 @@ class MoreFragment : SettingsBaseFragment() {
             startActivity(intent)
         }
         .setPositiveButton(R.string.pref_give_feedback_twitter) { _, _ ->
-            openUrl(getString(R.string.pref_give_feedback_store_url, BuildConfig.APPLICATION_ID))
+            openUrl(getString(R.string.pref_give_feedback_twitter_url))
         }
         .show()
 
@@ -50,6 +50,6 @@ class MoreFragment : SettingsBaseFragment() {
         try {
             val uri = Uri.parse(url)
             startActivity(Intent(Intent.ACTION_VIEW, uri))
-        } catch (e: Exception) { }
+        } catch (e: Exception) {}
     }
 }

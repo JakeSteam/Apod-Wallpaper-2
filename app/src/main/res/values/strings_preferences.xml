@@ -108,7 +108,7 @@
     <string name="pref_give_feedback_title">App feedback</string>
     <string name="pref_give_feedback_desc">Got any suggestions, bugs, or general feedback?</string>
     <string name="pref_give_feedback_store">Play Store</string>
-    <string name="pref_give_feedback_store_url">market://details?id=%1$s</string>
+    <string name="pref_give_feedback_store_url">https://play.google.com/store/apps/details?id=%1$s</string>
     <string name="pref_give_feedback_email">Email</string>
     <string name="pref_give_feedback_email_mailto">mailto:apod@jakelee.co.uk</string>
     <string name="pref_give_feedback_twitter">Twitter</string>
