@@ -8,9 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import uk.co.jakelee.apodwallpaper.R
+import uk.co.jakelee.apodwallpaper.app.storage.GlideApp
 import uk.co.jakelee.apodwallpaper.databinding.FragmentExpandedItemBinding
 
 class ItemExpandedFragment : Fragment() {
@@ -32,7 +32,7 @@ class ItemExpandedFragment : Fragment() {
         binding.close.setOnClickListener {
             findNavController().navigateUp()
         }
-        Glide.with(this)
+        GlideApp.with(this)
             .load(args.apodUrl)
             .placeholder(R.drawable.ui_background)
             .transition(DrawableTransitionOptions.withCrossFade())
