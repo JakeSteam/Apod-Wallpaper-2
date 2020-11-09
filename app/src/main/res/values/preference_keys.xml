@@ -102,6 +102,10 @@
     <string name="pref_image_files">pref_image_files</string>
     <string name="pref_image_rows">pref_image_rows</string>
 
+    <string name="to_clear_image_cache">toClearImageCache</string>
+    <string name="pref_image_cache_size">pref_image_cache_size</string>
+    <string name="pref_image_cache_location">pref_image_cache_location</string>
+
     <!-- More -->
     <string name="to_give_feedback">toGiveFeedback</string>
     <string name="to_source_code">toSourceCode</string>

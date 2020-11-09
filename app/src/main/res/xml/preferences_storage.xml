@@ -17,6 +17,23 @@
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="Cached images">
+        <Preference
+            app:key="@string/to_clear_image_cache"
+            app:persistent="false"
+            app:title="Clear image cache" />
+
+        <Preference
+            app:key="@string/pref_image_cache_size"
+            app:title="Move image cache" />
+
+        <Preference
+            app:key="@string/pref_image_cache_location"
+            app:persistent="false"
+            app:summary="/sdcard/nowhere/"
+            app:title="Move image cache" />
+    </PreferenceCategory>
+
     <PreferenceCategory app:title="@string/pref_category_storage_size">
         <Preference
             app:key="@string/pref_image_files"
