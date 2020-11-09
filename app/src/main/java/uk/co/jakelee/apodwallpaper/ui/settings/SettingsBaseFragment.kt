@@ -15,11 +15,11 @@ abstract class SettingsBaseFragment: PreferenceFragmentCompat(), SharedPreferenc
     abstract fun onSeekBarPreferenceChanged(pref: SeekBarPreference)
     abstract fun onListPreferenceChanged(pref: ListPreference)
 
-    abstract fun onNavigationPreferenceClicked(pref: Preference)
+    abstract fun onActionPreferenceClicked(pref: Preference)
 
     override fun onPreferenceTreeClick(preference: Preference?): Boolean {
         if (preference?.isPersistent == false) {
-            onNavigationPreferenceClicked(preference)
+            onActionPreferenceClicked(preference)
         }
         return super.onPreferenceTreeClick(preference)
     }

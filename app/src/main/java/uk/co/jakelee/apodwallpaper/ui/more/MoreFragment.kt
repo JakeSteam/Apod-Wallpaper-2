@@ -21,7 +21,7 @@ class MoreFragment : SettingsBaseFragment() {
 
     override fun onListPreferenceChanged(pref: ListPreference) {}
 
-    override fun onNavigationPreferenceClicked(pref: Preference) {
+    override fun onActionPreferenceClicked(pref: Preference) {
         when (pref.key) {
             getString(R.string.to_give_feedback) -> showGiveFeedbackDialog()
             getString(R.string.to_source_code) -> openUrl(getString(R.string.pref_source_code_url))

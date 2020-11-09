@@ -34,7 +34,7 @@ class ItemExpandedFragment : Fragment() {
         }
         Glide.with(this)
             .load(args.apodUrl)
-            .placeholder(R.color.ui_background)
+            .placeholder(R.drawable.ui_background)
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(binding.imageView)
 

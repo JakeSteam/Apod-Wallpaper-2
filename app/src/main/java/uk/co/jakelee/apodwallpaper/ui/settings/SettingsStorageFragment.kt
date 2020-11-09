@@ -25,13 +25,17 @@ class SettingsStorageFragment : SettingsBaseFragment() {
 
     override fun onEditTextPreferenceChanged(pref: EditTextPreference) {}
 
-    override fun onSeekBarPreferenceChanged(pref: SeekBarPreference) {}
+    override fun onSeekBarPreferenceChanged(pref: SeekBarPreference) {
+        when (pref.key) {
+            getString(R.string.pref_image_cache_size) -> { /* TODO: Reload config */ }
+        }
+    }
 
     override fun onListPreferenceChanged(pref: ListPreference) {}
 
-    override fun onNavigationPreferenceClicked(pref: Preference) {
+    override fun onActionPreferenceClicked(pref: Preference) {
         when (pref.key) {
-            getString(R.string.to_clear_image_cache) -> clearImageCache()
+            getString(R.string.clear_image_cache) -> clearImageCache()
         }
     }
 
@@ -43,7 +47,7 @@ class SettingsStorageFragment : SettingsBaseFragment() {
     private fun updateImageCacheSize() {
         val cacheInfo = File(requireContext().cacheDir, DiskCache.Factory.DEFAULT_DISK_CACHE_DIR).getFolderInfo()
         lifecycleScope.launch(Dispatchers.Main) {
-            val clearCache = findPreference<Preference>(getString(R.string.to_clear_image_cache))
+            val clearCache = findPreference<Preference>(getString(R.string.clear_image_cache))
             clearCache?.summary = "${Formatter.formatShortFileSize(requireContext(), cacheInfo.bytes)} (${cacheInfo.files} files)"
         }
     }

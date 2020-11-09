@@ -15,5 +15,5 @@ class SettingsImagesFragment : SettingsBaseFragment() {
 
     override fun onListPreferenceChanged(pref: ListPreference) {}
 
-    override fun onNavigationPreferenceClicked(pref: Preference) {}
+    override fun onActionPreferenceClicked(pref: Preference) {}
 }
