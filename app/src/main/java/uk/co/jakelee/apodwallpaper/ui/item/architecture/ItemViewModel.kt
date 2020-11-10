@@ -1,5 +1,6 @@
 package uk.co.jakelee.apodwallpaper.ui.item.architecture
 
+import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,8 +15,10 @@ import uk.co.jakelee.apodwallpaper.NavigationDirections
 import uk.co.jakelee.apodwallpaper.app.ApodDateParser
 import uk.co.jakelee.apodwallpaper.app.architecture.IViewModel
 import uk.co.jakelee.apodwallpaper.app.database.ApodRepository
+import uk.co.jakelee.apodwallpaper.app.storage.FileSystemHelper
 import uk.co.jakelee.apodwallpaper.model.Apod
 import uk.co.jakelee.apodwallpaper.model.ApodError
+import java.net.URL
 import java.util.*
 
 class ItemViewModel(
@@ -48,6 +51,7 @@ class ItemViewModel(
                     is ItemIntent.ExpandApod -> expandApod()
                     is ItemIntent.PreviousApod -> openPreviousApod()
                     is ItemIntent.NextApod -> openNextApod()
+                    is ItemIntent.SaveApod -> saveApod()
                     is ItemIntent.FollowingDirection -> clearPendingDirection()
                 }
             }
@@ -97,6 +101,13 @@ class ItemViewModel(
             } else {
                 errorCallback.invoke(ApodError("", "You're already viewing the latest APOD!"))
             }
+        }
+    }
+
+    private fun saveApod() {
+        currentApod?.let {
+            val bitmap = BitmapFactory.decodeStream(URL(it.url).openStream())
+            //FileSystemHelper().saveImage(File(conte), bitmap, it.date)
         }
     }
 
