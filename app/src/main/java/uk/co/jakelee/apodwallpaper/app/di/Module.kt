@@ -10,6 +10,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import uk.co.jakelee.apodwallpaper.app.ApodDateParser
 import uk.co.jakelee.apodwallpaper.app.database.ApodRepository
 import uk.co.jakelee.apodwallpaper.app.database.AppDatabase
+import uk.co.jakelee.apodwallpaper.app.storage.FileSystemHelper
 import uk.co.jakelee.apodwallpaper.ui.browse.architecture.BrowseViewModel
 import uk.co.jakelee.apodwallpaper.ui.item.architecture.ItemViewModel
 
@@ -30,14 +31,15 @@ val netModule = module {
     single { provideRetrofit(get()) }
 }
 
-val databaseModule = module {
+val storageModule = module {
     single { AppDatabase.buildDatabase(androidApplication()).apodDao() }
     single { ApodDateParser() }
     single { ApodRepository(get(), get(), get()) }
+    single { FileSystemHelper(get()) }
 }
 
 val viewModelScope = module {
-    viewModel { ItemViewModel(get(), get()) }
+    viewModel { ItemViewModel(get(), get(), get()) }
     viewModel { BrowseViewModel(get()) }
 }
 

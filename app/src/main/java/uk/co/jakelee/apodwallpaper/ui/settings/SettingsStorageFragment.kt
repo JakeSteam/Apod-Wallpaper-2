@@ -69,13 +69,13 @@ class SettingsStorageFragment: SettingsBaseFragment() {
     private fun clearSavedImages() {}
 
     private fun updateSavedImagesSize() {
-        val savedFolder = File(requireContext().cacheDir, FileSystemHelper.imagesDir).getFolderInfo()
+        /*val savedFolder = File(requireContext().cacheDir, FileSystemHelper.imagesDir).getFolderInfo()
         lifecycleScope.launch(Dispatchers.Main) {
             val clearSaved = findPreference<Preference>(getString(R.string.clear_saved_images))
             clearSaved?.summary = getString(R.string.storage_display,
                 Formatter.formatShortFileSize(requireContext(), savedFolder.bytes),
                 savedFolder.files)
-        }
+        }*/
     }
 
     private fun clearDatabase() = lifecycleScope.launch(Dispatchers.IO) {

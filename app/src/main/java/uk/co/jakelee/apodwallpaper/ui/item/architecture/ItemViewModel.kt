@@ -2,10 +2,7 @@ package uk.co.jakelee.apodwallpaper.ui.item.architecture
 
 import android.graphics.BitmapFactory
 import android.net.Uri
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collect
@@ -23,7 +20,8 @@ import java.util.*
 
 class ItemViewModel(
   private val apodRepository: ApodRepository,
-  private val apodDateParser: ApodDateParser
+  private val apodDateParser: ApodDateParser,
+  private val fileSystemHelper: FileSystemHelper
 ) : ViewModel(), IViewModel<ItemState, ItemIntent> {
 
     override val intents: Channel<ItemIntent> = Channel(Channel.UNLIMITED)
@@ -104,10 +102,10 @@ class ItemViewModel(
         }
     }
 
-    private fun saveApod() {
+    private fun saveApod() = viewModelScope.launch(Dispatchers.IO) {
         currentApod?.let {
             val bitmap = BitmapFactory.decodeStream(URL(it.url).openStream())
-            //FileSystemHelper().saveImage(File(conte), bitmap, it.date)
+            fileSystemHelper.saveImage(bitmap, it.date)
         }
     }
 
