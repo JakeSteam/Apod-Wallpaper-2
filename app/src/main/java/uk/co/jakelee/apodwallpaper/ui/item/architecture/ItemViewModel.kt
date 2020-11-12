@@ -2,6 +2,7 @@ package uk.co.jakelee.apodwallpaper.ui.item.architecture
 
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.widget.Toast
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -104,8 +105,10 @@ class ItemViewModel(
 
     private fun saveApod() = viewModelScope.launch(Dispatchers.IO) {
         currentApod?.let {
-            val bitmap = BitmapFactory.decodeStream(URL(it.url).openStream())
-            fileSystemHelper.saveImage(bitmap, it.date)
+            if (!fileSystemHelper.doesImageExist("${it.date}.png")) {
+                val bitmap = BitmapFactory.decodeStream(URL(it.url).openStream())
+                fileSystemHelper.saveImage(bitmap, it.date)
+            }
         }
     }
 
