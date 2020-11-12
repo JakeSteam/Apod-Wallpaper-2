@@ -19,6 +19,7 @@ import java.io.File
 class SettingsStorageFragment: SettingsBaseFragment() {
 
     private val apodDao: ApodDao by inject { parametersOf(this) }
+    private val fileSystemHelper: FileSystemHelper by inject { parametersOf(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,13 +70,13 @@ class SettingsStorageFragment: SettingsBaseFragment() {
     private fun clearSavedImages() {}
 
     private fun updateSavedImagesSize() {
-        /*val savedFolder = File(requireContext().cacheDir, FileSystemHelper.imagesDir).getFolderInfo()
+        val savedFolder = fileSystemHelper.getSavedImagesInfo()
         lifecycleScope.launch(Dispatchers.Main) {
             val clearSaved = findPreference<Preference>(getString(R.string.clear_saved_images))
             clearSaved?.summary = getString(R.string.storage_display,
                 Formatter.formatShortFileSize(requireContext(), savedFolder.bytes),
                 savedFolder.files)
-        }*/
+        }
     }
 
     private fun clearDatabase() = lifecycleScope.launch(Dispatchers.IO) {

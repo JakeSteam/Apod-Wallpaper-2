@@ -9,6 +9,8 @@ import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import androidx.annotation.RequiresApi
+import uk.co.jakelee.apodwallpaper.extensions.FolderInfo
+import uk.co.jakelee.apodwallpaper.extensions.getFolderInfo
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
@@ -19,6 +21,15 @@ TODO:
 class FileSystemHelper(val context: Context) {
 
     private val relativePath = "${Environment.DIRECTORY_PICTURES}/APOD"
+
+    //region Summary
+    fun getSavedImagesInfo(): FolderInfo {
+        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            File(context.getExternalFilesDir(relativePath), "").getFolderInfo()
+        } else {
+            FolderInfo(1L, 1)
+        }
+    }
 
     //region Loading
     fun doesImageExist(name: String): Boolean {
