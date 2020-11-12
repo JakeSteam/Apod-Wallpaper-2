@@ -8,48 +8,40 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 
-
+/*
+TODO:
+ */
 class FileSystemHelper(val context: Context) {
 
     private val relativePath = "${Environment.DIRECTORY_PICTURES}/APOD"
 
     //region Loading
     fun doesImageExist(name: String): Boolean {
-        getUri(name)?.let {
-            return context.contentResolver.openInputStream(it) != null
+        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            val file = File(context.getExternalFilesDir(relativePath), "$name.png")
+            file.exists()
+        } else {
+            getUri("$name.png")?.let {
+                return context.contentResolver.openInputStream(it) != null
+            } ?: false
         }
-        return false
     }
 
     private fun getUri(name: String): Uri? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            getUriQPlus(name)
-        } else {
-            getUriPreQ(name)
-        }
-    }
-
-    private fun getUriPreQ(name: String): Uri? {
-        return null
-    }
-
-    private fun getUriQPlus(displayName: String): Uri? {
         try {
             val photoId: Long
             val photoUri: Uri = MediaStore.Images.Media.getContentUri("external")
             val projection = arrayOf(MediaStore.Images.ImageColumns._ID)
-            // TODO This will break if we have no matching item in the MediaStore.
             val cursor: Cursor = context.contentResolver.query(
                 photoUri,
                 projection,
                 MediaStore.Images.ImageColumns.DISPLAY_NAME + " LIKE ?",
-                arrayOf(displayName),
+                arrayOf(name),
                 null
             )!!
             cursor.moveToFirst()
@@ -79,8 +71,7 @@ class FileSystemHelper(val context: Context) {
 
     @Suppress("DEPRECATION")
     private fun getOutputStreamPreQ(name: String): FileOutputStream {
-        val imagesDir: String = Environment.getExternalStoragePublicDirectory(relativePath).toString()
-        val image = File(imagesDir, "$name.png")
+        val image = File(context.getExternalFilesDir(relativePath), "$name.png")
         return FileOutputStream(image)
     }
 
