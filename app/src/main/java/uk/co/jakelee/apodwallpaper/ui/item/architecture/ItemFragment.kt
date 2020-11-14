@@ -48,10 +48,7 @@ class ItemFragment : Fragment(), IView<ItemState> {
         binding.calendar.setOnClickListener { showDatePicker() }
         binding.expand.setOnClickListener { sendIntent(ItemIntent.ExpandApod) }
         binding.next.setOnClickListener { sendIntent(ItemIntent.NextApod) }
-        binding.save.setOnClickListener {
-            Log.i("WORK", "Scheduling work!")
-            WorkManager.getInstance(requireContext()).enqueue(ApodWorker.getOneOffWorkRequest())
-        }
+        binding.save.setOnClickListener { sendIntent(ItemIntent.SaveApod) }
 
         itemViewModel.state.observe(viewLifecycleOwner) { render(it) }
         when {

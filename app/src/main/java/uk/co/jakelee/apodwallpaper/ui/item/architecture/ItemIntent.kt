@@ -11,6 +11,7 @@ sealed class ItemIntent : IIntent {
     object ExpandApod: ItemIntent()
     object PreviousApod: ItemIntent()
     object NextApod: ItemIntent()
+    object SaveApod: ItemIntent()
     object FollowingDirection: ItemIntent()
 }
 

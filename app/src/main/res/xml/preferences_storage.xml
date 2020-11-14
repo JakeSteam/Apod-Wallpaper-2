@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory app:title="@string/pref_category_storage_configure">
         <SwitchPreferenceCompat
@@ -9,7 +10,7 @@
             app:title="@string/pref_keep_old_images_title" />
 
         <EditTextPreference
-            app:defaultValue="@string/pref_image_location_default_value"
+            app:defaultValue=""
             app:dialogMessage="@string/pref_image_location_desc"
             app:dialogTitle="@string/pref_image_location_title"
             app:key="@string/pref_image_location"
@@ -17,18 +18,43 @@
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/pref_category_storage_size">
+    <PreferenceCategory app:title="Cached images">
         <Preference
-            app:key="@string/pref_image_files"
+            app:key="@string/clear_image_cache"
             app:persistent="false"
-            app:summary="13 (15.5MB)"
-            app:title="@string/pref_image_files_metadata" />
+            app:title="Clear image cache"
+            app:summary="@string/loading"/>
+
+        <SeekBarPreference
+            android:max="@integer/pref_image_cache_size_max"
+            app:defaultValue="@integer/pref_image_cache_size_default_value"
+            app:key="@string/pref_image_cache_size"
+            app:min="@integer/pref_image_cache_size_min"
+            app:showSeekBarValue="true"
+            app:summary="@string/pref_image_cache_size_desc"
+            app:title="@string/pref_image_cache_size_title" />
 
         <Preference
-            app:key="@string/pref_image_rows"
+            app:key="@string/pref_image_cache_location"
             app:persistent="false"
-            app:summary="133 (416KB)"
-            app:title="@string/pref_image_rows_metadata" />
+            app:summary="TO DO"
+            app:title="Move image cache" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/pref_category_storage_saved">
+        <Preference
+            app:key="@string/clear_saved_images"
+            app:persistent="false"
+            app:summary="@string/loading"
+            app:title="@string/clear_saved_images_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/pref_category_storage_database">
+        <Preference
+            app:key="@string/clear_database"
+            app:persistent="false"
+            app:summary="@string/loading"
+            app:title="@string/clear_database_title" />
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -10,4 +10,6 @@
     <string name="copyright">© %1$s</string>
     <string name="single_apod_title">APOD for %1$s</string>
     <string name="single_apod_link">This APOD has no image, only a link: %1$s</string>
+
+    <string name="loading">Loading…</string>
 </resources>

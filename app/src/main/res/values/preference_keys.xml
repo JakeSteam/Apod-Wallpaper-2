@@ -98,9 +98,18 @@
     <string name="to_storage_settings">toStorage</string>
     <string name="pref_keep_old_images">pref_keep_old_images</string>
     <string name="pref_keep_old_images_default_value">false</string>
+
+    <string name="clear_image_cache">toClearImageCache</string>
+    <string name="pref_image_cache_size">pref_image_cache_size</string>
+    <integer name="pref_image_cache_size_default_value">250</integer>
+    <integer name="pref_image_cache_size_min">100</integer>
+    <integer name="pref_image_cache_size_max">1000</integer>
+    <string name="pref_image_cache_location">pref_image_cache_location</string>
+
+    <string name="clear_saved_images">toClearSavedImages</string>
     <string name="pref_image_location">pref_image_location</string>
-    <string name="pref_image_files">pref_image_files</string>
-    <string name="pref_image_rows">pref_image_rows</string>
+
+    <string name="clear_database">toClearDatabase</string>
 
     <!-- More -->
     <string name="to_give_feedback">toGiveFeedback</string>

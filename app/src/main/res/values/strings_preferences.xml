@@ -96,15 +96,23 @@
 
     <!-- Storage -->
     <string name="storage_settings">Storage Settings</string>
+    <string name="storage_display">%1$s (%2$d files)</string>
     <string name="pref_category_storage_configure">Configure</string>
     <string name="pref_keep_old_images_title">Keep previous images</string>
     <string name="pref_keep_old_images_desc">When enabled, previous images will be kept downloaded until manually deleted.</string>
+
+    <string name="pref_category_storage_cache">Cached images</string>
+    <string name="pref_image_cache_size_title">Image cache size (MB)</string>
+    <string name="pref_image_cache_size_desc">Choose the maximum image cache size. Changes are applied on app restart.</string>
+
+    <string name="pref_category_storage_saved">Saved images</string>
     <string name="pref_image_location_title">Image storage location</string>
     <string name="pref_image_location_desc">Choose a custom folder to save downloaded images into.</string>
-    <string name="pref_image_location_default_value">App cache</string>
-    <string name="pref_image_files_metadata">Clear APOD images</string>
-    <string name="pref_image_rows_metadata">Clear APOD data</string>
-    <string name="pref_category_storage_size">Storage space</string>
+    <string name="clear_saved_images_title">Clear saved images</string>
+
+    <string name="pref_category_storage_database">APOD database</string>
+    <string name="clear_database_title">Clear APOD data</string>
+    <string name="storage_database_display">%1$d items</string>
 
     <!-- More -->
     <string name="pref_give_feedback_title">App feedback</string>

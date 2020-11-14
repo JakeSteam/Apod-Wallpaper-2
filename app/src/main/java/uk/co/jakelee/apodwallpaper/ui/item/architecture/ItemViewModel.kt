@@ -1,10 +1,9 @@
 package uk.co.jakelee.apodwallpaper.ui.item.architecture
 
+import android.graphics.BitmapFactory
 import android.net.Uri
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.widget.Toast
+import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collect
@@ -14,13 +13,16 @@ import uk.co.jakelee.apodwallpaper.NavigationDirections
 import uk.co.jakelee.apodwallpaper.app.ApodDateParser
 import uk.co.jakelee.apodwallpaper.app.architecture.IViewModel
 import uk.co.jakelee.apodwallpaper.app.database.ApodRepository
+import uk.co.jakelee.apodwallpaper.app.storage.FileSystemHelper
 import uk.co.jakelee.apodwallpaper.model.Apod
 import uk.co.jakelee.apodwallpaper.model.ApodError
+import java.net.URL
 import java.util.*
 
 class ItemViewModel(
   private val apodRepository: ApodRepository,
-  private val apodDateParser: ApodDateParser
+  private val apodDateParser: ApodDateParser,
+  private val fileSystemHelper: FileSystemHelper
 ) : ViewModel(), IViewModel<ItemState, ItemIntent> {
 
     override val intents: Channel<ItemIntent> = Channel(Channel.UNLIMITED)
@@ -48,6 +50,7 @@ class ItemViewModel(
                     is ItemIntent.ExpandApod -> expandApod()
                     is ItemIntent.PreviousApod -> openPreviousApod()
                     is ItemIntent.NextApod -> openNextApod()
+                    is ItemIntent.SaveApod -> saveApod()
                     is ItemIntent.FollowingDirection -> clearPendingDirection()
                 }
             }
@@ -96,6 +99,15 @@ class ItemViewModel(
                 emitApod(apodRepository.getApod(nextDate, true, errorCallback))
             } else {
                 errorCallback.invoke(ApodError("", "You're already viewing the latest APOD!"))
+            }
+        }
+    }
+
+    private fun saveApod() = viewModelScope.launch(Dispatchers.IO) {
+        currentApod?.let {
+            if (!fileSystemHelper.doesImageExist(it.date)) {
+                val bitmap = BitmapFactory.decodeStream(URL(it.url).openStream())
+                fileSystemHelper.saveImage(bitmap, it.date)
             }
         }
     }
