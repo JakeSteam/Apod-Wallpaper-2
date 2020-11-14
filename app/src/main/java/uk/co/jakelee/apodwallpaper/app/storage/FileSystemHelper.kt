@@ -1,7 +1,7 @@
 package uk.co.jakelee.apodwallpaper.app.storage
 
+import android.content.ContentResolver
 import android.content.ContentValues
-import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
@@ -14,58 +14,27 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 
+class FileSystemHelper(
+    private val contentResolver: ContentResolver,
+    private val filesDir: File
+) {
 
-class FileSystemHelper(val context: Context) {
-
+    private val storageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
     private val relativePath = "${Environment.DIRECTORY_PICTURES}/APOD"
 
     //region Summary
     fun getSavedImagesInfo(): FolderInfo {
         return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            File(context.getExternalFilesDir(relativePath), "").getFolderInfo()
+            File(filesDir, "").getFolderInfo()
         } else {
             getMediaStoreInfo()
         }
     }
-    //endregion
-
-    //region Loading
-    fun doesImageExist(name: String): Boolean {
-        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            val file = File(context.getExternalFilesDir(relativePath), "$name.png")
-            file.exists()
-        } else {
-            getUri("$name.png")?.let {
-                return context.contentResolver.openInputStream(it) != null
-            } ?: false
-        }
-    }
-
-    private fun getUri(name: String): Uri? {
-        try {
-            context.contentResolver.query(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                arrayOf(MediaStore.Images.ImageColumns._ID),
-                MediaStore.Images.ImageColumns.DISPLAY_NAME + " LIKE ?",
-                arrayOf(name),
-                null
-            )?.let {
-                it.moveToFirst()
-                val photoUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                val photoId = it.getLong(it.getColumnIndexOrThrow(MediaStore.Images.ImageColumns._ID))
-                it.close()
-                return Uri.parse("$photoUri/$photoId")
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return null
-    }
 
     private fun getMediaStoreInfo(): FolderInfo {
         try {
-            context.contentResolver.query(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            contentResolver.query(
+                storageUri,
                 arrayOf(MediaStore.Images.Media.SIZE),
                 null, null, null
             )?.let {
@@ -84,6 +53,40 @@ class FileSystemHelper(val context: Context) {
     }
     //endregion
 
+    //region Loading
+    fun doesImageExist(date: String): Boolean {
+        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            val file = File(filesDir, "$date.png")
+            file.exists()
+        } else {
+            getUri("$date.png")?.let {
+                return contentResolver.openInputStream(it) != null
+            } ?: false
+        }
+    }
+
+    private fun getUri(name: String): Uri? {
+        try {
+            contentResolver.query(
+                storageUri,
+                arrayOf(MediaStore.Images.ImageColumns._ID),
+                MediaStore.Images.ImageColumns.DISPLAY_NAME + " LIKE ?",
+                arrayOf(name),
+                null
+            )?.let {
+                it.moveToFirst()
+                val photoUri = storageUri
+                val photoId = it.getLong(it.getColumnIndexOrThrow(MediaStore.Images.ImageColumns._ID))
+                it.close()
+                return Uri.parse("$photoUri/$photoId")
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
+    }
+    //endregion
+
     //region Saving
     fun saveImage(bitmap: Bitmap, name: String) = getOutputStream(name)?.let {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
@@ -92,7 +95,7 @@ class FileSystemHelper(val context: Context) {
 
     private fun getOutputStream(name: String): OutputStream? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            getOutputStreamQPlus(context, name)
+            getOutputStreamQPlus(name)
         } else {
             getOutputStreamPreQ(name)
         }
@@ -100,19 +103,19 @@ class FileSystemHelper(val context: Context) {
 
     @Suppress("DEPRECATION")
     private fun getOutputStreamPreQ(name: String): FileOutputStream {
-        val image = File(context.getExternalFilesDir(relativePath), "$name.png")
+        val image = File(filesDir, "$name.png")
         return FileOutputStream(image)
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
-    private fun getOutputStreamQPlus(context: Context, name: String): OutputStream? {
+    private fun getOutputStreamQPlus(name: String): OutputStream? {
         val contentValues = ContentValues().apply {
             put(MediaStore.MediaColumns.DISPLAY_NAME, "$name.png")
             put(MediaStore.MediaColumns.MIME_TYPE, "image/png")
             put(MediaStore.MediaColumns.RELATIVE_PATH, relativePath)
         }
-        context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)?.let {
-            return context.contentResolver.openOutputStream(it)
+        contentResolver.insert(storageUri, contentValues)?.let {
+            return contentResolver.openOutputStream(it)
         }
         return null
     }
@@ -121,9 +124,9 @@ class FileSystemHelper(val context: Context) {
     //region Deleting
     fun deleteAllImages() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            File(context.getExternalFilesDir(relativePath), "").deleteRecursively()
+            File(filesDir, "").deleteRecursively()
         } else {
-            context.contentResolver.delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null)
+            contentResolver.delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null)
         }
     }
     //endregion

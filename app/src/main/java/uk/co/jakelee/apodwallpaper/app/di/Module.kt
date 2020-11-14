@@ -1,7 +1,9 @@
 package uk.co.jakelee.apodwallpaper.app.di
 
+import android.os.Environment
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
+import org.koin.android.ext.koin.androidContext
 import uk.co.jakelee.apodwallpaper.network.ApodApi
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -35,7 +37,10 @@ val storageModule = module {
     single { AppDatabase.buildDatabase(androidApplication()).apodDao() }
     single { ApodDateParser() }
     single { ApodRepository(get(), get(), get()) }
-    single { FileSystemHelper(get()) }
+    single { FileSystemHelper(
+        androidContext().contentResolver,
+        androidContext().getExternalFilesDir("${Environment.DIRECTORY_PICTURES}/APOD")!!
+    ) }
 }
 
 val viewModelScope = module {

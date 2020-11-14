@@ -105,7 +105,7 @@ class ItemViewModel(
 
     private fun saveApod() = viewModelScope.launch(Dispatchers.IO) {
         currentApod?.let {
-            if (!fileSystemHelper.doesImageExist("${it.date}.png")) {
+            if (!fileSystemHelper.doesImageExist(it.date)) {
                 val bitmap = BitmapFactory.decodeStream(URL(it.url).openStream())
                 fileSystemHelper.saveImage(bitmap, it.date)
             }
