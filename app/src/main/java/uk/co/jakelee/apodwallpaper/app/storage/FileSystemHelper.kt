@@ -15,9 +15,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 
-/*
-TODO:
- */
+
 class FileSystemHelper(val context: Context) {
 
     private val relativePath = "${Environment.DIRECTORY_PICTURES}/APOD"
@@ -27,7 +25,7 @@ class FileSystemHelper(val context: Context) {
         return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             File(context.getExternalFilesDir(relativePath), "").getFolderInfo()
         } else {
-            FolderInfo(1L, 1)
+            getMediaStoreInfo()
         }
     }
 
@@ -45,24 +43,43 @@ class FileSystemHelper(val context: Context) {
 
     private fun getUri(name: String): Uri? {
         try {
-            val photoId: Long
-            val photoUri: Uri = MediaStore.Images.Media.getContentUri("external")
-            val projection = arrayOf(MediaStore.Images.ImageColumns._ID)
-            val cursor: Cursor = context.contentResolver.query(
-                photoUri,
-                projection,
+            context.contentResolver.query(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                arrayOf(MediaStore.Images.ImageColumns._ID),
                 MediaStore.Images.ImageColumns.DISPLAY_NAME + " LIKE ?",
                 arrayOf(name),
                 null
-            )!!
-            cursor.moveToFirst()
-            val columnIndex: Int = cursor.getColumnIndex(projection[0])
-            photoId = cursor.getLong(columnIndex)
-            cursor.close()
-            return Uri.parse("$photoUri/$photoId")
+            )?.let {
+                it.moveToFirst()
+                val photoUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                val photoId = it.getLong(it.getColumnIndexOrThrow(MediaStore.Images.ImageColumns._ID))
+                it.close()
+                return Uri.parse("$photoUri/$photoId")
+            }
         } catch (e: Exception) {
-            return null
+            e.printStackTrace()
         }
+        return null
+    }
+
+    private fun getMediaStoreInfo(): FolderInfo {
+        var count = 0
+        var size = 0L
+        try {
+            val cursor = context.contentResolver.query(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                arrayOf(MediaStore.Images.Media._ID, MediaStore.Images.Media.SIZE),
+                null, null, null)
+            while (cursor != null && cursor.count > 0 && cursor.moveToNext()) {
+                count++
+                val sizeIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.SIZE)
+                size += cursor.getLong(sizeIndex)
+            }
+            cursor?.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return FolderInfo(size, count)
     }
     //endregion
 
