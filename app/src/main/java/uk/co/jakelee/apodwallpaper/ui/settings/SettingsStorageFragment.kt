@@ -67,7 +67,10 @@ class SettingsStorageFragment: SettingsBaseFragment() {
         }
     }
 
-    private fun clearSavedImages() {}
+    private fun clearSavedImages() = lifecycleScope.launch(Dispatchers.IO) {
+        fileSystemHelper.deleteAllImages()
+        updateSavedImagesSize()
+    }
 
     private fun updateSavedImagesSize() {
         val savedFolder = fileSystemHelper.getSavedImagesInfo()

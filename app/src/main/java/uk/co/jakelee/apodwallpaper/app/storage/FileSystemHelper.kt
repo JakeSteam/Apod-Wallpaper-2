@@ -2,7 +2,6 @@ package uk.co.jakelee.apodwallpaper.app.storage
 
 import android.content.ContentValues
 import android.content.Context
-import android.database.Cursor
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
@@ -28,6 +27,7 @@ class FileSystemHelper(val context: Context) {
             getMediaStoreInfo()
         }
     }
+    //endregion
 
     //region Loading
     fun doesImageExist(name: String): Boolean {
@@ -63,23 +63,24 @@ class FileSystemHelper(val context: Context) {
     }
 
     private fun getMediaStoreInfo(): FolderInfo {
-        var count = 0
-        var size = 0L
         try {
-            val cursor = context.contentResolver.query(
+            context.contentResolver.query(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                arrayOf(MediaStore.Images.Media._ID, MediaStore.Images.Media.SIZE),
-                null, null, null)
-            while (cursor != null && cursor.count > 0 && cursor.moveToNext()) {
-                count++
-                val sizeIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.SIZE)
-                size += cursor.getLong(sizeIndex)
+                arrayOf(MediaStore.Images.Media.SIZE),
+                null, null, null
+            )?.let {
+                var size = 0L
+                while (it.count > 0 && it.moveToNext()) {
+                    size += it.getLong(it.getColumnIndexOrThrow(MediaStore.Images.Media.SIZE))
+                }
+                val count = it.count
+                it.close()
+                return FolderInfo(size, count)
             }
-            cursor?.close()
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        return FolderInfo(size, count)
+        return FolderInfo(0, 0)
     }
     //endregion
 
@@ -114,6 +115,16 @@ class FileSystemHelper(val context: Context) {
             return context.contentResolver.openOutputStream(it)
         }
         return null
+    }
+    //endregion
+
+    //region Deleting
+    fun deleteAllImages() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            File(context.getExternalFilesDir(relativePath), "").deleteRecursively()
+        } else {
+            context.contentResolver.delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null)
+        }
     }
     //endregion
 
