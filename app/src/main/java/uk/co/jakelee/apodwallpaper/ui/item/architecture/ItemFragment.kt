@@ -1,5 +1,7 @@
 package uk.co.jakelee.apodwallpaper.ui.item.architecture
 
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.datepicker.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_item.*
@@ -19,6 +23,7 @@ import uk.co.jakelee.apodwallpaper.ActionBarActivity
 import uk.co.jakelee.apodwallpaper.R
 import uk.co.jakelee.apodwallpaper.app.ApodDateParser
 import uk.co.jakelee.apodwallpaper.app.architecture.IView
+import uk.co.jakelee.apodwallpaper.app.storage.GlideApp
 import uk.co.jakelee.apodwallpaper.databinding.FragmentItemBinding
 import uk.co.jakelee.apodwallpaper.model.ApodMessage
 import java.util.*
@@ -104,13 +109,22 @@ class ItemFragment : Fragment(), IView<ItemState> {
         .setTitle(R.string.save_dialog_title)
         .setMessage(R.string.save_dialog_message)
         .setNeutralButton(R.string.save_dialog_button_save) { _, _ ->
-            sendIntent(ItemIntent.SaveApod)
+            GlideApp.with(requireActivity())
+                .asBitmap()
+                .load(binding.apod?.url)
+                .into(object : CustomTarget<Bitmap>() {
+                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                        sendIntent(ItemIntent.SaveApod(resource))
+                    }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {}
+                })
         }
         .setNegativeButton(R.string.save_dialog_button_wallpaper) { _, _ ->
-            sendIntent(ItemIntent.SaveApod)
+            //sendIntent(ItemIntent.SaveApod)
         }
         .setPositiveButton(R.string.save_dialog_button_lockscreen) { _, _ ->
-            sendIntent(ItemIntent.SaveApod)
+            //sendIntent(ItemIntent.SaveApod)
         }
         .show()
 

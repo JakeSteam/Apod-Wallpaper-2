@@ -1,5 +1,6 @@
 package uk.co.jakelee.apodwallpaper.ui.item.architecture
 
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
@@ -46,7 +47,7 @@ class ItemViewModel(
                     is ItemIntent.ExpandApod -> expandApod()
                     is ItemIntent.PreviousApod -> openPreviousApod()
                     is ItemIntent.NextApod -> openNextApod()
-                    is ItemIntent.SaveApod -> saveApod()
+                    is ItemIntent.SaveApod -> saveApod(itemIntent.bitmap)
                     is ItemIntent.FollowingDirection -> clearPendingDirection()
                 }
             }
@@ -99,10 +100,9 @@ class ItemViewModel(
         }
     }
 
-    private fun saveApod() = viewModelScope.launch(Dispatchers.IO) {
+    private fun saveApod(bitmap: Bitmap) = viewModelScope.launch(Dispatchers.IO) {
         currentApod?.let {
             if (!fileSystemHelper.doesImageExist(it.date)) {
-                val bitmap = BitmapFactory.decodeStream(URL(it.url).openStream())
                 fileSystemHelper.saveImage(bitmap, it.date)
                 messageCallback.invoke(ApodMessage("", "\"${it.title}\" saved!"))
             } else {
