@@ -1,16 +1,15 @@
 package uk.co.jakelee.apodwallpaper.ui.item.architecture
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.work.WorkManager
 import com.google.android.material.datepicker.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_item.*
@@ -20,9 +19,8 @@ import uk.co.jakelee.apodwallpaper.ActionBarActivity
 import uk.co.jakelee.apodwallpaper.R
 import uk.co.jakelee.apodwallpaper.app.ApodDateParser
 import uk.co.jakelee.apodwallpaper.app.architecture.IView
-import uk.co.jakelee.apodwallpaper.app.work.ApodWorker
 import uk.co.jakelee.apodwallpaper.databinding.FragmentItemBinding
-import uk.co.jakelee.apodwallpaper.model.ApodError
+import uk.co.jakelee.apodwallpaper.model.ApodMessage
 import java.util.*
 
 class ItemFragment : Fragment(), IView<ItemState> {
@@ -48,7 +46,7 @@ class ItemFragment : Fragment(), IView<ItemState> {
         binding.calendar.setOnClickListener { showDatePicker() }
         binding.expand.setOnClickListener { sendIntent(ItemIntent.ExpandApod) }
         binding.next.setOnClickListener { sendIntent(ItemIntent.NextApod) }
-        binding.save.setOnClickListener { sendIntent(ItemIntent.SaveApod) }
+        binding.save.setOnClickListener { showSaveDialog() }
 
         itemViewModel.state.observe(viewLifecycleOwner) { render(it) }
         when {
@@ -71,14 +69,14 @@ class ItemFragment : Fragment(), IView<ItemState> {
                 binding.apod = apod
             }
             binding.isLoading = isLoading
-            errorMessage?.let { renderError(it) }
+            message?.let { renderError(it) }
         }
     }
 
-    private fun renderError(error: ApodError) {
-        Snackbar.make(coordinatorLayout, error.error, Snackbar.LENGTH_LONG).apply {
-            if (error.date.isNotEmpty()) {
-                setAction(R.string.button_retry) { sendIntent(ItemIntent.OpenDate(error.date)) }
+    private fun renderError(message: ApodMessage) {
+        Snackbar.make(coordinatorLayout, message.message, Snackbar.LENGTH_LONG).apply {
+            if (message.date.isNotEmpty()) {
+                setAction(R.string.button_retry) { sendIntent(ItemIntent.OpenDate(message.date)) }
             }
             show()
         }
@@ -101,6 +99,20 @@ class ItemFragment : Fragment(), IView<ItemState> {
             .apply { addOnPositiveButtonClickListener { handleCalendarResult(it) } }
             .show(childFragmentManager, "")
     }
+
+    private fun showSaveDialog() = AlertDialog.Builder(requireActivity())
+        .setTitle(R.string.save_dialog_title)
+        .setMessage(R.string.save_dialog_message)
+        .setNeutralButton(R.string.save_dialog_button_save) { _, _ ->
+            sendIntent(ItemIntent.SaveApod)
+        }
+        .setNegativeButton(R.string.save_dialog_button_wallpaper) { _, _ ->
+            sendIntent(ItemIntent.SaveApod)
+        }
+        .setPositiveButton(R.string.save_dialog_button_lockscreen) { _, _ ->
+            sendIntent(ItemIntent.SaveApod)
+        }
+        .show()
 
     private fun handleCalendarResult(time: Long) {
         val cal = Calendar.getInstance().apply { timeInMillis = time }

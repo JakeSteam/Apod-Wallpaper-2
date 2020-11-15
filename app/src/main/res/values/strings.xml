@@ -11,5 +11,11 @@
     <string name="single_apod_title">APOD for %1$s</string>
     <string name="single_apod_link">This APOD has no image, only a link: %1$s</string>
 
+    <string name="save_dialog_title">Save image</string>
+    <string name="save_dialog_message">What would you like to do with the image?</string>
+    <string name="save_dialog_button_save">Save</string>
+    <string name="save_dialog_button_wallpaper">Set wallpaper</string>
+    <string name="save_dialog_button_lockscreen">Set lock screen</string>
+
     <string name="loading">Loading…</string>
 </resources>
