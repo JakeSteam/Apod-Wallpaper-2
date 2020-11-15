@@ -32,7 +32,11 @@ class SettingsStorageFragment: SettingsBaseFragment() {
 
     override val preferencesFile = R.xml.preferences_storage
 
-    override fun onSwitchPreferenceChanged(pref: SwitchPreferenceCompat) {}
+    override fun onSwitchPreferenceChanged(pref: SwitchPreferenceCompat) {
+        when (pref.key) {
+            getString(R.string.pref_use_jpegs) -> { /* TODO: Offer to delete all saved images */ }
+        }
+    }
 
     override fun onEditTextPreferenceChanged(pref: EditTextPreference) {}
 

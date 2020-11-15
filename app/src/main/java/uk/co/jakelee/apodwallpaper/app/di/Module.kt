@@ -1,6 +1,7 @@
 package uk.co.jakelee.apodwallpaper.app.di
 
 import android.os.Environment
+import androidx.preference.PreferenceManager
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
@@ -9,6 +10,7 @@ import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import uk.co.jakelee.apodwallpaper.R
 import uk.co.jakelee.apodwallpaper.app.ApodDateParser
 import uk.co.jakelee.apodwallpaper.app.database.ApodRepository
 import uk.co.jakelee.apodwallpaper.app.database.AppDatabase
@@ -39,7 +41,10 @@ val storageModule = module {
     single { ApodRepository(get(), get(), get()) }
     single { FileSystemHelper(
         androidContext().contentResolver,
-        androidContext().getExternalFilesDir("${Environment.DIRECTORY_PICTURES}/APOD")!!
+        androidContext().getExternalFilesDir("${Environment.DIRECTORY_PICTURES}/APOD")!!,
+        PreferenceManager.getDefaultSharedPreferences(androidContext()).getBoolean(
+            androidContext().getString(R.string.pref_use_jpegs), false
+        )
     ) }
 }
 

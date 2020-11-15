@@ -9,6 +9,12 @@
             app:summary="@string/pref_keep_old_images_desc"
             app:title="@string/pref_keep_old_images_title" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="@string/pref_use_jpegs_default_value"
+            app:key="@string/pref_use_jpegs"
+            app:summary="@string/pref_use_jpegs_desc"
+            app:title="@string/pref_use_jpegs_title" />
+
         <EditTextPreference
             app:defaultValue=""
             app:dialogMessage="@string/pref_image_location_desc"
@@ -34,14 +40,10 @@
             app:summary="@string/pref_image_cache_size_desc"
             app:title="@string/pref_image_cache_size_title" />
 
-        <Preference
-            app:key="@string/pref_image_cache_location"
-            app:persistent="false"
-            app:summary="TO DO"
-            app:title="Move image cache" />
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/pref_category_storage_saved">
+
         <Preference
             app:key="@string/clear_saved_images"
             app:persistent="false"
