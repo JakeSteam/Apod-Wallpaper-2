@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.work.WorkManager
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.datepicker.*
@@ -24,6 +25,7 @@ import uk.co.jakelee.apodwallpaper.R
 import uk.co.jakelee.apodwallpaper.app.ApodDateParser
 import uk.co.jakelee.apodwallpaper.app.architecture.IView
 import uk.co.jakelee.apodwallpaper.app.storage.GlideApp
+import uk.co.jakelee.apodwallpaper.app.work.ApodWorker
 import uk.co.jakelee.apodwallpaper.databinding.FragmentItemBinding
 import uk.co.jakelee.apodwallpaper.model.ApodMessage
 import java.util.*
@@ -52,6 +54,11 @@ class ItemFragment : Fragment(), IView<ItemState> {
         binding.expand.setOnClickListener { sendIntent(ItemIntent.ExpandApod) }
         binding.next.setOnClickListener { sendIntent(ItemIntent.NextApod) }
         binding.save.setOnClickListener { showSaveDialog() }
+        binding.share.setOnClickListener {
+            WorkManager
+                .getInstance(requireActivity())
+                .enqueue(ApodWorker.getOneOffWorkRequest())
+        }
 
         itemViewModel.state.observe(viewLifecycleOwner) { render(it) }
         when {
