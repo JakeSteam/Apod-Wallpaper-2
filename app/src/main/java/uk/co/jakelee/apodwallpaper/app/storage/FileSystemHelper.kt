@@ -126,6 +126,16 @@ class FileSystemHelper(
     //endregion
 
     //region Deleting
+    fun deleteSingleImage(date: String) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            File(filesDir, "$date.$filetype").delete()
+        } else {
+            getUri("$date.$filetype")?.let {
+                contentResolver.delete(it, null, null)
+            }
+        }
+    }
+
     fun deleteAllImages() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             File(filesDir, "").deleteRecursively()

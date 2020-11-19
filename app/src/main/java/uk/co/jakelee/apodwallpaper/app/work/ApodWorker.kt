@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.util.Log
+import androidx.preference.PreferenceManager
 import androidx.work.*
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -15,7 +16,7 @@ import uk.co.jakelee.apodwallpaper.app.NotificationHelper
 import uk.co.jakelee.apodwallpaper.app.database.ApodRepository
 import uk.co.jakelee.apodwallpaper.app.storage.FileSystemHelper
 import uk.co.jakelee.apodwallpaper.app.storage.GlideApp
-import uk.co.jakelee.apodwallpaper.ui.item.architecture.ItemIntent
+import uk.co.jakelee.apodwallpaper.R
 import java.util.concurrent.TimeUnit
 
 class ApodWorker(
@@ -40,19 +41,31 @@ class ApodWorker(
                 .into(object : CustomTarget<Bitmap>() {
                     override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                         Log.i("WORK", "Apod downloaded: ${resource.byteCount} bytes")
+                        // passes filtering OR fails filtering but "save anyway" enabled
+                        // TODO:
+
+                        // save
                         fileSystemHelper.saveImage(resource, apod.date)
 
                         // set as wallpaper
+                        // TODO:
 
                         // notify
                         Log.i("WORK", "About to notify...")
                         NotificationHelper(appContext).show(it)
                         Log.i("WORK", "Notified")
+
+                        // delete if necessary
+                        if (!PreferenceManager.getDefaultSharedPreferences(appContext).getBoolean(
+                            appContext.getString(R.string.pref_keep_old_images), false)) {
+                            Log.i("WORK", "About to delete...")
+                            fileSystemHelper.deleteSingleImage(apod.date)
+                            Log.i("WORK", "Deleted")
+                        }
                     }
 
                     override fun onLoadCleared(placeholder: Drawable?) {}
                 })
-
         }
         Result.success()
     }
@@ -68,7 +81,7 @@ class ApodWorker(
 
         fun getOneOffWorkRequest(): WorkRequest {
             return OneTimeWorkRequestBuilder<ApodWorker>()
-                .setInitialDelay(1, TimeUnit.MINUTES)
+                .setInitialDelay(10, TimeUnit.SECONDS)
                 .build()
         }
     }
