@@ -2,6 +2,7 @@ package uk.co.jakelee.apodwallpaper.app.storage
 
 import android.content.ContentResolver
 import android.content.ContentValues
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
@@ -16,11 +17,13 @@ import java.io.OutputStream
 
 class FileSystemHelper(
     private val contentResolver: ContentResolver,
-    private val filesDir: File
+    private val filesDir: File,
+    useJpeg: Boolean
 ) {
 
     private val storageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
     private val relativePath = "${Environment.DIRECTORY_PICTURES}/APOD"
+    private val filetype = if (useJpeg) "jpeg" else "png"
 
     //region Summary
     fun getSavedImagesInfo(): FolderInfo {
@@ -56,10 +59,10 @@ class FileSystemHelper(
     //region Loading
     fun doesImageExist(date: String): Boolean {
         return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            val file = File(filesDir, "$date.png")
+            val file = File(filesDir, "$date.$filetype")
             file.exists()
         } else {
-            getUri("$date.png")?.let {
+            getUri("$date.$filetype")?.let {
                 return contentResolver.openInputStream(it) != null
             } ?: false
         }
@@ -89,7 +92,8 @@ class FileSystemHelper(
 
     //region Saving
     fun saveImage(bitmap: Bitmap, name: String) = getOutputStream(name)?.let {
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
+        val format = if (filetype == "png") Bitmap.CompressFormat.PNG else Bitmap.CompressFormat.JPEG
+        bitmap.compress(format, 100, it)
         it.close()
     }
 
@@ -103,15 +107,15 @@ class FileSystemHelper(
 
     @Suppress("DEPRECATION")
     private fun getOutputStreamPreQ(name: String): FileOutputStream {
-        val image = File(filesDir, "$name.png")
+        val image = File(filesDir, "$name.$filetype")
         return FileOutputStream(image)
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun getOutputStreamQPlus(name: String): OutputStream? {
         val contentValues = ContentValues().apply {
-            put(MediaStore.MediaColumns.DISPLAY_NAME, "$name.png")
-            put(MediaStore.MediaColumns.MIME_TYPE, "image/png")
+            put(MediaStore.MediaColumns.DISPLAY_NAME, "$name.$filetype")
+            put(MediaStore.MediaColumns.MIME_TYPE, "image/$filetype")
             put(MediaStore.MediaColumns.RELATIVE_PATH, relativePath)
         }
         contentResolver.insert(storageUri, contentValues)?.let {
@@ -122,6 +126,16 @@ class FileSystemHelper(
     //endregion
 
     //region Deleting
+    fun deleteSingleImage(date: String) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            File(filesDir, "$date.$filetype").delete()
+        } else {
+            getUri("$date.$filetype")?.let {
+                contentResolver.delete(it, null, null)
+            }
+        }
+    }
+
     fun deleteAllImages() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             File(filesDir, "").deleteRecursively()

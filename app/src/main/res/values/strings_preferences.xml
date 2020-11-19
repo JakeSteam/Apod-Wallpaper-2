@@ -100,6 +100,8 @@
     <string name="pref_category_storage_configure">Configure</string>
     <string name="pref_keep_old_images_title">Keep previous images</string>
     <string name="pref_keep_old_images_desc">When enabled, previous images will be kept downloaded until manually deleted.</string>
+    <string name="pref_use_jpegs_title">Use JPEGs instead of PNGs</string>
+    <string name="pref_use_jpegs_desc">When enabled, smaller (but lower quality) JPEGs will be used instead of PNGs. Changes are applied on app restart.</string>
 
     <string name="pref_category_storage_cache">Cached images</string>
     <string name="pref_image_cache_size_title">Image cache size (MB)</string>
