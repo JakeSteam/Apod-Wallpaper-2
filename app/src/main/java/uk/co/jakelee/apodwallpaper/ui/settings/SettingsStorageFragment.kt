@@ -2,6 +2,7 @@ package uk.co.jakelee.apodwallpaper.ui.settings
 
 import android.os.Bundle
 import android.text.format.Formatter
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.*
 import com.bumptech.glide.Glide
@@ -16,7 +17,7 @@ import uk.co.jakelee.apodwallpaper.app.storage.FileSystemHelper
 import uk.co.jakelee.apodwallpaper.extensions.getFolderInfo
 import java.io.File
 
-class SettingsStorageFragment: SettingsBaseFragment() {
+class SettingsStorageFragment : SettingsBaseFragment() {
 
     private val apodDao: ApodDao by inject { parametersOf(this) }
     private val fileSystemHelper: FileSystemHelper by inject { parametersOf(this) }
@@ -34,7 +35,9 @@ class SettingsStorageFragment: SettingsBaseFragment() {
 
     override fun onSwitchPreferenceChanged(pref: SwitchPreferenceCompat) {
         when (pref.key) {
-            getString(R.string.pref_use_jpegs) -> { /* TODO: Offer to delete all saved images */ }
+            getString(R.string.pref_use_jpegs) -> {
+                showClearImagesSuggestDialog()
+            }
         }
     }
 
@@ -42,7 +45,8 @@ class SettingsStorageFragment: SettingsBaseFragment() {
 
     override fun onSeekBarPreferenceChanged(pref: SeekBarPreference) {
         when (pref.key) {
-            getString(R.string.pref_image_cache_size) -> { /* TODO: Reload config */ }
+            getString(R.string.pref_image_cache_size) -> { /* TODO: Reload config */
+            }
         }
     }
 
@@ -51,7 +55,7 @@ class SettingsStorageFragment: SettingsBaseFragment() {
     override fun onActionPreferenceClicked(pref: Preference) {
         when (pref.key) {
             getString(R.string.clear_image_cache) -> clearImageCache()
-            getString(R.string.clear_saved_images) -> clearSavedImages()
+            getString(R.string.clear_saved_images) -> showClearImagesConfirmDialog()
             getString(R.string.clear_database) -> clearDatabase()
         }
     }
@@ -62,14 +66,33 @@ class SettingsStorageFragment: SettingsBaseFragment() {
     }
 
     private fun updateImageCacheSize() {
-        val cacheFolder = File(requireContext().cacheDir, DiskCache.Factory.DEFAULT_DISK_CACHE_DIR).getFolderInfo()
+        val cacheFolder = File(
+            requireContext().cacheDir,
+            DiskCache.Factory.DEFAULT_DISK_CACHE_DIR
+        ).getFolderInfo()
         lifecycleScope.launch(Dispatchers.Main) {
             val clearCache = findPreference<Preference>(getString(R.string.clear_image_cache))
-            clearCache?.summary = getString(R.string.storage_display,
+            clearCache?.summary = getString(
+                R.string.storage_display,
                 Formatter.formatShortFileSize(requireContext(), cacheFolder.bytes),
-                cacheFolder.files)
+                cacheFolder.files
+            )
         }
     }
+
+    private fun showClearImagesSuggestDialog() = AlertDialog.Builder(requireActivity())
+        .setTitle(R.string.clear_images_dialog_title)
+        .setMessage(R.string.clear_images_dialog_message_prompt)
+        .setPositiveButton(R.string.yes) { _, _ -> clearSavedImages() }
+        .setNeutralButton(R.string.cancel) { _, _ -> }
+        .show()
+
+    private fun showClearImagesConfirmDialog() = AlertDialog.Builder(requireActivity())
+        .setTitle(R.string.clear_images_dialog_title)
+        .setMessage(R.string.clear_images_dialog_message_confirm)
+        .setPositiveButton(R.string.yes) { _, _ -> clearSavedImages() }
+        .setNeutralButton(R.string.cancel) { _, _ -> }
+        .show()
 
     private fun clearSavedImages() = lifecycleScope.launch(Dispatchers.IO) {
         fileSystemHelper.deleteAllImages()
@@ -80,9 +103,11 @@ class SettingsStorageFragment: SettingsBaseFragment() {
         val savedFolder = fileSystemHelper.getSavedImagesInfo()
         lifecycleScope.launch(Dispatchers.Main) {
             val clearSaved = findPreference<Preference>(getString(R.string.clear_saved_images))
-            clearSaved?.summary = getString(R.string.storage_display,
+            clearSaved?.summary = getString(
+                R.string.storage_display,
                 Formatter.formatShortFileSize(requireContext(), savedFolder.bytes),
-                savedFolder.files)
+                savedFolder.files
+            )
         }
     }
 

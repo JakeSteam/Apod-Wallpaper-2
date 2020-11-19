@@ -1,6 +1,5 @@
 package uk.co.jakelee.apodwallpaper.ui.more
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AlertDialog

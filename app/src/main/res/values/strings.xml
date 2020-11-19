@@ -17,5 +17,11 @@
     <string name="save_dialog_button_wallpaper">Wallpaper</string>
     <string name="save_dialog_button_lockscreen">Lock screen</string>
 
+    <string name="clear_images_dialog_title">Delete all saved images</string>
+    <string name="clear_images_dialog_message_confirm">Are you sure you\'d like to delete all saved images?</string>
+    <string name="clear_images_dialog_message_prompt">Since all currently saved images will no longer be recognized, would you like to delete all images?</string>
+
     <string name="loading">Loading…</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
 </resources>
