@@ -1,7 +1,6 @@
 package uk.co.jakelee.apodwallpaper.ui.item.architecture
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -9,17 +8,18 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 import uk.co.jakelee.apodwallpaper.app.ApodDateParser
+import uk.co.jakelee.apodwallpaper.app.WallpaperHandler
 import uk.co.jakelee.apodwallpaper.app.architecture.IViewModel
 import uk.co.jakelee.apodwallpaper.app.database.ApodRepository
 import uk.co.jakelee.apodwallpaper.app.storage.FileSystemHelper
 import uk.co.jakelee.apodwallpaper.model.Apod
 import uk.co.jakelee.apodwallpaper.model.ApodMessage
-import java.net.URL
 
 class ItemViewModel(
   private val apodRepository: ApodRepository,
   private val apodDateParser: ApodDateParser,
-  private val fileSystemHelper: FileSystemHelper
+  private val fileSystemHelper: FileSystemHelper,
+  private val wallpaperHandler: WallpaperHandler
 ) : ViewModel(), IViewModel<ItemState, ItemIntent> {
 
     override val intents: Channel<ItemIntent> = Channel(Channel.UNLIMITED)
@@ -48,6 +48,8 @@ class ItemViewModel(
                     is ItemIntent.PreviousApod -> openPreviousApod()
                     is ItemIntent.NextApod -> openNextApod()
                     is ItemIntent.SaveApod -> saveApod(itemIntent.bitmap)
+                    is ItemIntent.SetWallpaper -> setApod(itemIntent.bitmap, true)
+                    is ItemIntent.SetLockScreen -> setApod(itemIntent.bitmap, false)
                     is ItemIntent.FollowingDirection -> clearPendingDirection()
                 }
             }
@@ -107,6 +109,23 @@ class ItemViewModel(
                 messageCallback.invoke(ApodMessage("", "\"${it.title}\" saved!"))
             } else {
                 messageCallback.invoke(ApodMessage("", "\"${it.title}\" has already been saved!"))
+            }
+        }
+    }
+
+    private fun setApod(bitmap: Bitmap, isWallpaper: Boolean) {
+        currentApod?.let {
+            if (!fileSystemHelper.doesImageExist(it.date)) {
+                fileSystemHelper.saveImage(bitmap, it.date)
+            }
+            fileSystemHelper.getInputStreamForImage(it.date)?.let { input ->
+                if (isWallpaper) {
+                    wallpaperHandler.setWallpaper(input)
+                    messageCallback.invoke(ApodMessage("", "Set wallpaper to \"${it.title}\"!"))
+                } else {
+                    wallpaperHandler.setLockScreen(input)
+                    messageCallback.invoke(ApodMessage("", "Set lockscreen to \"${it.title}\"!"))
+                }
             }
         }
     }

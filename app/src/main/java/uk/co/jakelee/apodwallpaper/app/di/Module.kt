@@ -51,7 +51,7 @@ val storageModule = module {
 }
 
 val viewModelScope = module {
-    viewModel { ItemViewModel(get(), get(), get()) }
+    viewModel { ItemViewModel(get(), get(), get(), get()) }
     viewModel { BrowseViewModel(get()) }
 }
 

@@ -2,7 +2,6 @@ package uk.co.jakelee.apodwallpaper.app.storage
 
 import android.content.ContentResolver
 import android.content.ContentValues
-import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
@@ -13,6 +12,7 @@ import uk.co.jakelee.apodwallpaper.extensions.FolderInfo
 import uk.co.jakelee.apodwallpaper.extensions.getFolderInfo
 import java.io.File
 import java.io.FileOutputStream
+import java.io.InputStream
 import java.io.OutputStream
 
 class FileSystemHelper(
@@ -57,6 +57,17 @@ class FileSystemHelper(
     //endregion
 
     //region Loading
+    fun getInputStreamForImage(date: String): InputStream? {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            getUri("$date.$filetype")?.let {
+                return contentResolver.openInputStream(it)
+            }
+        } else {
+            return File(filesDir, "$date.$filetype").inputStream()
+        }
+        return null
+    }
+
     fun doesImageExist(date: String): Boolean {
         return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             val file = File(filesDir, "$date.$filetype")

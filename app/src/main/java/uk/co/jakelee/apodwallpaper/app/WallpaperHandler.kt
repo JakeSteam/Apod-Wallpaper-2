@@ -1,32 +1,32 @@
 package uk.co.jakelee.apodwallpaper.app
 
 import android.app.WallpaperManager
-import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.util.Log
 import java.io.File
+import java.io.InputStream
 
 class WallpaperHandler(
     private val manager: WallpaperManager
 ) {
 
-    fun updateWallpaper(bitmap: Bitmap) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N || manager.isSetWallpaperAllowed) {
-            manager.setBitmap(bitmap)
+    fun setWallpaper(inputStream: InputStream) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            manager.setBitmap(BitmapFactory.decodeStream(inputStream))
+        } else if (manager.isSetWallpaperAllowed) {
+            manager.setStream(inputStream, null, true, WallpaperManager.FLAG_SYSTEM)
         } else {
-            Log.i("WALL", "Can't set wallpaper ")
+            Log.i("WALL", "Can't set wallpaper")
         }
     }
 
-    fun updateLockScreen(file: File) {
-        if (canSetLockScreen()) {
-            manager.setStream(file.inputStream(), null, true, WallpaperManager.FLAG_LOCK)
+    fun setLockScreen(inputStream: InputStream) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            manager.setStream(inputStream, null, true, WallpaperManager.FLAG_LOCK)
         } else {
-            Log.i("LOCK", "Can't set lock screen before Android N!")
+            Log.i("LOCK", "Can't set lock screen specifically before Android N!")
         }
     }
 
-    companion object {
-        fun canSetLockScreen() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
-    }
 }

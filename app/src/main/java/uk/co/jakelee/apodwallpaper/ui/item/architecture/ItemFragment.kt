@@ -112,6 +112,7 @@ class ItemFragment : Fragment(), IView<ItemState> {
             .show(childFragmentManager, "")
     }
 
+    // TODO: Reduce duplicated code
     private fun showSaveDialog() = AlertDialog.Builder(requireActivity())
         .setTitle(R.string.save_dialog_title)
         .setMessage(R.string.save_dialog_message)
@@ -128,10 +129,28 @@ class ItemFragment : Fragment(), IView<ItemState> {
                 })
         }
         .setNegativeButton(R.string.save_dialog_button_wallpaper) { _, _ ->
-            //sendIntent(ItemIntent.SaveApod)
+            GlideApp.with(requireActivity())
+                .asBitmap()
+                .load(binding.apod?.url)
+                .into(object : CustomTarget<Bitmap>() {
+                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                        sendIntent(ItemIntent.SetWallpaper(resource))
+                    }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {}
+                })
         }
         .setPositiveButton(R.string.save_dialog_button_lockscreen) { _, _ ->
-            //sendIntent(ItemIntent.SaveApod)
+            GlideApp.with(requireActivity())
+                .asBitmap()
+                .load(binding.apod?.url)
+                .into(object : CustomTarget<Bitmap>() {
+                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                        sendIntent(ItemIntent.SetLockScreen(resource))
+                    }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {}
+                })
         }
         .show()
 

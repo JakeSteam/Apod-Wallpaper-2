@@ -12,6 +12,8 @@ sealed class ItemIntent : IIntent {
     object PreviousApod: ItemIntent()
     object NextApod: ItemIntent()
     class SaveApod(val bitmap: Bitmap): ItemIntent()
+    class SetWallpaper(val bitmap: Bitmap): ItemIntent()
+    class SetLockScreen(val bitmap: Bitmap): ItemIntent()
     object FollowingDirection: ItemIntent()
 }
 
