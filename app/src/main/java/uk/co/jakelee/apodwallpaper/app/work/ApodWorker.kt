@@ -17,6 +17,7 @@ import uk.co.jakelee.apodwallpaper.app.database.ApodRepository
 import uk.co.jakelee.apodwallpaper.app.storage.FileSystemHelper
 import uk.co.jakelee.apodwallpaper.app.storage.GlideApp
 import uk.co.jakelee.apodwallpaper.R
+import uk.co.jakelee.apodwallpaper.app.WallpaperHandler
 import java.util.concurrent.TimeUnit
 
 class ApodWorker(
@@ -27,6 +28,7 @@ class ApodWorker(
     private val apodRepository: ApodRepository by inject()
     private val apodDateParser: ApodDateParser by inject()
     private val fileSystemHelper: FileSystemHelper by inject()
+    private val wallpaperHandler: WallpaperHandler by inject()
 
     override suspend fun doWork() = coroutineScope {
         Log.i("WORK", "Starting work!")
@@ -45,10 +47,13 @@ class ApodWorker(
                         // TODO:
 
                         // save
-                        fileSystemHelper.saveImage(resource, apod.date)
+                        fileSystemHelper.saveImage(resource, it.date)
 
                         // set as wallpaper
-                        // TODO:
+                        fileSystemHelper.getInputStreamForImage(it.date)?.let { input ->
+                            wallpaperHandler.setWallpaper(input)
+                            wallpaperHandler.setLockScreen(input)
+                        }
 
                         // notify
                         Log.i("WORK", "About to notify...")
