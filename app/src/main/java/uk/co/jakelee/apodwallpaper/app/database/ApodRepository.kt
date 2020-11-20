@@ -9,10 +9,9 @@ import kotlinx.coroutines.launch
 import uk.co.jakelee.apodwallpaper.BuildConfig
 import uk.co.jakelee.apodwallpaper.app.ApodDateParser
 import uk.co.jakelee.apodwallpaper.model.Apod
-import uk.co.jakelee.apodwallpaper.model.ApodError
+import uk.co.jakelee.apodwallpaper.model.ApodMessage
 import uk.co.jakelee.apodwallpaper.network.ApodApi
 import uk.co.jakelee.apodwallpaper.ui.browse.BrowseBoundaryCallback
-import java.util.*
 
 class ApodRepository(
     private val apodDao: ApodDao,
@@ -27,7 +26,7 @@ class ApodRepository(
         .setEnablePlaceholders(true)
         .build()
 
-    suspend fun getApod(date: String, explicit: Boolean, errorCallback: ((ApodError) -> Unit)?): Apod? {
+    suspend fun getApod(date: String, explicit: Boolean, messageCallback: ((ApodMessage) -> Unit)?): Apod? {
         try {
             val localApod = apodDao.getByDate(date)
             if (localApod != null) { return localApod }
@@ -40,12 +39,12 @@ class ApodRepository(
             apodDao.insert(remoteApod)
             return remoteApod
         } catch (e: Exception) {
-            errorCallback?.invoke(ApodError(date, e.message ?: ""))
+            messageCallback?.invoke(ApodMessage(date, e.message ?: ""))
             return null
         }
     }
 
-    suspend fun getApods(callbackScope: CoroutineScope, errorCallback: ((String) -> Unit)?): LiveData<PagedList<Apod>> {
+    suspend fun getApods(callbackScope: CoroutineScope, messageCallback: ((String) -> Unit)?): LiveData<PagedList<Apod>> {
         val callback: () -> Unit = {
             callbackScope.launch(Dispatchers.IO) {
                 try {
@@ -58,7 +57,7 @@ class ApodRepository(
                     apodDao.insertAll(apods)
                     currentPage++
                 } catch (e: Exception) {
-                    errorCallback?.invoke(e.message ?: "")
+                    messageCallback?.invoke(e.message ?: "")
                 }
             }
         }

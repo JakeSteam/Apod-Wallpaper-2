@@ -4,6 +4,7 @@
 
     <PreferenceCategory app:title="@string/pref_category_scheduling_timing">
         <SeekBarPreference
+            android:icon="@drawable/ic_settings_sync_time"
             android:max="@integer/pref_sync_hour_max"
             app:defaultValue="@integer/pref_sync_hour_default_value"
             app:key="@string/pref_sync_hour"
@@ -13,6 +14,7 @@
             app:title="@string/pref_sync_hour_title" />
 
         <SeekBarPreference
+            android:icon="@drawable/ic_settings_sync_time"
             android:max="@integer/pref_sync_minute_max"
             app:defaultValue="@integer/pref_sync_minute_default_value"
             app:key="@string/pref_sync_minute"
@@ -22,6 +24,7 @@
             app:title="@string/pref_sync_minute_title" />
 
         <SeekBarPreference
+            android:icon="@drawable/ic_settings_variation"
             android:max="@integer/pref_sync_flexibility_max"
             app:defaultValue="@integer/pref_sync_flexibility_default_value"
             app:key="@string/pref_sync_flexibility"
@@ -33,18 +36,21 @@
 
     <PreferenceCategory app:title="@string/pref_category_scheduling_constraints">
         <SwitchPreferenceCompat
+            android:icon="@drawable/ic_settings_wifi"
             app:defaultValue="@string/pref_wifi_only_default_value"
             app:key="@string/pref_wifi_only"
             app:summary="@string/pref_wifi_only_desc"
             app:title="@string/pref_wifi_only_title" />
 
         <SwitchPreferenceCompat
+            android:icon="@drawable/ic_settings_charging"
             app:defaultValue="@string/pref_charging_only_default_value"
             app:key="@string/pref_charging_only"
             app:summary="@string/pref_charging_only_desc"
             app:title="@string/pref_charging_only_title" />
 
         <SwitchPreferenceCompat
+            android:icon="@drawable/ic_settings_lowbattery"
             app:defaultValue="@string/pref_lowbatteryoff_only_default_value"
             app:key="@string/pref_lowbatteryoff_only"
             app:summary="@string/pref_lowbatteryoff_only_desc"

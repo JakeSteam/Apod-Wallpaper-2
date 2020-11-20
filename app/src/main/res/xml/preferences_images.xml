@@ -4,6 +4,7 @@
 
     <PreferenceCategory app:title="@string/pref_category_images_requirements">
         <SeekBarPreference
+            android:icon="@drawable/ic_settings_width"
             android:max="@integer/pref_images_width_max"
             app:defaultValue="@integer/pref_images_width_default_value"
             app:key="@string/pref_images_width"
@@ -13,6 +14,7 @@
             app:title="@string/pref_images_width_title" />
 
         <SeekBarPreference
+            android:icon="@drawable/ic_settings_height"
             android:max="@integer/pref_images_height_max"
             app:defaultValue="@integer/pref_images_height_default_value"
             app:key="@string/pref_images_height"
@@ -20,11 +22,22 @@
             app:showSeekBarValue="true"
             app:summary="@string/pref_images_height_desc"
             app:title="@string/pref_images_height_title" />
+
+        <SeekBarPreference
+            android:icon="@drawable/ic_settings_ratio"
+            android:max="@integer/pref_images_ratio_max"
+            app:defaultValue="@integer/pref_images_ratio_default_value"
+            app:key="@string/pref_images_ratio"
+            app:min="@integer/pref_images_ratio_min"
+            app:showSeekBarValue="true"
+            app:summary="@string/pref_images_ratio_desc"
+            app:title="@string/pref_images_ratio_title" />
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/pref_category_images_modifications">
         <SwitchPreferenceCompat
             app:defaultValue="@string/pref_greyscale_enabled_default_value"
+            app:icon="@drawable/ic_settings_greyscale"
             app:key="@string/pref_greyscale_enabled"
             app:summary="@string/pref_greyscale_enabled_desc"
             app:title="@string/pref_greyscale_enabled_title" />

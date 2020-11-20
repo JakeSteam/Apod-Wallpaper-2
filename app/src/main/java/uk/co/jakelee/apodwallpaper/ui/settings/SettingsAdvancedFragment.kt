@@ -29,7 +29,7 @@ class SettingsAdvancedFragment : SettingsBaseFragment() {
         }
     }
 
-    override fun onNavigationPreferenceClicked(pref: Preference) {
+    override fun onActionPreferenceClicked(pref: Preference) {
         when (pref.key) {
             getString(R.string.to_reset_app_data) -> {
                 (requireActivity().getSystemService(ACTIVITY_SERVICE) as ActivityManager).clearApplicationUserData()

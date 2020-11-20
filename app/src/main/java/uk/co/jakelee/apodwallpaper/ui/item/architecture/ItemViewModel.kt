@@ -1,26 +1,25 @@
 package uk.co.jakelee.apodwallpaper.ui.item.architecture
 
-import android.net.Uri
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
-import uk.co.jakelee.apodwallpaper.NavigationDirections
 import uk.co.jakelee.apodwallpaper.app.ApodDateParser
 import uk.co.jakelee.apodwallpaper.app.architecture.IViewModel
 import uk.co.jakelee.apodwallpaper.app.database.ApodRepository
+import uk.co.jakelee.apodwallpaper.app.storage.FileSystemHelper
 import uk.co.jakelee.apodwallpaper.model.Apod
-import uk.co.jakelee.apodwallpaper.model.ApodError
-import java.util.*
+import uk.co.jakelee.apodwallpaper.model.ApodMessage
+import java.net.URL
 
 class ItemViewModel(
   private val apodRepository: ApodRepository,
-  private val apodDateParser: ApodDateParser
+  private val apodDateParser: ApodDateParser,
+  private val fileSystemHelper: FileSystemHelper
 ) : ViewModel(), IViewModel<ItemState, ItemIntent> {
 
     override val intents: Channel<ItemIntent> = Channel(Channel.UNLIMITED)
@@ -48,6 +47,7 @@ class ItemViewModel(
                     is ItemIntent.ExpandApod -> expandApod()
                     is ItemIntent.PreviousApod -> openPreviousApod()
                     is ItemIntent.NextApod -> openNextApod()
+                    is ItemIntent.SaveApod -> saveApod(itemIntent.bitmap)
                     is ItemIntent.FollowingDirection -> clearPendingDirection()
                 }
             }
@@ -59,19 +59,19 @@ class ItemViewModel(
     }
 
     private fun fetchApod(date: String) = viewModelScope.launch(Dispatchers.IO) {
-        updateState { it.copy(isLoading = true, errorMessage = null, apod = null) }
-        emitApod(apodRepository.getApod(date, true, errorCallback))
+        updateState { it.copy(isLoading = true, message = null, apod = null) }
+        emitApod(apodRepository.getApod(date, true, messageCallback))
     }
 
     private fun fetchLatest() = viewModelScope.launch(Dispatchers.IO) {
         val todayDate = apodDateParser.currentApodDate()
-        updateState { it.copy(isLoading = true, errorMessage = null, apod = null) }
-        emitApod(apodRepository.getApod(todayDate, false, errorCallback))
+        updateState { it.copy(isLoading = true, message = null, apod = null) }
+        emitApod(apodRepository.getApod(todayDate, false, messageCallback))
     }
 
-    private val errorCallback: (ApodError) -> Unit = { error ->
+    private val messageCallback: (ApodMessage) -> Unit = { message ->
         viewModelScope.launch(Dispatchers.IO) {
-            updateState { it.copy(isLoading = false, errorMessage = error) }
+            updateState { it.copy(isLoading = false, message = message) }
         }
     }
 
@@ -84,7 +84,7 @@ class ItemViewModel(
     private fun openPreviousApod() = viewModelScope.launch(Dispatchers.IO) {
         currentApod?.let { apod ->
             apodDateParser.getPreviousDate(apod.date)?.let { previousDate ->
-                emitApod(apodRepository.getApod(previousDate, true, errorCallback))
+                emitApod(apodRepository.getApod(previousDate, true, messageCallback))
             }
         }
     }
@@ -93,16 +93,27 @@ class ItemViewModel(
         currentApod?.let { apod ->
             val nextDate = apodDateParser.getNextDate(apod.date)
             if (nextDate != null) {
-                emitApod(apodRepository.getApod(nextDate, true, errorCallback))
+                emitApod(apodRepository.getApod(nextDate, true, messageCallback))
             } else {
-                errorCallback.invoke(ApodError("", "You're already viewing the latest APOD!"))
+                messageCallback.invoke(ApodMessage("", "You're already viewing the latest APOD!"))
+            }
+        }
+    }
+
+    private fun saveApod(bitmap: Bitmap) = viewModelScope.launch(Dispatchers.IO) {
+        currentApod?.let {
+            if (!fileSystemHelper.doesImageExist(it.date)) {
+                fileSystemHelper.saveImage(bitmap, it.date)
+                messageCallback.invoke(ApodMessage("", "\"${it.title}\" saved!"))
+            } else {
+                messageCallback.invoke(ApodMessage("", "\"${it.title}\" has already been saved!"))
             }
         }
     }
 
     private suspend fun emitApod(apod: Apod?) {
         currentApod = apod
-        updateState { it.copy(isLoading = false, errorMessage = null, apod = apod) }
+        updateState { it.copy(isLoading = false, message = null, apod = apod) }
     }
 
     private fun clearPendingDirection() = viewModelScope.launch(Dispatchers.IO) {
