@@ -112,47 +112,26 @@ class ItemFragment : Fragment(), IView<ItemState> {
             .show(childFragmentManager, "")
     }
 
-    // TODO: Reduce duplicated code
     private fun showSaveDialog() = AlertDialog.Builder(requireActivity())
         .setTitle(R.string.save_dialog_title)
         .setMessage(R.string.save_dialog_message)
-        .setNeutralButton(R.string.save_dialog_button_save) { _, _ ->
-            GlideApp.with(requireActivity())
-                .asBitmap()
-                .load(binding.apod?.url)
-                .into(object : CustomTarget<Bitmap>() {
-                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                        sendIntent(ItemIntent.SaveApod(resource))
-                    }
-
-                    override fun onLoadCleared(placeholder: Drawable?) {}
-                })
-        }
-        .setNegativeButton(R.string.save_dialog_button_wallpaper) { _, _ ->
-            GlideApp.with(requireActivity())
-                .asBitmap()
-                .load(binding.apod?.url)
-                .into(object : CustomTarget<Bitmap>() {
-                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                        sendIntent(ItemIntent.SetWallpaper(resource))
-                    }
-
-                    override fun onLoadCleared(placeholder: Drawable?) {}
-                })
-        }
-        .setPositiveButton(R.string.save_dialog_button_lockscreen) { _, _ ->
-            GlideApp.with(requireActivity())
-                .asBitmap()
-                .load(binding.apod?.url)
-                .into(object : CustomTarget<Bitmap>() {
-                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                        sendIntent(ItemIntent.SetLockScreen(resource))
-                    }
-
-                    override fun onLoadCleared(placeholder: Drawable?) {}
-                })
-        }
+        .setNeutralButton(R.string.save_dialog_button_save) { _, _ -> loadImageForIntent { ItemIntent.SaveApod(it) } }
+        .setNegativeButton(R.string.save_dialog_button_wallpaper) { _, _ -> loadImageForIntent { ItemIntent.SetWallpaper(it) } }
+        .setPositiveButton(R.string.save_dialog_button_lockscreen) { _, _ -> loadImageForIntent { ItemIntent.SetLockScreen(it) } }
         .show()
+
+    private fun loadImageForIntent(callback: (Bitmap) -> ItemIntent) {
+        GlideApp.with(requireActivity())
+            .asBitmap()
+            .load(binding.apod?.url)
+            .into(object : CustomTarget<Bitmap>() {
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    sendIntent(callback.invoke(resource))
+                }
+
+                override fun onLoadCleared(placeholder: Drawable?) {}
+            })
+    }
 
     private fun handleCalendarResult(time: Long) {
         val cal = Calendar.getInstance().apply { timeInMillis = time }
